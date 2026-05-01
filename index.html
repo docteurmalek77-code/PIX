@@ -3,113 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | L'Intelligence de CryptoMan</title>
+    <title>PIX | L'Elite de l'IA par CryptoMan</title>
     <style>
         :root {
             --primary: #f7931a;
             --violet: #8b5cf6;
-            --bg-ultra: #080414;
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(139, 92, 246, 0.2);
+            --bg: #0a051a;
             --up: #4ade80;
             --down: #f87171;
+            --glass: rgba(255, 255, 255, 0.03);
+            --border: rgba(139, 92, 246, 0.3);
         }
 
         * { box-sizing: border-box; transition: all 0.3s ease; }
 
         body {
             font-family: 'Lexend', sans-serif;
-            background: var(--bg-ultra);
+            background: var(--bg);
+            /* Fond Aurora Violet */
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.12) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(247, 147, 26, 0.04) 0%, transparent 40%);
+                radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.2) 0px, transparent 50%),
+                radial-gradient(at 100% 100%, rgba(247, 147, 26, 0.05) 0px, transparent 50%);
             color: white;
             margin: 0;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* --- DOUBLE TICKER SYSTEM --- */
-        .header-tickers {
+        /* --- DOUBLE TICKER (FIXÉ) --- */
+        .tickers-container {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(8, 4, 20, 0.95); backdrop-filter: blur(15px);
+            background: rgba(10, 5, 26, 0.95); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
         }
-
-        .ticker-row {
-            display: flex; overflow: hidden; white-space: nowrap;
-            padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,0.03);
-        }
-
-        .ticker-content { display: flex; animation: slide 40s linear infinite; gap: 60px; padding-left: 20px; }
+        .ticker-row { display: flex; overflow: hidden; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .ticker-move { display: flex; animation: scroll 35s linear infinite; gap: 50px; white-space: nowrap; padding-left: 20px; }
+        .t-item { font-size: 0.8rem; font-weight: 800; }
+        .t-item span { color: var(--violet); margin-right: 5px; }
         
-        .t-item { font-size: 0.75rem; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
-        .t-item span { color: #94a3b8; font-weight: 400; }
-        
-        @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- NAV & LAYOUT --- */
-        nav { margin-top: 100px; display: flex; justify-content: center; gap: 40px; padding: 20px; }
-        nav a { text-decoration: none; color: #64748b; font-size: 0.7rem; letter-spacing: 3px; font-weight: 900; text-transform: uppercase; }
-        nav a:hover { color: var(--violet); }
+        /* --- CONTENT --- */
+        nav { margin-top: 110px; display: flex; justify-content: center; gap: 50px; }
+        nav a { text-decoration: none; color: #94a3b8; font-size: 0.75rem; letter-spacing: 3px; font-weight: 900; text-transform: uppercase; }
+        nav a:hover { color: #fff; text-shadow: 0 0 10px var(--violet); }
 
-        .header-section { text-align: center; padding: 20px 0; }
-        .main-logo { 
-            font-size: 9rem; font-weight: 900; margin: 0; letter-spacing: -6px;
-            background: linear-gradient(180deg, #fff 40%, #4c1d95 100%);
+        .hero { text-align: center; padding: 60px 20px; }
+        .hero h1 { 
+            font-size: clamp(5rem, 15vw, 10rem); font-weight: 900; margin: 0;
+            background: linear-gradient(to bottom, #fff, #4c1d95);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            line-height: 0.8;
         }
-        .tagline { color: var(--violet); letter-spacing: 10px; font-weight: 800; text-transform: uppercase; font-size: 0.8rem; margin-top: 10px; }
+        .hero p { color: var(--violet); letter-spacing: 10px; font-weight: 800; text-transform: uppercase; margin-top: 25px; }
 
         .container { max-width: 1100px; margin: auto; padding: 20px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
 
-        /* --- CARDS & UI --- */
+        /* --- CARDS --- */
         .card {
-            background: rgba(255, 255, 255, 0.02);
+            background: var(--glass);
             border: 1px solid var(--border);
             border-radius: 40px; padding: 50px 40px;
             backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
         }
-        .card:hover { border-color: var(--violet); box-shadow: 0 0 50px rgba(139, 92, 246, 0.1); }
+        .card:hover { border-color: var(--violet); box-shadow: 0 0 40px rgba(139, 92, 246, 0.2); transform: translateY(-5px); }
 
-        h3 { text-transform: uppercase; letter-spacing: 4px; font-size: 1.1rem; margin-bottom: 30px; color: #94a3b8; }
+        h3 { text-transform: uppercase; letter-spacing: 4px; font-size: 1.2rem; margin-bottom: 30px; color: #fff; }
 
         input, select {
-            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--border);
             padding: 22px; border-radius: 20px; color: white; font-family: 'Lexend';
             font-size: 1rem; outline: none; text-align: center; margin-bottom: 25px;
         }
-        input:focus, select:focus { border-color: var(--violet); box-shadow: 0 0 15px rgba(139, 92, 246, 0.2); }
 
         .btn-main {
             width: 100%; padding: 22px; border-radius: 20px; border: none;
-            background: white; color: black; font-weight: 900; font-size: 0.9rem;
+            background: #fff; color: #000; font-weight: 900; font-size: 0.9rem;
             cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
         }
-        .btn-main:hover { background: var(--violet); color: white; transform: scale(0.98); }
+        .btn-main:hover { background: var(--violet); color: #fff; box-shadow: 0 0 20px var(--violet); }
 
-        .res-area {
+        .res-box {
             margin-top: 30px; padding: 30px; border-radius: 25px; min-height: 160px;
-            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.03);
+            background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
 
-        footer { text-align: center; padding: 80px; color: #334155; font-size: 0.65rem; letter-spacing: 5px; text-transform: uppercase; }
+        /* --- FOOTER & ATTENTION --- */
+        .warning {
+            background: rgba(248, 113, 113, 0.05); border-left: 4px solid var(--down);
+            padding: 30px; border-radius: 0 20px 20px 0; margin-top: 60px; text-align: left;
+        }
+        .warning h4 { color: var(--down); margin: 0 0 10px 0; text-transform: uppercase; }
+        .warning p { margin: 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
+
+        footer { text-align: center; padding: 80px; color: #475569; font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; }
+
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="header-tickers">
+<div class="tickers-container">
     <div class="ticker-row">
-        <div class="ticker-content" id="row-prices">
-            <div class="t-item">CHARGEMENT DES FLUX...</div>
+        <div class="ticker-move" id="prices-row">
+            <div class="t-item">SYNCHRONISATION DES PRIX...</div>
         </div>
     </div>
-    <div class="ticker-row" style="background: rgba(255,255,255,0.01);">
-        <div class="ticker-content" id="row-changes">
-            <div class="t-item">ANALYSE DES VARIATIONS EN COURS...</div>
+    <div class="ticker-row">
+        <div class="ticker-move" id="changes-row">
+            <div class="t-item">CHARGEMENT DES VARIATIONS...</div>
         </div>
     </div>
 </div>
@@ -120,104 +124,108 @@
     <a href="#">Réseaux</a>
 </nav>
 
-<div class="header-section">
-    <h1 class="main-logo">PIX</h1>
-    <div class="tagline">IA créée par CryptoMan</div>
+<div class="hero">
+    <h1>PIX</h1>
+    <p>Intelligence Artificielle & Formation</p>
+    <div style="font-size: 0.7rem; letter-spacing: 3px; color: rgba(255,255,255,0.3); margin-top: 10px;">IA CRÉÉE PAR CRYPTOMAN</div>
 </div>
 
 <div class="container">
     <div class="grid">
         <div class="card">
             <h3>Terminal de Marché</h3>
-            <input type="text" id="coinInp" placeholder="Ex: BTC, ETH, SOL...">
-            <button class="btn-main" onclick="runAnalyse()">Lancer l'Analyse IA</button>
-            <div id="resAnalyse" class="res-area">
-                <span style="color: #475569; letter-spacing: 1px;">EN ATTENTE</span>
+            <input type="text" id="coinInp" placeholder="Entrez un symbole (BTC, ETH...)">
+            <button class="btn-main" onclick="runAnalyse()">Analyser l'actif</button>
+            <div id="resAnalyse" class="res-box">
+                <span style="color: #475569;">SCANNER PRÊT</span>
             </div>
         </div>
 
         <div class="card">
-            <h3>Formation IA</h3>
+            <h3>Académie PIX</h3>
             <select id="levelSel">
-                <option value="debutant">Module : Débutant</option>
-                <option value="amateur">Module : Amateur</option>
-                <option value="inter">Module : Intermédiaire</option>
-                <option value="expert">Module : Expert</option>
+                <option value="debutant">Niveau : Débutant</option>
+                <option value="amateur">Niveau : Amateur</option>
+                <option value="inter">Niveau : Intermédiaire</option>
+                <option value="expert">Niveau : Expert</option>
             </select>
-            <button class="btn-main" onclick="runAcademy()">Générer le cours</button>
-            <div id="resAcademy" class="res-area">
-                <span style="color: #475569; letter-spacing: 1px;">SÉLECTIONNEZ UN NIVEAU</span>
+            <button class="btn-main" onclick="runAcademy()">Lancer la leçon</button>
+            <div id="resAcademy" class="res-box">
+                <span style="color: #475569;">VOTRE PARCOURS</span>
             </div>
         </div>
     </div>
+
+    <div class="warning">
+        <h4>⚠️ Attention Crypto</h4>
+        <p>Le trading de crypto-monnaies comporte des risques importants. PIX est un outil d'accompagnement éducatif. Ne misez jamais d'argent que vous ne pouvez pas vous permettre de perdre. CryptoMan Networks décline toute responsabilité en cas de perte financière.</p>
+    </div>
 </div>
 
-<footer>CryptoMan Networks © 2026 — Propriété Exclusive</footer>
+<footer>Propriété de CryptoMan Networks © 2026</footer>
 
 <script>
-    const coins = ['bitcoin', 'ethereum', 'solana', 'polkadot', 'cardano', 'ripple', 'dogecoin', 'chainlink'];
+    const cryptoIds = ['bitcoin', 'ethereum', 'solana', 'polkadot', 'cardano', 'ripple', 'dogecoin', 'chainlink'];
 
-    async function updateTickers() {
+    async function fetchTickers() {
         try {
-            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coins.join(',')}&vs_currencies=usd&include_24hr_change=true`);
+            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoIds.join(',')}&vs_currencies=usd&include_24hr_change=true`);
             const d = await r.json();
             
-            let priceHTML = "";
-            let changeHTML = "";
+            let pHTML = "";
+            let cHTML = "";
 
-            coins.forEach(id => {
-                const data = d[id];
-                const symbol = id === 'bitcoin' ? 'BTC' : id === 'ethereum' ? 'ETH' : id.substring(0,3).toUpperCase();
-                const change = data.usd_24h_change;
+            cryptoIds.forEach(id => {
+                const price = d[id].usd;
+                const change = d[id].usd_24h_change;
+                const name = id.toUpperCase().substring(0, 3);
                 const color = change >= 0 ? 'var(--up)' : 'var(--down)';
 
-                priceHTML += `<div class="t-item"><span>${symbol}</span> $${data.usd.toLocaleString()}</div>`;
-                changeHTML += `<div class="t-item"><span>${symbol}</span> <b style="color:${color}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</b></div>`;
+                pHTML += `<div class="t-item"><span>${name}</span> $${price.toLocaleString()}</div>`;
+                cHTML += `<div class="t-item"><span>${name}</span> <b style="color:${color}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</b></div>`;
             });
 
-            // On double le contenu pour un défilement infini fluide
-            document.getElementById('row-prices').innerHTML = priceHTML + priceHTML;
-            document.getElementById('row-changes').innerHTML = changeHTML + changeHTML;
-            
-        } catch(e) { console.log("Erreur Flux"); }
+            document.getElementById('prices-row').innerHTML = pHTML + pHTML; // Doublé pour le loop
+            document.getElementById('changes-row').innerHTML = cHTML + cHTML;
+        } catch(e) { console.log("Erreur API"); }
     }
 
-    updateTickers();
-    setInterval(updateTickers, 30000);
+    fetchTickers();
+    setInterval(fetchTickers, 30000);
 
     async function runAnalyse() {
-        const inp = document.getElementById('coinInp').value.toLowerCase().trim();
+        const input = document.getElementById('coinInp').value.toLowerCase().trim();
         const res = document.getElementById('resAnalyse');
-        if(!inp) return;
-        
-        res.innerHTML = "ANALYSE...";
+        if(!input) return;
+
+        res.innerHTML = "IA EN ACTION...";
         try {
-            const idMap = {'btc':'bitcoin','eth':'ethereum','sol':'solana','dot':'polkadot'};
-            const id = idMap[inp] || inp;
+            const map = {'btc':'bitcoin','eth':'ethereum','dot':'polkadot','sol':'solana'};
+            const id = map[input] || input;
             const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_24hr_change=true`);
             const d = await r.json();
-            
+
             if(d[id]) {
                 const p = d[id].usd;
                 const c = d[id].usd_24h_change;
                 res.innerHTML = `
-                    <div style="font-size:3rem; font-weight:900;">$${p.toLocaleString()}</div>
-                    <div style="color:${c >= 0 ? 'var(--up)':'var(--down)'}; font-weight:bold;">${c > 0 ? '▲': '▼'} ${c.toFixed(2)}%</div>
+                    <div style="font-size: 3rem; font-weight: 900;">$${p.toLocaleString()}</div>
+                    <div style="color:${c >= 0 ? 'var(--up)':'var(--down)'}; font-weight:bold;">${c > 0 ? '▲' : '▼'} ${c.toFixed(2)}%</div>
                 `;
-            } else { res.innerHTML = "ACTIF NON TROUVÉ"; }
-        } catch(e) { res.innerHTML = "ERREUR API"; }
+            } else { res.innerHTML = "ACTIF INCONNU"; }
+        } catch(e) { res.innerHTML = "ERREUR RÉSEAU"; }
     }
 
     function runAcademy() {
         const lvl = document.getElementById('levelSel').value;
         const res = document.getElementById('resAcademy');
-        const data = {
-            'debutant': "<b>Bases :</b> Pourquoi le Bitcoin est-il l'or numérique ? Comprendre la rareté (21M).",
-            'amateur': "<b>Sécurité :</b> Utilisation d'un Cold Wallet (Ledger) et gestion des clés privées.",
-            'inter': "<b>Technique :</b> Apprendre à identifier les supports et résistances sur un graphique.",
-            'expert': "<b>DeFi :</b> Yield Farming, Liquidity Pools et fonctionnement des Smart Contracts."
+        const content = {
+            'debutant': "<b>DÉBUTANT :</b> Pourquoi le Bitcoin est limité à 21M d'unités ? C'est la base de sa valeur.",
+            'amateur': "<b>AMATEUR :</b> Différence entre un Hot Wallet (logiciel) et un Cold Wallet (matériel).",
+            'inter': "<b>INTERMÉDIAIRE :</b> Comment lire un carnet d'ordres et anticiper les zones de vente.",
+            'expert': "<b>EXPERT :</b> Stratégies avancées sur la DeFi et les protocoles de Yield Farming."
         };
-        res.innerHTML = `<div style="text-align:left; line-height:1.6; font-size:0.9rem;">${data[lvl]}</div>`;
+        res.innerHTML = `<div style="text-align:left; line-height:1.6;">${content[lvl]}</div>`;
     }
 </script>
 

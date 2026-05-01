@@ -3,242 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | Intelligence Artificielle (IA)</title>
+    <title>PIX | Écosystème Crypto IA</title>
     <style>
         :root {
             --primary: #f7931a; 
             --accent: #38bdf8;
             --bg: #020617;
-            --glass: rgba(255, 255, 255, 0.05);
+            --glass: rgba(255, 255, 255, 0.07);
         }
 
         body {
             font-family: 'Lexend', sans-serif;
-            background: radial-gradient(circle at center, #1e1b4b 0%, #020617 100%);
-            color: white;
-            margin: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
-            display: flex;
-            flex-direction: column;
+            background: radial-gradient(circle at top right, #111827 0%, #020617 100%);
+            color: white; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
 
-        /* Logo Bitcoin en arrière-plan */
-        body::before {
-            content: "₿";
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 50vw;
-            color: rgba(247, 147, 26, 0.02);
-            z-index: -1;
-        }
-
-        /* Barre de prix défilante */
+        /* Ticker Premium avec rafraîchissement */
         .ticker-wrap {
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            border-bottom: 1px solid var(--primary);
-            padding: 12px 0;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            z-index: 1000;
+            width: 100%; background: rgba(0, 0, 0, 0.9); border-bottom: 1px solid var(--primary);
+            padding: 12px 0; overflow: hidden; position: fixed; top: 0; z-index: 1000;
         }
-        .ticker {
-            display: flex;
-            white-space: nowrap;
-            animation: ticker 40s linear infinite;
-        }
-        .ticker-item {
-            padding: 0 50px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            color: var(--primary);
-            text-transform: uppercase;
-        }
-        @keyframes ticker {
-            0% { transform: translateX(100%); }
-            100% { transform: translateX(-100%); }
-        }
+        .ticker { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
+        .ticker-item { padding: 0 40px; font-size: 0.85rem; font-weight: 800; color: var(--primary); }
+        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         nav {
-            backdrop-filter: blur(15px);
-            background: rgba(0,0,0,0.6);
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 45px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            backdrop-filter: blur(15px); background: rgba(0,0,0,0.7);
+            padding: 20px; display: flex; justify-content: center; gap: 30px;
+            margin-top: 45px; border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-
-        nav a { color: #94a3b8; text-decoration: none; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; font-size: 0.8rem; letter-spacing: 1px; }
+        nav a { color: #94a3b8; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
         nav a:hover { color: var(--primary); }
 
-        .container { padding: 60px 20px; flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .container { padding: 60px 20px; max-width: 1100px; margin: auto; text-align: center; }
 
-        /* Section Académie */
-        .edu-section {
-            max-width: 800px;
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            padding: 40px;
-            border-radius: 30px;
-            margin-bottom: 60px;
-            text-align: left;
-            line-height: 1.8;
-            backdrop-filter: blur(10px);
-        }
-        .edu-section h2 { color: var(--primary); font-weight: 900; margin-top: 0; letter-spacing: 1px; }
+        .hero-title { font-size: clamp(4rem, 15vw, 9rem); font-weight: 900; margin: 0; background: linear-gradient(to bottom, #fff, #64748b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .sub-title { color: var(--accent); letter-spacing: 5px; font-weight: 700; margin-bottom: 50px; text-transform: uppercase; font-size: 1.2rem; }
 
-        /* Titre PIX Géant */
-        .hero-title {
-            font-size: clamp(5rem, 20vw, 10rem);
-            font-weight: 900;
-            margin: 0;
-            background: linear-gradient(to bottom, #fff 40%, #475569);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            line-height: 0.9;
-        }
-
-        .creator-main { color: var(--accent); font-weight: 700; letter-spacing: 5px; margin-bottom: 50px; text-transform: uppercase; font-size: 1.1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; margin-top: 20px; }
 
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(30px);
-            border: 1px solid rgba(255,255,255,0.15);
-            padding: 50px 30px;
-            border-radius: 40px;
-            width: 100%;
-            max-width: 550px;
-            text-align: center;
-            box-shadow: 0 30px 60px -12px rgba(0,0,0,0.9);
+            background: var(--glass); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1);
+            padding: 40px; border-radius: 40px; box-shadow: 0 25px 50px rgba(0,0,0,0.6);
+            transition: 0.4s ease; display: flex; flex-direction: column; justify-content: space-between;
         }
+        .card:hover { border-color: var(--primary); transform: translateY(-10px); box-shadow: 0 0 30px rgba(247, 147, 26, 0.2); }
 
-        input {
-            width: 85%; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.1);
-            padding: 20px; border-radius: 20px; color: white; font-size: 1.2rem; margin-bottom: 30px; outline: none; text-align: center;
+        h3 { color: var(--primary); text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; }
+
+        input, select {
+            width: 100%; box-sizing: border-box; background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.2);
+            padding: 18px; border-radius: 20px; color: white; font-size: 1.1rem; margin-bottom: 20px; outline: none; text-align: center; transition: 0.3s;
         }
         input:focus { border-color: var(--primary); }
 
         button {
             background: linear-gradient(45deg, var(--primary), #ffa433);
-            color: black; border: none; padding: 20px 50px; border-radius: 20px; font-weight: 900; cursor: pointer; text-transform: uppercase; width: 100%; transition: 0.4s;
+            color: black; border: none; padding: 20px; border-radius: 20px;
+            font-weight: 900; cursor: pointer; text-transform: uppercase; width: 100%; transition: 0.3s;
         }
-        button:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(247, 147, 26, 0.4); }
+        button:hover { transform: scale(1.03); filter: brightness(1.1); }
 
-        /* Résultats de l'IA */
-        .signature-text { margin-bottom: 10px; font-weight: bold; color: var(--primary); letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
-        .price { font-size: 4rem; font-weight: 900; margin: 15px 0; letter-spacing: -2px; }
-        .signal-box { display: inline-block; padding: 15px 30px; border-radius: 15px; font-weight: 900; margin-top: 20px; letter-spacing: 1px; }
+        .result-box { margin-top: 25px; padding: 25px; border-radius: 20px; background: rgba(0,0,0,0.3); min-height: 120px; display: flex; flex-direction: column; justify-content: center; border: 1px inset rgba(255,255,255,0.05); }
 
-        footer { margin-top: 80px; padding-bottom: 40px; color: rgba(255,255,255,0.2); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; }
+        .warning-box {
+            background: rgba(248, 113, 113, 0.03); border: 1px solid rgba(248, 113, 113, 0.3);
+            padding: 35px; border-radius: 30px; margin-top: 60px; text-align: left;
+        }
+
+        footer { margin-top: 80px; padding-bottom: 40px; color: rgba(255,255,255,0.2); font-size: 0.75rem; letter-spacing: 4px; text-transform: uppercase; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="ticker-wrap">
-    <div class="ticker">
-        <div class="ticker-item">BITCOIN: $78,542</div>
-        <div class="ticker-item">ETHEREUM: $3,210</div>
-        <div class="ticker-item">SOLANA: $184.20</div>
-        <div class="ticker-item">BINANCE COIN: $612.50</div>
-        <div class="ticker-item">POLKADOT: $7.35</div>
-        <div class="ticker-item">XRP: $0.62</div>
-        <div class="ticker-item">CARDANO: $0.58</div>
+    <div class="ticker" id="liveTicker">
+        <div class="ticker-item">MISE À JOUR DES COURS RÉELS...</div>
     </div>
 </div>
 
 <nav>
-    <a href="#about">ACADÉMIE</a>
-    <a href="#detector">TERMINAL IA</a>
+    <a href="#analyse">TERMINAL PIX</a>
+    <a href="#academy">ACADÉMIE CRYPTOMAN</a>
+    <a href="#risques">SÉCURITÉ</a>
 </nav>
 
 <div class="container">
-    
-    <div id="about" class="edu-section">
-        <h2>L'ÉCOSYSTÈME CRYPTO</h2>
-        <p>
-            La <b>cryptomonnaie</b> est une révolution numérique basée sur la <b>Blockchain</b>. Elle permet des échanges de valeur sécurisés, sans banques centrales, partout dans le monde. Investir dans ce marché demande une précision chirurgicale.
-        </p>
-        <p>
-            C'est pourquoi <b>PIX</b> analyse en temps réel les données du Top 200 Market Cap pour vous offrir une vision claire de la tendance globale.
-        </p>
+    <h1 class="hero-title">PIX</h1>
+    <div class="sub-title">Intelligence Artificielle & Formation</div>
+
+    <div class="grid">
+        <div class="card" id="analyse">
+            <div>
+                <h3>Terminal d'Analyse</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 25px;">Précision Chirurgicale (API CoinGecko)</p>
+                <input type="text" id="coinInp" placeholder="Ex: BTC, DOT, Ethereum...">
+            </div>
+            <button onclick="runPIX()">Analyser l'Actif</button>
+            <div id="resAnalyse" class="result-box">
+                <span style="color: #4b5563;">En attente d'entrée...</span>
+            </div>
+        </div>
+
+        <div class="card" id="academy">
+            <div>
+                <h3>Académie IA</h3>
+                <p style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 25px;">Votre futur commence ici</p>
+                <select id="levelSel">
+                    <option value="debutant">Niveau : Débutant</option>
+                    <option value="amateur">Niveau : Amateur</option>
+                    <option value="intermediaire">Niveau : Intermédiaire</option>
+                    <option value="confirme">Niveau : Confirmé / Expert</option>
+                </select>
+            </div>
+            <button onclick="runAcademy()">Générer ma Leçon</button>
+            <div id="resAcademy" class="result-box">
+                <span style="color: #4b5563;">Sélectionnez votre profil.</span>
+            </div>
+        </div>
     </div>
 
-    <div id="detector" style="text-align: center;">
-        <h1 class="hero-title">PIX</h1>
-        <div class="creator-main">Intelligence Artificielle (IA)</div>
-
-        <div class="card">
-            <input type="text" id="coinInp" placeholder="Symbole (BTC, ETH, SOL, DOT...)">
-            <br>
-            <button onclick="runPIX()">Lancer l'Analyse Expert</button>
-            <div id="res"></div>
-        </div>
+    <div id="risques" class="warning-box">
+        <h4 style="color: #f87171; margin-top: 0; text-transform: uppercase; letter-spacing: 1px;">⚠️ Note Importante de CryptoMan</h4>
+        <p style="font-size: 0.95rem; line-height: 1.7; margin-bottom: 0; color: #cbd5e1;">
+            Le domaine de la cryptomonnaie est une opportunité historique, mais il est parsemé de pièges. <b>PIX IA</b> a été conçu pour vous donner les armes intellectuelles nécessaires. Gardez à l'esprit que la volatilité est réelle : n'investissez que ce que vous êtes prêt à perdre. L'éducation est votre meilleur bouclier.
+        </p>
     </div>
 
     <footer>Propriété de CryptoMan Networks © 2026</footer>
 </div>
 
 <script>
+    // --- TICKER TEMPS RÉEL ---
+    async function updateTicker() {
+        try {
+            const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,polkadot,cardano,ripple,dogecoin&vs_currencies=usd');
+            const d = await r.json();
+            const ticker = document.getElementById('liveTicker');
+            ticker.innerHTML = `
+                <div class="ticker-item">BTC: $${d.bitcoin.usd.toLocaleString()}</div>
+                <div class="ticker-item">ETH: $${d.ethereum.usd.toLocaleString()}</div>
+                <div class="ticker-item">SOL: $${d.solana.usd.toLocaleString()}</div>
+                <div class="ticker-item">DOT: $${d.polkadot.usd.toLocaleString()}</div>
+                <div class="ticker-item">ADA: $${d.cardano.usd.toLocaleString()}</div>
+                <div class="ticker-item">XRP: $${d.ripple.usd.toLocaleString()}</div>
+                <div class="ticker-item">DOGE: $${d.dogecoin.usd.toLocaleString()}</div>
+            `;
+        } catch(e) { console.log("Ticker Error"); }
+    }
+    setInterval(updateTicker, 60000);
+    updateTicker();
+
+    // --- ANALYSEUR PIX ---
     async function runPIX() {
         const input = document.getElementById('coinInp').value.toLowerCase().trim();
-        const res = document.getElementById('res');
+        const res = document.getElementById('resAnalyse');
         
-        // Système de traduction des symboles pour corriger les bugs d'affichage
-        const mapping = { 
-            'btc': 'bitcoin', 
-            'eth': 'ethereum', 
-            'dot': 'polkadot', 
-            'sol': 'solana', 
-            'ada': 'cardano', 
-            'bnb': 'binancecoin',
-            'xrp': 'ripple',
-            'pepe': 'pepe',
-            'doge': 'dogecoin'
+        // Mapping renforcé pour éviter tout bug de prix
+        const map = { 
+            'btc':'bitcoin','eth':'ethereum','dot':'polkadot','sol':'solana','ada':'cardano',
+            'bnb':'binancecoin','xrp':'ripple','doge':'dogecoin','matic':'polygon',
+            'avax':'avalanche-2','link':'chainlink','shib':'shiba-inu'
         };
-        const query = mapping[input] || input;
+        const query = map[input] || input;
 
         if(!query) return;
-
-        res.innerHTML = "<p style='color:var(--accent); font-weight:bold;'>SYNC BLOCKCHAIN DATA...</p>";
+        res.innerHTML = "<p style='color:var(--accent); animation:pulse 1s infinite;'>SCANNING BLOCKCHAIN...</p>";
 
         try {
-            // Forcer la précision à 2 chiffres pour éviter les erreurs
-            const resp = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${query}&vs_currencies=usd&include_24hr_change=true&precision=2`);
-            const data = await resp.json();
+            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${query}&vs_currencies=usd&include_24hr_change=true&precision=2`);
+            const d = await r.json();
 
-            if(data[query] && data[query].usd !== undefined) {
-                const p = data[query].usd;
-                const ch = data[query].usd_24h_change;
-                
-                let sig = "NEUTRE / HOLD";
-                let col = "#94a3b8";
-                
-                if(ch < -5) { sig = "SIGNAL : ACHAT FORT"; col = "#4ade80"; }
-                else if(ch > 5) { sig = "SIGNAL : VENTE / PRUDENCE"; col = "#f87171"; }
-
+            if(d[query] && d[query].usd !== undefined) {
+                const p = d[query].usd;
+                const ch = d[query].usd_24h_change;
+                const col = ch < 0 ? "#f87171" : "#4ade80";
                 res.innerHTML = `
-                    <div style="margin-top:25px; border-top:1px solid rgba(255,255,255,0.1); padding-top:25px;">
-                        <div class="signature-text">IA créée par CryptoMan</div>
-                        <div class="price">$${p.toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
-                        <div class="signal-box" style="background: ${col}20; color: ${col}; border: 1px solid ${col}">
-                            ${sig}
-                        </div>
-                        <p style="color: #64748b; margin-top: 15px;">Variation 24h : ${ch.toFixed(2)}%</p>
-                    </div>
+                    <div style="font-size: 0.7rem; color:var(--primary); font-weight:900; margin-bottom:5px;">IA CRÉÉE PAR CRYPTOMAN</div>
+                    <div style="font-size: 2.6rem; font-weight: 900; color:white; letter-spacing:-1px;">$${p.toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+                    <div style="color:${col}; font-weight:bold; font-size:1.1rem; margin-top:5px;">${ch > 0 ? '▲':''}${ch.toFixed(2)}%</div>
                 `;
             } else {
-                res.innerHTML = "<p style='color:#f87171; font-weight:bold; margin-top:20px;'>ACTIF NON DÉTECTÉ.<br><span style='font-size:0.8rem; font-weight:normal;'>Essayez le nom complet (ex: polkadot)</span></p>";
+                res.innerHTML = "<p style='color:#f87171;'>Jeton non trouvé. Essayez le nom complet (ex: Polkadot).</p>";
             }
-        } catch(e) { 
-            res.innerHTML = "<p style='color:#f87171; margin-top:20px;'>ERREUR DE RÉSEAU.</p>"; 
-        }
+        } catch(e) { res.innerHTML = "<p style='color:#f87171;'>Erreur de connexion API.</p>"; }
+    }
+
+    // --- ACADÉMIE CRYPTOMAN ---
+    function runAcademy() {
+        const level = document.getElementById('levelSel').value;
+        const res = document.getElementById('resAcademy');
+        const data = {
+            'debutant': "<b>Leçon 1 :</b> La Blockchain est un registre public décentralisé. Imaginez un livre de compte infalsifiable. Votre première mission : comprendre la différence entre monnaie FIAT (Euro) et Crypto.",
+            'amateur': "<b>Leçon 2 :</b> Sécurité d'abord. Apprenez à utiliser un 'Cold Wallet' (type Ledger). Rappelez-vous : Si vous n'avez pas vos clés, vous n'avez pas vos coins.",
+            'intermediaire': "<b>Leçon 3 :</b> Analyse Fondamentale. Apprenez à lire un Whitepaper et à analyser la 'Market Cap' par rapport au 'Fully Diluted Valuation'.",
+            'confirme': "<b>Leçon Expert :</b> Protocoles de Liquidité et DeFi. Comprendre le fonctionnement des Smart Contracts et comment interagir avec la finance décentralisée en limitant les risques."
+        };
+        res.innerHTML = `<div style="text-align:left; font-size:0.95rem; line-height:1.5;">${data[level]}</div>`;
     }
 </script>
 

@@ -3,233 +3,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | L'Intelligence par CryptoMan</title>
+    <title>PIX | Top 10 Crypto Intelligence</title>
     <style>
         :root {
-            --primary: #f7931a;
             --violet: #8b5cf6;
-            --bg-deep: #080414;
-            --up: #00ff88; /* Vert Neon */
-            --down: #ff4444; /* Rouge Neon */
-            --border: rgba(139, 92, 246, 0.3);
+            --bg: #05020d;
+            --up: #00ffaa;
+            --down: #ff3355;
+            --border: rgba(139, 92, 246, 0.4);
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+        * { box-sizing: border-box; transition: 0.3s ease; }
 
         body {
             font-family: 'Lexend', sans-serif;
-            background: var(--bg-deep);
-            background-image: 
-                radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.25) 0px, transparent 50%),
-                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
-            color: white;
-            margin: 0;
-            min-height: 100vh;
-            overflow-x: hidden;
+            background: var(--bg);
+            background-image: radial-gradient(circle at top center, rgba(139, 92, 246, 0.15), transparent);
+            color: white; margin: 0; min-height: 100vh; overflow-x: hidden;
         }
 
-        /* --- TICKER SECTION (FIXED & CLEAN) --- */
-        .tickers-header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(8, 4, 20, 0.85); backdrop-filter: blur(20px);
+        /* --- BARRE TOP 10 (FIXE & PROPRE) --- */
+        .top-10-bar {
+            position: fixed; top: 0; width: 100%; z-index: 2000;
+            background: rgba(5, 2, 13, 0.95); backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
         }
-        .ticker-row { display: flex; overflow: hidden; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
-        .ticker-move { display: flex; animation: slide 45s linear infinite; gap: 60px; white-space: nowrap; }
-        .t-item { font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; }
-        .t-item span { color: var(--violet); margin-right: 8px; font-weight: 400; }
+        .ticker-wrap { display: flex; overflow: hidden; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .ticker-move { display: flex; animation: scroll 50s linear infinite; gap: 50px; white-space: nowrap; }
+        .t-item { font-size: 0.8rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+        .t-item i { color: var(--violet); font-style: normal; font-weight: 400; opacity: 0.7; }
         
-        @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- HEADER & TITLES --- */
-        nav { margin-top: 120px; display: flex; justify-content: center; gap: 50px; }
-        nav a { text-decoration: none; color: #64748b; font-size: 0.75rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
-        nav a:hover { color: #fff; }
-
-        .hero { text-align: center; padding: 50px 20px; }
+        /* --- HEADER --- */
+        .hero { text-align: center; padding: 140px 20px 40px; }
         .hero h1 { 
-            font-size: clamp(6rem, 18vw, 11rem); font-weight: 900; margin: 0;
-            background: linear-gradient(180deg, #fff 40%, #8b5cf6 100%);
+            font-size: clamp(5rem, 15vw, 9rem); font-weight: 900; margin: 0;
+            background: linear-gradient(to bottom, #fff, var(--violet));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 0.8; letter-spacing: -4px;
+            line-height: 0.8;
         }
-        .tagline { color: var(--violet); letter-spacing: 12px; font-weight: 800; text-transform: uppercase; margin-top: 30px; font-size: 0.9rem; }
-        .creator { font-size: 0.7rem; color: rgba(255,255,255,0.25); letter-spacing: 5px; margin-top: 10px; }
+        .tagline { color: var(--violet); letter-spacing: 8px; font-weight: 800; text-transform: uppercase; margin-top: 20px; font-size: 0.8rem; }
 
-        .container { max-width: 1200px; margin: auto; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 40px; }
-
-        /* --- CARDS UI --- */
+        /* --- CARDS --- */
+        .container { max-width: 1100px; margin: auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 30px; }
         .card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border);
-            border-radius: 45px; padding: 60px 45px;
-            backdrop-filter: blur(25px);
-            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border);
+            border-radius: 40px; padding: 40px; backdrop-filter: blur(20px);
         }
-        .card:hover { border-color: var(--violet); transform: translateY(-8px); box-shadow: 0 0 50px rgba(139, 92, 246, 0.2); }
+        .card:hover { border-color: #fff; box-shadow: 0 0 30px rgba(139, 92, 246, 0.2); }
 
-        h3 { text-transform: uppercase; letter-spacing: 5px; font-size: 1.3rem; margin-bottom: 40px; text-align: center; font-weight: 900; }
-
-        input, select {
-            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
-            padding: 24px; border-radius: 22px; color: white; font-family: 'Lexend';
-            font-size: 1.1rem; outline: none; text-align: center; margin-bottom: 30px;
+        /* --- SELECTEUR AMÉLIORÉ (CYBER STYLE) --- */
+        .custom-select-wrapper { position: relative; width: 100%; margin-bottom: 25px; }
+        select {
+            width: 100%; background: #000; border: 2px solid var(--border);
+            padding: 20px; border-radius: 20px; color: white; font-family: 'Lexend';
+            font-size: 1rem; outline: none; appearance: none; cursor: pointer;
+            text-align: center; font-weight: 600;
+        }
+        select:hover { border-color: #fff; }
+        .custom-select-wrapper::after {
+            content: '▼'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%);
+            color: var(--violet); pointer-events: none; font-size: 0.8rem;
         }
 
-        .btn-main {
-            width: 100%; padding: 24px; border-radius: 22px; border: none;
-            background: #fff; color: #000; font-weight: 900; font-size: 1rem;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 3px;
+        input {
+            width: 100%; background: #000; border: 2px solid var(--border);
+            padding: 20px; border-radius: 20px; color: white; font-family: 'Lexend';
+            font-size: 1rem; outline: none; text-align: center; margin-bottom: 25px;
         }
-        .btn-main:hover { background: var(--violet); color: #fff; transform: scale(0.97); }
 
-        .res-area {
-            margin-top: 35px; padding: 35px; border-radius: 30px; min-height: 180px;
+        .btn {
+            width: 100%; padding: 20px; border-radius: 20px; border: none;
+            background: #fff; color: #000; font-weight: 900; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .btn:hover { background: var(--violet); color: #fff; box-shadow: 0 0 20px var(--violet); }
+
+        .res {
+            margin-top: 25px; padding: 25px; border-radius: 25px; min-height: 150px;
             background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
-            text-align: center;
         }
 
-        /* --- FOOTER & WARNING --- */
-        .warning-box {
-            background: linear-gradient(90deg, rgba(255, 68, 68, 0.08), transparent);
-            border-left: 5px solid var(--down);
-            padding: 40px; border-radius: 0 30px 30px 0; margin-top: 80px;
+        .warning {
+            margin-top: 50px; padding: 30px; border-left: 4px solid var(--down);
+            background: rgba(255, 51, 85, 0.05); border-radius: 0 20px 20px 0;
+            font-size: 0.9rem; line-height: 1.6; color: #94a3b8;
         }
-        .warning-box h4 { color: var(--down); margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 2px; }
-        .warning-box p { margin: 0; font-size: 1rem; color: #94a3b8; line-height: 1.8; }
 
-        footer { text-align: center; padding: 100px; color: #334155; font-size: 0.7rem; letter-spacing: 6px; text-transform: uppercase; }
-
+        footer { text-align: center; padding: 60px; color: #334155; font-size: 0.7rem; letter-spacing: 4px; }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="tickers-header">
-    <div class="ticker-row">
-        <div class="ticker-move" id="prices">
-            <div class="t-item">CHARGEMENT DES DONNÉES...</div>
-        </div>
-    </div>
-    <div class="ticker-row">
-        <div class="ticker-move" id="changes">
-            <div class="t-item">ANALYSE DU MARCHÉ...</div>
-        </div>
-    </div>
+<div class="top-10-bar">
+    <div class="ticker-wrap"><div class="ticker-move" id="p-row"></div></div>
+    <div class="ticker-wrap"><div class="ticker-move" id="c-row"></div></div>
 </div>
-
-<nav>
-    <a href="#">Terminal</a>
-    <a href="#">Académie</a>
-    <a href="#">Réseaux</a>
-</nav>
 
 <div class="hero">
     <h1>PIX</h1>
-    <div class="tagline">Intelligence Artificielle & Formation</div>
-    <div class="creator">IA CRÉÉE PAR CRYPTOMAN</div>
+    <div class="tagline">Top 10 Crypto Intelligence</div>
+    <div style="font-size: 0.6rem; letter-spacing: 4px; color: rgba(255,255,255,0.2); margin-top: 10px;">PROPRIÉTÉ DE CRYPTOMAN</div>
 </div>
 
 <div class="container">
     <div class="grid">
         <div class="card">
-            <h3>Terminal de Marché</h3>
-            <input type="text" id="coinInp" placeholder="Entrez un symbole (BTC, SOL...)">
-            <button class="btn-main" onclick="runAnalyse()">Lancer l'Analyse</button>
-            <div id="resAnalyse" class="res-area">
-                <span style="color: #475569; letter-spacing: 2px;">IA EN ATTENTE</span>
-            </div>
+            <h3 style="text-align:center; letter-spacing:3px;">TERMINAL</h3>
+            <input type="text" id="coinInp" placeholder="SYMBOLE (BTC, SOL...)">
+            <button class="btn" onclick="analyse()">Analyser</button>
+            <div id="resAnalyse" class="res"><span style="opacity:0.3;">PRÊT</span></div>
         </div>
 
         <div class="card">
-            <h3>Académie PIX</h3>
-            <select id="levelSel">
-                <option value="debutant">Module : Débutant</option>
-                <option value="amateur">Module : Amateur</option>
-                <option value="inter">Module : Intermédiaire</option>
-                <option value="expert">Module : Expert / Confirmé</option>
-            </select>
-            <button class="btn-main" onclick="runAcademy()">Générer ma Leçon</button>
-            <div id="resAcademy" class="res-area">
-                <span style="color: #475569; letter-spacing: 2px;">VOTRE PARCOURS</span>
+            <h3 style="text-align:center; letter-spacing:3px;">ACADÉMIE</h3>
+            <div class="custom-select-wrapper">
+                <select id="lvl">
+                    <option value="1">Niveau : Débutant</option>
+                    <option value="2">Niveau : Intermédiaire</option>
+                    <option value="3">Niveau : Expert</option>
+                </select>
             </div>
+            <button class="btn" onclick="lesson()">Générer</button>
+            <div id="resLvl" class="res"><span style="opacity:0.3;">SÉLECTIONNEZ</span></div>
         </div>
     </div>
 
-    <div class="warning-box">
-        <h4>⚠️ Attention Crypto</h4>
-        <p>L'investissement en crypto-monnaies présente des risques de perte totale du capital. PIX est une interface éducative conçue pour faciliter l'apprentissage du marché. Prenez vos décisions avec prudence. CryptoMan Networks © 2026.</p>
+    <div class="warning">
+        <b style="color:var(--down)">ATTENTION :</b> Le marché crypto est volatil. PIX est un outil éducatif. Ne misez pas ce que vous ne pouvez pas perdre. CryptoMan Networks décline toute responsabilité.
     </div>
 </div>
 
-<footer>Propriété Exclusive de CryptoMan Networks</footer>
+<footer>© 2026 CRYPTOMAN NETWORKS</footer>
 
 <script>
-    const coins = ['bitcoin', 'ethereum', 'solana', 'polkadot', 'cardano', 'ripple', 'dogecoin', 'chainlink'];
+    // TOP 10 CRYPTO LIST (Ordre exact Market Cap)
+    const top10 = ['bitcoin','ethereum','tether','binancecoin','solana','ripple','usd-coin','dogecoin','staked-ether','cardano'];
 
-    async function syncMarket() {
+    async function sync() {
         try {
-            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coins.join(',')}&vs_currencies=usd&include_24hr_change=true`);
+            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${top10.join(',')}&vs_currencies=usd&include_24hr_change=true`);
             const d = await r.json();
-            
-            let pHTML = "";
-            let cHTML = "";
+            let pHTML = "", cHTML = "";
 
-            coins.forEach(id => {
-                const price = d[id].usd;
-                const change = d[id].usd_24h_change;
-                const symbol = id === 'bitcoin' ? 'BTC' : id === 'ethereum' ? 'ETH' : id === 'solana' ? 'SOL' : id.substring(0,3).toUpperCase();
-                const color = change >= 0 ? 'var(--up)' : 'var(--down)';
-
-                pHTML += `<div class="t-item"><span>${symbol}</span> $${price.toLocaleString()}</div>`;
-                cHTML += `<div class="t-item"><span>${symbol}</span> <b style="color:${color}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</b></div>`;
-            });
-
-            document.getElementById('prices').innerHTML = pHTML + pHTML; 
-            document.getElementById('changes').innerHTML = cHTML + cHTML;
-        } catch(e) { console.log("API Error"); }
-    }
-
-    syncMarket();
-    setInterval(syncMarket, 30000);
-
-    async function runAnalyse() {
-        const input = document.getElementById('coinInp').value.toLowerCase().trim();
-        const res = document.getElementById('resAnalyse');
-        if(!input) return;
-
-        res.innerHTML = "ANALYSE ALGORITHMIQUE...";
-        try {
-            const map = {'btc':'bitcoin','eth':'ethereum','sol':'solana','dot':'polkadot'};
-            const id = map[input] || input;
-            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_24hr_change=true`);
-            const d = await r.json();
-
-            if(d[id]) {
+            top10.forEach(id => {
+                const s = id === 'bitcoin' ? 'BTC' : id === 'ethereum' ? 'ETH' : id === 'binancecoin' ? 'BNB' : id === 'tether' ? 'USDT' : id === 'usd-coin' ? 'USDC' : id.substring(0,3).toUpperCase();
                 const p = d[id].usd;
                 const c = d[id].usd_24h_change;
-                res.innerHTML = `
-                    <div style="font-size: 3.5rem; font-weight: 900;">$${p.toLocaleString()}</div>
-                    <div style="color:${c >= 0 ? 'var(--up)':'var(--down)'}; font-weight:bold; font-size:1.2rem;">${c > 0 ? '▲' : '▼'} ${c.toFixed(2)}% (24h)</div>
-                `;
-            } else { res.innerHTML = "ACTIF INCONNU"; }
-        } catch(e) { res.innerHTML = "ERREUR DE RÉSEAU"; }
+                const col = c >= 0 ? 'var(--up)' : 'var(--down)';
+
+                pHTML += `<div class="t-item"><i>${s}</i> $${p.toLocaleString()}</div>`;
+                cHTML += `<div class="t-item"><i>${s}</i> <b style="color:${col}">${c >= 0 ? '+':''}${c.toFixed(2)}%</b></div>`;
+            });
+            document.getElementById('p-row').innerHTML = pHTML + pHTML;
+            document.getElementById('c-row').innerHTML = cHTML + cHTML;
+        } catch(e) {}
     }
 
-    function runAcademy() {
-        const lvl = document.getElementById('levelSel').value;
-        const res = document.getElementById('resAcademy');
-        const content = {
-            'debutant': "<b>L'OR NUMÉRIQUE :</b> Pourquoi Bitcoin est-il limité à 21M ? Apprenez la rareté programmée.",
-            'amateur': "<b>SÉCURITÉ :</b> Comment utiliser une clé Ledger et protéger sa 'Seed Phrase' des hackers.",
-            'inter': "<b>ANALYSE TECHNIQUE :</b> Maîtriser le RSI et les moyennes mobiles pour ne plus acheter au sommet.",
-            'expert': "<b>DEFI AVANCÉE :</b> Yield Farming et Liquidity Pools sur Solana et Ethereum."
+    sync(); setInterval(sync, 30000);
+
+    async function analyse() {
+        const i = document.getElementById('coinInp').value.toLowerCase().trim();
+        const rBox = document.getElementById('resAnalyse');
+        if(!i) return;
+        rBox.innerHTML = "SCAN...";
+        try {
+            const map = {'btc':'bitcoin','eth':'ethereum','sol':'solana','bnb':'binancecoin'};
+            const id = map[i] || i;
+            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_24hr_change=true`);
+            const d = await r.json();
+            if(d[id]) {
+                const c = d[id].usd_24h_change;
+                rBox.innerHTML = `<div style="font-size:2.5rem; font-weight:900;">$${d[id].usd.toLocaleString()}</div>
+                                 <div style="color:${c>=0?'var(--up)':'var(--down)'}; font-weight:bold;">${c>0?'▲':'▼'} ${c.toFixed(2)}%</div>`;
+            } else { rBox.innerHTML = "INTROUVABLE"; }
+        } catch(e) { rBox.innerHTML = "ERREUR"; }
+    }
+
+    function lesson() {
+        const l = document.getElementById('lvl').value;
+        const r = document.getElementById('resLvl');
+        const txt = {
+            '1': "<b>Débutant :</b> Bitcoin est limité à 21 millions d'unités. C'est ce qu'on appelle la rareté numérique.",
+            '2': "<b>Intermédiaire :</b> Apprenez à utiliser le RSI pour savoir quand une crypto est sur-achetée ou sur-vendue.",
+            '3': "<b>Expert :</b> Analyse des Smart Contracts et gestion de liquidité sur les protocoles DeFi."
         };
-        res.innerHTML = `<div style="text-align:left; line-height:1.8;">${content[lvl]}</div>`;
+        r.innerHTML = `<div style="font-size:0.9rem; line-height:1.5;">${txt[l]}</div>`;
     }
 </script>
-
 </body>
 </html>

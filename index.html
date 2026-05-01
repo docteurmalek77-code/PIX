@@ -3,122 +3,191 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | L'Intelligence de la Crypto</title>
+    <title>PIX | L'IA Crypto par CryptoMan</title>
     <style>
+        /* 1. CONFIGURATION DES COULEURS & FOND */
         :root {
             --primary: #f7931a;    /* Orange Bitcoin */
-            --secondary: #8b5cf6;  /* Violet Électrique */
-            --bg: #050505;         /* Noir Profond OLED */
-            --card-bg: rgba(15, 15, 15, 0.8);
-            --border: rgba(255, 255, 255, 0.08);
-            --text-main: #f8fafc;
+            --violet: #7c3aed;     /* Violet Principal */
+            --violet-glow: #c084fc; 
+            --bg-dark: #0f0720;    /* Fond Violet très sombre */
+            --glass: rgba(255, 255, 255, 0.04);
+            --border: rgba(124, 58, 237, 0.3); /* Bordure violette translucide */
         }
 
-        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); }
 
         body {
             font-family: 'Lexend', sans-serif;
-            background-color: var(--bg);
-            /* Effet de lumières diffuses en fond */
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(247, 147, 26, 0.1) 0%, transparent 40%);
-            color: var(--text-main);
             margin: 0;
             min-height: 100vh;
+            color: white;
+            background: var(--bg-dark);
+            /* Effet Aurora Violet / Rose */
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(192, 132, 252, 0.1) 0px, transparent 50%),
+                radial-gradient(at 50% 100%, rgba(76, 29, 149, 0.2) 0px, transparent 50%);
+            overflow-x: hidden;
         }
 
-        /* Ticker Premium avec effet flou */
+        /* 2. TICKER DE PRIX (CORRIGÉ) */
         .ticker-wrap {
-            width: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+            width: 100%;
+            background: rgba(15, 7, 32, 0.8);
+            backdrop-filter: blur(15px);
             border-bottom: 1px solid var(--border);
-            padding: 15px 0; position: fixed; top: 0; z-index: 1000;
+            padding: 15px 0;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
         }
-        .ticker { display: flex; white-space: nowrap; animation: ticker 35s linear infinite; }
-        .ticker-item { padding: 0 40px; font-size: 0.9rem; font-weight: 700; color: #fff; border-right: 1px solid var(--border); }
-        .ticker-item span { color: var(--primary); margin-right: 8px; }
-        @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
+        .ticker { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
+        .ticker-item { 
+            padding: 0 40px; 
+            font-size: 0.9rem; 
+            font-weight: 800; 
+            color: #fff;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ticker-item span { color: var(--primary); }
+        .ticker-item b { color: #4ade80; } /* Vert pour le prix */
+        
+        @keyframes ticker { 0% { transform: translateX(10%); } 100% { transform: translateX(-100%); } }
 
+        /* 3. NAVIGATION */
         nav {
-            padding: 25px; display: flex; justify-content: center; gap: 50px;
-            margin-top: 60px;
+            padding: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 70px;
         }
         nav a { 
-            color: #94a3b8; text-decoration: none; font-weight: 700; 
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px; 
+            color: rgba(255,255,255,0.6); 
+            text-decoration: none; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            letter-spacing: 4px;
         }
-        nav a:hover { color: #fff; transform: translateY(-2px); }
+        nav a:hover { color: var(--violet-glow); text-shadow: 0 0 15px var(--violet); }
 
-        .container { padding: 60px 20px; max-width: 1200px; margin: auto; text-align: center; }
+        .container { padding: 40px 20px; max-width: 1200px; margin: auto; text-align: center; }
 
+        /* 4. TITRE PIX (STYLE LUXE) */
         .hero-title { 
-            font-size: clamp(5rem, 18vw, 12rem); font-weight: 900; margin: 0; 
-            background: linear-gradient(to bottom, #fff, #334155);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 0.9;
+            font-size: clamp(6rem, 20vw, 13rem); 
+            font-weight: 900; 
+            margin: 0; 
+            background: linear-gradient(180deg, #fff 0%, #94a3b8 100%);
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            line-height: 0.85;
+            letter-spacing: -5px;
         }
-        .sub-title { 
-            color: var(--secondary); letter-spacing: 12px; font-weight: 800; 
-            margin-bottom: 70px; text-transform: uppercase; font-size: 1.1rem;
-            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        .creator-tag { 
+            color: var(--violet-glow); 
+            letter-spacing: 10px; 
+            font-weight: 800; 
+            margin-bottom: 80px; 
+            text-transform: uppercase; 
+            font-size: 1.1rem;
+            text-shadow: 0 0 20px var(--violet);
         }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 40px; }
 
-        /* Cartes Premium "Glow" */
+        /* 5. CARTES GLASSMORPHISM VIOLET */
         .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(30px);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(25px);
             border: 1px solid var(--border);
-            padding: 60px 45px;
-            border-radius: 50px;
+            padding: 60px 40px;
+            border-radius: 45px;
             position: relative;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
-        }
-        .card::after {
-            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            border-radius: 50px; padding: 2px; 
-            background: linear-gradient(135deg, var(--border), transparent, var(--border));
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
         .card:hover { 
-            border-color: var(--secondary); 
-            box-shadow: 0 0 50px rgba(139, 92, 246, 0.15); 
-            transform: scale(1.02);
+            border-color: var(--violet-glow); 
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-10px) scale(1.01);
+            box-shadow: 0 30px 80px rgba(124, 58, 237, 0.2);
         }
 
-        h3 { color: #fff; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; font-weight: 900; }
+        h3 { 
+            color: #fff; 
+            text-transform: uppercase; 
+            letter-spacing: 4px; 
+            margin-bottom: 40px; 
+            font-size: 1.6rem;
+            font-weight: 900;
+        }
 
-        /* Inputs & Select Stylisés */
+        /* 6. INPUTS & SELECT (ENFIN BEAUX) */
         input, select {
-            width: 100%; background: #111; border: 1px solid var(--border);
-            padding: 22px; border-radius: 25px; color: #fff;
-            font-size: 1.1rem; margin-bottom: 30px; outline: none; text-align: center;
+            width: 100%; 
+            background: rgba(0,0,0,0.3); 
+            border: 1px solid var(--border);
+            padding: 22px; 
+            border-radius: 20px; 
+            color: #fff;
+            font-size: 1.1rem; 
+            margin-bottom: 25px; 
+            outline: none; 
+            text-align: center;
             font-family: 'Lexend';
+            appearance: none; /* Enlever le style moche par défaut */
         }
-        input:focus, select:focus { border-color: var(--primary); background: #151515; }
+        input:focus, select:focus { border-color: var(--violet-glow); box-shadow: 0 0 20px rgba(124, 58, 237, 0.3); }
 
         button {
-            background: #fff; color: #000; border: none; padding: 22px; border-radius: 25px;
-            font-weight: 900; cursor: pointer; text-transform: uppercase; width: 100%;
-            font-size: 1rem; letter-spacing: 2px;
+            background: #fff; 
+            color: #000; 
+            border: none; 
+            padding: 22px; 
+            border-radius: 20px;
+            font-weight: 900; 
+            cursor: pointer; 
+            text-transform: uppercase; 
+            width: 100%;
+            font-size: 1rem; 
+            letter-spacing: 3px;
         }
-        button:hover { background: var(--primary); transform: scale(0.98); }
+        button:hover { 
+            background: var(--violet-glow); 
+            color: white;
+            box-shadow: 0 0 30px var(--violet);
+        }
 
+        /* RESULTATS */
         .result-box {
-            margin-top: 40px; padding: 30px; border-radius: 30px;
-            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border);
-            min-height: 140px; display: flex; flex-direction: column; justify-content: center;
+            margin-top: 30px; 
+            padding: 30px; 
+            border-radius: 25px;
+            background: rgba(0,0,0,0.4); 
+            border: 1px solid var(--border);
+            min-height: 150px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
+        .price-text { font-size: 3.5rem; font-weight: 900; margin: 0; }
+        .change-text { font-size: 1.2rem; font-weight: bold; margin-top: 10px; }
+
+        /* FOOTER & WARNING */
         .warning-box {
-            background: linear-gradient(90deg, rgba(248, 113, 113, 0.05), transparent);
-            border-left: 4px solid #ef4444; padding: 40px; border-radius: 0 30px 30px 0;
-            margin-top: 100px; text-align: left; max-width: 800px; margin-inline: auto;
+            background: linear-gradient(90deg, rgba(124, 58, 237, 0.1), transparent);
+            border-left: 4px solid var(--violet-glow);
+            padding: 40px; border-radius: 0 30px 30px 0;
+            margin: 100px auto 40px; text-align: left; max-width: 900px;
         }
 
-        footer { margin-top: 120px; padding-bottom: 60px; color: #475569; font-size: 0.7rem; letter-spacing: 6px; text-transform: uppercase; }
+        footer { padding: 60px 0; color: rgba(255,255,255,0.2); font-size: 0.75rem; letter-spacing: 6px; text-transform: uppercase; }
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
@@ -127,113 +196,129 @@
 
 <div class="ticker-wrap">
     <div class="ticker" id="liveTicker">
-        <div class="ticker-item"><span>BTC</span> $-- ---</div>
-        <div class="ticker-item"><span>ETH</span> $-- ---</div>
-        <div class="ticker-item"><span>SOL</span> $-- ---</div>
+        <div class="ticker-item"><span>BTC</span> <b id="tick-btc">-- ---</b></div>
+        <div class="ticker-item"><span>ETH</span> <b id="tick-eth">-- ---</b></div>
+        <div class="ticker-item"><span>SOL</span> <b id="tick-sol">-- ---</b></div>
+        <div class="ticker-item"><span>DOT</span> <b id="tick-dot">-- ---</b></div>
+        <div class="ticker-item"><span>BNB</span> <b id="tick-bnb">-- ---</b></div>
     </div>
 </div>
 
 <nav>
-    <a href="#analyse">Terminal</a>
+    <a href="#terminal">Terminal</a>
     <a href="#academy">Académie</a>
     <a href="#risques">Sécurité</a>
 </nav>
 
 <div class="container">
     <h1 class="hero-title">PIX</h1>
-    <div class="sub-title">IA créée par CryptoMan</div>
+    <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN</div>
 
     <div class="grid">
-        <div class="card" id="analyse">
+        <div class="card" id="terminal">
             <h3>Terminal IA</h3>
-            <input type="text" id="coinInp" placeholder="Symbole (BTC, SOL...)">
-            <button onclick="runPIX()">Analyser</button>
+            <input type="text" id="coinInp" placeholder="Symbole (BTC, SOL, DOT...)">
+            <button onclick="runPIX()">Analyser l'actif</button>
             <div id="resAnalyse" class="result-box">
-                <span style="color: #475569; letter-spacing: 1px;">EN ATTENTE DE COMMANDE...</span>
+                <span style="color: rgba(255,255,255,0.3); letter-spacing: 2px;">SCANNER PRÊT...</span>
             </div>
         </div>
 
         <div class="card" id="academy">
             <h3>Académie</h3>
-            <select id="levelSel">
-                <option value="debutant">Niveau : Débutant</option>
-                <option value="amateur">Niveau : Amateur</option>
-                <option value="intermediaire">Niveau : Intermédiaire</option>
-                <option value="confirme">Niveau : Confirmé</option>
-            </select>
+            <div style="position: relative;">
+                <select id="levelSel">
+                    <option value="debutant">Niveau : Débutant</option>
+                    <option value="amateur">Niveau : Amateur</option>
+                    <option value="intermediaire">Niveau : Intermédiaire</option>
+                    <option value="confirme">Niveau : Expert / Confirmé</option>
+                </select>
+            </div>
             <button onclick="runAcademy()">Lancer Formation</button>
             <div id="resAcademy" class="result-box">
-                <span style="color: #475569; letter-spacing: 1px;">CHOISISSEZ UN PARCOURS...</span>
+                <span style="color: rgba(255,255,255,0.3); letter-spacing: 2px;">VOTRE PARCOURS IA...</span>
             </div>
         </div>
     </div>
 
     <div id="risques" class="warning-box">
-        <h4 style="color: #ef4444; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 2px;">Vigilance Risques</h4>
-        <p style="font-size: 0.95rem; line-height: 1.8; color: #94a3b8; margin: 0;">
-            Le trading de crypto-actifs présente des risques de perte totale du capital. 
-            PIX est une IA éducative destinée à la compréhension des marchés. 
-            <b>Ne confiez jamais vos accès privés.</b>
+        <h4 style="color: var(--violet-glow); margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 3px;">Prévention des Risques</h4>
+        <p style="font-size: 0.95rem; line-height: 1.8; color: rgba(255,255,255,0.6); margin: 0;">
+            Le marché des crypto-actifs est hautement volatil. <b>PIX IA</b> est un outil d'accompagnement éducatif. 
+            Il ne garantit aucun profit. Investissez uniquement ce que vous êtes prêt à perdre. 
+            Gardez vos clés privées secrètes.
         </p>
     </div>
 
-    <footer>CryptoMan Networks © 2026</footer>
+    <footer>CryptoMan Networks © 2026 — Tous droits réservés</footer>
 </div>
 
 <script>
-    // --- TICKER ---
+    // --- FONCTION TICKER (MISE À JOUR RÉELLE) ---
     async function updateTicker() {
         try {
-            const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,polkadot,ripple&vs_currencies=usd');
+            const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,polkadot,binancecoin&vs_currencies=usd');
             const d = await r.json();
-            document.getElementById('liveTicker').innerHTML = `
-                <div class="ticker-item"><span>BTC</span> $${d.bitcoin.usd.toLocaleString()}</div>
-                <div class="ticker-item"><span>ETH</span> $${d.ethereum.usd.toLocaleString()}</div>
-                <div class="ticker-item"><span>SOL</span> $${d.solana.usd.toLocaleString()}</div>
-                <div class="ticker-item"><span>DOT</span> $${d.polkadot.usd.toLocaleString()}</div>
-                <div class="ticker-item"><span>XRP</span> $${d.ripple.usd.toLocaleString()}</div>
-            `;
-        } catch(e) {}
+            
+            document.getElementById('tick-btc').innerText = "$" + d.bitcoin.usd.toLocaleString();
+            document.getElementById('tick-eth').innerText = "$" + d.ethereum.usd.toLocaleString();
+            document.getElementById('tick-sol').innerText = "$" + d.solana.usd.toLocaleString();
+            document.getElementById('tick-dot').innerText = "$" + d.polkadot.usd.toLocaleString();
+            document.getElementById('tick-bnb').innerText = "$" + d.binancecoin.usd.toLocaleString();
+        } catch(e) { 
+            console.log("Erreur API Ticker");
+        }
     }
-    setInterval(updateTicker, 60000);
+    // Lancer au démarrage et toutes les 30 sec
     updateTicker();
+    setInterval(updateTicker, 30000);
 
-    // --- PIX ENGINE ---
+    // --- ANALYSEUR PIX ---
     async function runPIX() {
         const input = document.getElementById('coinInp').value.toLowerCase().trim();
         const res = document.getElementById('resAnalyse');
-        const map = { 'btc':'bitcoin','eth':'ethereum','dot':'polkadot','sol':'solana','ada':'cardano' };
+        
+        const map = { 'btc':'bitcoin','eth':'ethereum','dot':'polkadot','sol':'solana','ada':'cardano','bnb':'binancecoin' };
         const query = map[input] || input;
 
         if(!query) return;
-        res.innerHTML = "<span style='color:var(--secondary);'>IA EN COURS...</span>";
+        res.innerHTML = "<span style='color:var(--violet-glow); font-weight:bold;'>ANALYSE BLOCKCHAIN EN COURS...</span>";
 
         try {
             const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${query}&vs_currencies=usd&include_24hr_change=true&precision=2`);
             const d = await r.json();
+            
             if(d[query]) {
                 const p = d[query].usd;
                 const ch = d[query].usd_24h_change;
-                const col = ch < 0 ? "#ef4444" : "#22c55e";
+                const col = ch < 0 ? "#f87171" : "#4ade80";
+                
                 res.innerHTML = `
-                    <div style="font-size: 3rem; font-weight: 900;">$${p.toLocaleString()}</div>
-                    <div style="color:${col}; font-weight:bold; font-size:1.2rem;">${ch > 0 ? '+':''}${ch.toFixed(2)}%</div>
+                    <div style="font-size: 0.7rem; color:var(--primary); font-weight:900; margin-bottom:10px;">SYNCHRONISÉ PAR PIX</div>
+                    <div class="price-text">$${p.toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+                    <div class="change-text" style="color:${col}">${ch > 0 ? '▲':''} ${ch.toFixed(2)}% (24h)</div>
                 `;
-            } else { res.innerHTML = "ACTIF INCONNU"; }
-        } catch(e) { res.innerHTML = "ERREUR RÉSEAU"; }
+            } else {
+                res.innerHTML = "<span style='color:#f87171;'>JETON INTROUVABLE</span>";
+            }
+        } catch(e) { 
+            res.innerHTML = "<span style='color:#f87171;'>ERREUR RÉSEAU</span>"; 
+        }
     }
 
-    // --- ACADEMY ---
+    // --- ACADEMY IA ---
     function runAcademy() {
         const level = document.getElementById('levelSel').value;
         const res = document.getElementById('resAcademy');
-        const data = {
-            'debutant': "<b>Leçon 1 :</b> Fondations. Comprendre pourquoi le Bitcoin est une réserve de valeur numérique.",
-            'amateur': "<b>Leçon 2 :</b> Sécurité. Apprendre à utiliser un Ledger et sécuriser ses phrases de récupération.",
-            'intermediaire': "<b>Leçon 3 :</b> Analyse. Maîtriser le RSI et les supports de prix majeurs.",
-            'confirme': "<b>Expert :</b> DeFi Avançée. Interagir avec les pools de liquidité et les protocoles de prêt."
+        
+        const content = {
+            'debutant': "<b>Leçon 1 :</b> La Révolution Bitcoin. Pourquoi est-ce l'or numérique ? Comprendre la rareté et la décentralisation.",
+            'amateur': "<b>Leçon 2 :</b> Sécurité Maximale. Comment configurer un Ledger et protéger sa 'Seed Phrase' contre les pirates.",
+            'intermediaire': "<b>Leçon 3 :</b> Analyse Technique. Maîtriser les bougies japonaises et le RSI pour ne plus acheter au sommet.",
+            'confirme': "<b>Leçon Expert :</b> La DeFi. Utiliser les Smart Contracts, le Yield Farming et les protocoles de prêt on-chain."
         };
-        res.innerHTML = `<div style="text-align:left; font-size:1rem; line-height:1.6;">${data[level]}</div>`;
+        
+        res.innerHTML = `<div style="text-align:left; font-size:1rem; line-height:1.6; color:#cbd5e1;">${content[level]}</div>`;
     }
 </script>
 

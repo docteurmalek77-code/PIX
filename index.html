@@ -3,15 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | L'Elite de l'IA par CryptoMan</title>
+    <title>PIX | L'Intelligence par CryptoMan</title>
     <style>
         :root {
             --primary: #f7931a;
             --violet: #8b5cf6;
-            --bg: #0a051a;
-            --up: #4ade80;
-            --down: #f87171;
-            --glass: rgba(255, 255, 255, 0.03);
+            --bg-deep: #080414;
+            --up: #00ff88; /* Vert Neon */
+            --down: #ff4444; /* Rouge Neon */
             --border: rgba(139, 92, 246, 0.3);
         }
 
@@ -19,101 +18,104 @@
 
         body {
             font-family: 'Lexend', sans-serif;
-            background: var(--bg);
-            /* Fond Aurora Violet */
+            background: var(--bg-deep);
             background-image: 
-                radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.2) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(247, 147, 26, 0.05) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(124, 58, 237, 0.25) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%);
             color: white;
             margin: 0;
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
-        /* --- DOUBLE TICKER (FIXÉ) --- */
-        .tickers-container {
+        /* --- TICKER SECTION (FIXED & CLEAN) --- */
+        .tickers-header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(10, 5, 26, 0.95); backdrop-filter: blur(15px);
+            background: rgba(8, 4, 20, 0.85); backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
         }
-        .ticker-row { display: flex; overflow: hidden; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .ticker-move { display: flex; animation: scroll 35s linear infinite; gap: 50px; white-space: nowrap; padding-left: 20px; }
-        .t-item { font-size: 0.8rem; font-weight: 800; }
-        .t-item span { color: var(--violet); margin-right: 5px; }
+        .ticker-row { display: flex; overflow: hidden; padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+        .ticker-move { display: flex; animation: slide 45s linear infinite; gap: 60px; white-space: nowrap; }
+        .t-item { font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; }
+        .t-item span { color: var(--violet); margin-right: 8px; font-weight: 400; }
         
-        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* --- CONTENT --- */
-        nav { margin-top: 110px; display: flex; justify-content: center; gap: 50px; }
-        nav a { text-decoration: none; color: #94a3b8; font-size: 0.75rem; letter-spacing: 3px; font-weight: 900; text-transform: uppercase; }
-        nav a:hover { color: #fff; text-shadow: 0 0 10px var(--violet); }
+        /* --- HEADER & TITLES --- */
+        nav { margin-top: 120px; display: flex; justify-content: center; gap: 50px; }
+        nav a { text-decoration: none; color: #64748b; font-size: 0.75rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
+        nav a:hover { color: #fff; }
 
-        .hero { text-align: center; padding: 60px 20px; }
+        .hero { text-align: center; padding: 50px 20px; }
         .hero h1 { 
-            font-size: clamp(5rem, 15vw, 10rem); font-weight: 900; margin: 0;
-            background: linear-gradient(to bottom, #fff, #4c1d95);
+            font-size: clamp(6rem, 18vw, 11rem); font-weight: 900; margin: 0;
+            background: linear-gradient(180deg, #fff 40%, #8b5cf6 100%);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 0.8;
+            line-height: 0.8; letter-spacing: -4px;
         }
-        .hero p { color: var(--violet); letter-spacing: 10px; font-weight: 800; text-transform: uppercase; margin-top: 25px; }
+        .tagline { color: var(--violet); letter-spacing: 12px; font-weight: 800; text-transform: uppercase; margin-top: 30px; font-size: 0.9rem; }
+        .creator { font-size: 0.7rem; color: rgba(255,255,255,0.25); letter-spacing: 5px; margin-top: 10px; }
 
-        .container { max-width: 1100px; margin: auto; padding: 20px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 40px; }
+        .container { max-width: 1200px; margin: auto; padding: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 40px; }
 
-        /* --- CARDS --- */
+        /* --- CARDS UI --- */
         .card {
-            background: var(--glass);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border);
-            border-radius: 40px; padding: 50px 40px;
-            backdrop-filter: blur(20px);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+            border-radius: 45px; padding: 60px 45px;
+            backdrop-filter: blur(25px);
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
         }
-        .card:hover { border-color: var(--violet); box-shadow: 0 0 40px rgba(139, 92, 246, 0.2); transform: translateY(-5px); }
+        .card:hover { border-color: var(--violet); transform: translateY(-8px); box-shadow: 0 0 50px rgba(139, 92, 246, 0.2); }
 
-        h3 { text-transform: uppercase; letter-spacing: 4px; font-size: 1.2rem; margin-bottom: 30px; color: #fff; }
+        h3 { text-transform: uppercase; letter-spacing: 5px; font-size: 1.3rem; margin-bottom: 40px; text-align: center; font-weight: 900; }
 
         input, select {
-            width: 100%; background: rgba(0,0,0,0.4); border: 1px solid var(--border);
-            padding: 22px; border-radius: 20px; color: white; font-family: 'Lexend';
-            font-size: 1rem; outline: none; text-align: center; margin-bottom: 25px;
+            width: 100%; background: rgba(0,0,0,0.5); border: 1px solid var(--border);
+            padding: 24px; border-radius: 22px; color: white; font-family: 'Lexend';
+            font-size: 1.1rem; outline: none; text-align: center; margin-bottom: 30px;
         }
 
         .btn-main {
-            width: 100%; padding: 22px; border-radius: 20px; border: none;
-            background: #fff; color: #000; font-weight: 900; font-size: 0.9rem;
-            cursor: pointer; text-transform: uppercase; letter-spacing: 2px;
+            width: 100%; padding: 24px; border-radius: 22px; border: none;
+            background: #fff; color: #000; font-weight: 900; font-size: 1rem;
+            cursor: pointer; text-transform: uppercase; letter-spacing: 3px;
         }
-        .btn-main:hover { background: var(--violet); color: #fff; box-shadow: 0 0 20px var(--violet); }
+        .btn-main:hover { background: var(--violet); color: #fff; transform: scale(0.97); }
 
-        .res-box {
-            margin-top: 30px; padding: 30px; border-radius: 25px; min-height: 160px;
-            background: rgba(0,0,0,0.5); border: 1px solid rgba(255,255,255,0.05);
+        .res-area {
+            margin-top: 35px; padding: 35px; border-radius: 30px; min-height: 180px;
+            background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.05);
             display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center;
         }
 
-        /* --- FOOTER & ATTENTION --- */
-        .warning {
-            background: rgba(248, 113, 113, 0.05); border-left: 4px solid var(--down);
-            padding: 30px; border-radius: 0 20px 20px 0; margin-top: 60px; text-align: left;
+        /* --- FOOTER & WARNING --- */
+        .warning-box {
+            background: linear-gradient(90deg, rgba(255, 68, 68, 0.08), transparent);
+            border-left: 5px solid var(--down);
+            padding: 40px; border-radius: 0 30px 30px 0; margin-top: 80px;
         }
-        .warning h4 { color: var(--down); margin: 0 0 10px 0; text-transform: uppercase; }
-        .warning p { margin: 0; font-size: 0.9rem; color: #94a3b8; line-height: 1.6; }
+        .warning-box h4 { color: var(--down); margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 2px; }
+        .warning-box p { margin: 0; font-size: 1rem; color: #94a3b8; line-height: 1.8; }
 
-        footer { text-align: center; padding: 80px; color: #475569; font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; }
+        footer { text-align: center; padding: 100px; color: #334155; font-size: 0.7rem; letter-spacing: 6px; text-transform: uppercase; }
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="tickers-container">
+<div class="tickers-header">
     <div class="ticker-row">
-        <div class="ticker-move" id="prices-row">
-            <div class="t-item">SYNCHRONISATION DES PRIX...</div>
+        <div class="ticker-move" id="prices">
+            <div class="t-item">CHARGEMENT DES DONNÉES...</div>
         </div>
     </div>
     <div class="ticker-row">
-        <div class="ticker-move" id="changes-row">
-            <div class="t-item">CHARGEMENT DES VARIATIONS...</div>
+        <div class="ticker-move" id="changes">
+            <div class="t-item">ANALYSE DU MARCHÉ...</div>
         </div>
     </div>
 </div>
@@ -126,81 +128,81 @@
 
 <div class="hero">
     <h1>PIX</h1>
-    <p>Intelligence Artificielle & Formation</p>
-    <div style="font-size: 0.7rem; letter-spacing: 3px; color: rgba(255,255,255,0.3); margin-top: 10px;">IA CRÉÉE PAR CRYPTOMAN</div>
+    <div class="tagline">Intelligence Artificielle & Formation</div>
+    <div class="creator">IA CRÉÉE PAR CRYPTOMAN</div>
 </div>
 
 <div class="container">
     <div class="grid">
         <div class="card">
             <h3>Terminal de Marché</h3>
-            <input type="text" id="coinInp" placeholder="Entrez un symbole (BTC, ETH...)">
-            <button class="btn-main" onclick="runAnalyse()">Analyser l'actif</button>
-            <div id="resAnalyse" class="res-box">
-                <span style="color: #475569;">SCANNER PRÊT</span>
+            <input type="text" id="coinInp" placeholder="Entrez un symbole (BTC, SOL...)">
+            <button class="btn-main" onclick="runAnalyse()">Lancer l'Analyse</button>
+            <div id="resAnalyse" class="res-area">
+                <span style="color: #475569; letter-spacing: 2px;">IA EN ATTENTE</span>
             </div>
         </div>
 
         <div class="card">
             <h3>Académie PIX</h3>
             <select id="levelSel">
-                <option value="debutant">Niveau : Débutant</option>
-                <option value="amateur">Niveau : Amateur</option>
-                <option value="inter">Niveau : Intermédiaire</option>
-                <option value="expert">Niveau : Expert</option>
+                <option value="debutant">Module : Débutant</option>
+                <option value="amateur">Module : Amateur</option>
+                <option value="inter">Module : Intermédiaire</option>
+                <option value="expert">Module : Expert / Confirmé</option>
             </select>
-            <button class="btn-main" onclick="runAcademy()">Lancer la leçon</button>
-            <div id="resAcademy" class="res-box">
-                <span style="color: #475569;">VOTRE PARCOURS</span>
+            <button class="btn-main" onclick="runAcademy()">Générer ma Leçon</button>
+            <div id="resAcademy" class="res-area">
+                <span style="color: #475569; letter-spacing: 2px;">VOTRE PARCOURS</span>
             </div>
         </div>
     </div>
 
-    <div class="warning">
+    <div class="warning-box">
         <h4>⚠️ Attention Crypto</h4>
-        <p>Le trading de crypto-monnaies comporte des risques importants. PIX est un outil d'accompagnement éducatif. Ne misez jamais d'argent que vous ne pouvez pas vous permettre de perdre. CryptoMan Networks décline toute responsabilité en cas de perte financière.</p>
+        <p>L'investissement en crypto-monnaies présente des risques de perte totale du capital. PIX est une interface éducative conçue pour faciliter l'apprentissage du marché. Prenez vos décisions avec prudence. CryptoMan Networks © 2026.</p>
     </div>
 </div>
 
-<footer>Propriété de CryptoMan Networks © 2026</footer>
+<footer>Propriété Exclusive de CryptoMan Networks</footer>
 
 <script>
-    const cryptoIds = ['bitcoin', 'ethereum', 'solana', 'polkadot', 'cardano', 'ripple', 'dogecoin', 'chainlink'];
+    const coins = ['bitcoin', 'ethereum', 'solana', 'polkadot', 'cardano', 'ripple', 'dogecoin', 'chainlink'];
 
-    async function fetchTickers() {
+    async function syncMarket() {
         try {
-            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${cryptoIds.join(',')}&vs_currencies=usd&include_24hr_change=true`);
+            const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coins.join(',')}&vs_currencies=usd&include_24hr_change=true`);
             const d = await r.json();
             
             let pHTML = "";
             let cHTML = "";
 
-            cryptoIds.forEach(id => {
+            coins.forEach(id => {
                 const price = d[id].usd;
                 const change = d[id].usd_24h_change;
-                const name = id.toUpperCase().substring(0, 3);
+                const symbol = id === 'bitcoin' ? 'BTC' : id === 'ethereum' ? 'ETH' : id === 'solana' ? 'SOL' : id.substring(0,3).toUpperCase();
                 const color = change >= 0 ? 'var(--up)' : 'var(--down)';
 
-                pHTML += `<div class="t-item"><span>${name}</span> $${price.toLocaleString()}</div>`;
-                cHTML += `<div class="t-item"><span>${name}</span> <b style="color:${color}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</b></div>`;
+                pHTML += `<div class="t-item"><span>${symbol}</span> $${price.toLocaleString()}</div>`;
+                cHTML += `<div class="t-item"><span>${symbol}</span> <b style="color:${color}">${change >= 0 ? '+' : ''}${change.toFixed(2)}%</b></div>`;
             });
 
-            document.getElementById('prices-row').innerHTML = pHTML + pHTML; // Doublé pour le loop
-            document.getElementById('changes-row').innerHTML = cHTML + cHTML;
-        } catch(e) { console.log("Erreur API"); }
+            document.getElementById('prices').innerHTML = pHTML + pHTML; 
+            document.getElementById('changes').innerHTML = cHTML + cHTML;
+        } catch(e) { console.log("API Error"); }
     }
 
-    fetchTickers();
-    setInterval(fetchTickers, 30000);
+    syncMarket();
+    setInterval(syncMarket, 30000);
 
     async function runAnalyse() {
         const input = document.getElementById('coinInp').value.toLowerCase().trim();
         const res = document.getElementById('resAnalyse');
         if(!input) return;
 
-        res.innerHTML = "IA EN ACTION...";
+        res.innerHTML = "ANALYSE ALGORITHMIQUE...";
         try {
-            const map = {'btc':'bitcoin','eth':'ethereum','dot':'polkadot','sol':'solana'};
+            const map = {'btc':'bitcoin','eth':'ethereum','sol':'solana','dot':'polkadot'};
             const id = map[input] || input;
             const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${id}&vs_currencies=usd&include_24hr_change=true`);
             const d = await r.json();
@@ -209,23 +211,23 @@
                 const p = d[id].usd;
                 const c = d[id].usd_24h_change;
                 res.innerHTML = `
-                    <div style="font-size: 3rem; font-weight: 900;">$${p.toLocaleString()}</div>
-                    <div style="color:${c >= 0 ? 'var(--up)':'var(--down)'}; font-weight:bold;">${c > 0 ? '▲' : '▼'} ${c.toFixed(2)}%</div>
+                    <div style="font-size: 3.5rem; font-weight: 900;">$${p.toLocaleString()}</div>
+                    <div style="color:${c >= 0 ? 'var(--up)':'var(--down)'}; font-weight:bold; font-size:1.2rem;">${c > 0 ? '▲' : '▼'} ${c.toFixed(2)}% (24h)</div>
                 `;
             } else { res.innerHTML = "ACTIF INCONNU"; }
-        } catch(e) { res.innerHTML = "ERREUR RÉSEAU"; }
+        } catch(e) { res.innerHTML = "ERREUR DE RÉSEAU"; }
     }
 
     function runAcademy() {
         const lvl = document.getElementById('levelSel').value;
         const res = document.getElementById('resAcademy');
         const content = {
-            'debutant': "<b>DÉBUTANT :</b> Pourquoi le Bitcoin est limité à 21M d'unités ? C'est la base de sa valeur.",
-            'amateur': "<b>AMATEUR :</b> Différence entre un Hot Wallet (logiciel) et un Cold Wallet (matériel).",
-            'inter': "<b>INTERMÉDIAIRE :</b> Comment lire un carnet d'ordres et anticiper les zones de vente.",
-            'expert': "<b>EXPERT :</b> Stratégies avancées sur la DeFi et les protocoles de Yield Farming."
+            'debutant': "<b>L'OR NUMÉRIQUE :</b> Pourquoi Bitcoin est-il limité à 21M ? Apprenez la rareté programmée.",
+            'amateur': "<b>SÉCURITÉ :</b> Comment utiliser une clé Ledger et protéger sa 'Seed Phrase' des hackers.",
+            'inter': "<b>ANALYSE TECHNIQUE :</b> Maîtriser le RSI et les moyennes mobiles pour ne plus acheter au sommet.",
+            'expert': "<b>DEFI AVANCÉE :</b> Yield Farming et Liquidity Pools sur Solana et Ethereum."
         };
-        res.innerHTML = `<div style="text-align:left; line-height:1.6;">${content[lvl]}</div>`;
+        res.innerHTML = `<div style="text-align:left; line-height:1.8;">${content[lvl]}</div>`;
     }
 </script>
 

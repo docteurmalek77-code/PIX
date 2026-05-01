@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | Intelligence Artificielle (IA)</title>
+    <title>PIX | IA par Abdelmalek</title>
     <style>
         :root {
-            --primary: #f7931a; /* Orange Bitcoin */
+            --primary: #f7931a; 
             --accent: #38bdf8;
             --bg: #020617;
             --glass: rgba(255, 255, 255, 0.05);
@@ -18,21 +18,31 @@
             color: white;
             margin: 0;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
             overflow-x: hidden;
         }
 
-        /* Logo Bitcoin en fond */
-        body::before {
-            content: "₿";
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 40vw;
-            color: rgba(247, 147, 26, 0.03);
-            z-index: -1;
+        /* Ticker de prix défilant */
+        .ticker-wrap {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            border-bottom: 1px solid var(--primary);
+            padding: 10px 0;
+            overflow: hidden;
+        }
+        .ticker {
+            display: flex;
+            white-space: nowrap;
+            animation: ticker 30s linear infinite;
+        }
+        .ticker-item {
+            padding: 0 40px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: var(--primary);
+        }
+        @keyframes ticker {
+            0% { transform: translateX(100%); }
+            100% { transform: translateX(-100%); }
         }
 
         nav {
@@ -42,33 +52,31 @@
             display: flex;
             justify-content: center;
             gap: 30px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        nav a {
-            color: #94a3b8;
-            text-decoration: none;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
+        nav a { color: #94a3b8; text-decoration: none; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
         nav a:hover { color: var(--primary); }
 
-        .container {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 40px;
-        }
+        .container { padding: 40px; display: flex; flex-direction: column; align-items: center; }
 
-        /* Titre PIX Géant */
+        /* Section Education */
+        .edu-section {
+            max-width: 800px;
+            background: var(--glass);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin-bottom: 50px;
+            text-align: left;
+            line-height: 1.6;
+        }
+        .edu-section h2 { color: var(--primary); border-bottom: 2px solid var(--primary); display: inline-block; margin-bottom: 15px; }
+
         .hero-title {
-            font-size: 8rem;
+            font-size: clamp(4rem, 15vw, 8rem);
             font-weight: 900;
             margin: 0;
             background: linear-gradient(to bottom, #fff 30%, #64748b);
@@ -77,102 +85,85 @@
             line-height: 1;
         }
 
-        .sub-title {
-            font-size: 1.5rem;
-            color: var(--accent);
-            letter-spacing: 5px;
-            margin-bottom: 40px;
-            font-weight: 300;
-        }
+        .creator-main { color: var(--primary); font-weight: 700; letter-spacing: 3px; margin-bottom: 40px; text-transform: uppercase; }
 
         .card {
             background: var(--glass);
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
             border: 1px solid rgba(255,255,255,0.1);
             padding: 40px;
-            border-radius: 30px;
+            border-radius: 35px;
             width: 100%;
             max-width: 500px;
             text-align: center;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.8);
         }
 
         input {
-            width: 80%;
-            background: rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.2);
-            padding: 15px;
-            border-radius: 15px;
-            color: white;
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-            outline: none;
-            text-align: center;
+            width: 85%; background: rgba(0,0,0,0.4); border: 1px solid rgba(255,255,255,0.2);
+            padding: 18px; border-radius: 18px; color: white; font-size: 1.1rem; margin-bottom: 25px; outline: none;
         }
 
         button {
             background: linear-gradient(45deg, var(--primary), #ffa433);
-            color: black;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 15px;
-            font-weight: 800;
-            cursor: pointer;
-            text-transform: uppercase;
-            transition: 0.3s;
+            color: black; border: none; padding: 18px 45px; border-radius: 18px; font-weight: 800; cursor: pointer; text-transform: uppercase; width: 100%; transition: 0.3s;
         }
+        button:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(247, 147, 26, 0.4); }
 
-        button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(247, 147, 26, 0.4);
-        }
-
-        #res { margin-top: 30px; }
-
-        .price { font-size: 3rem; font-weight: 800; margin: 10px 0; }
-        
-        /* Signature CryptoMan */
-        .creator-tag {
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 2px;
-            margin: 15px 0;
-            text-transform: uppercase;
-        }
-
-        .signal-box {
-            display: inline-block;
-            padding: 10px 20px;
-            border-radius: 10px;
-            font-weight: 900;
-            margin-top: 10px;
-        }
+        .price { font-size: 3.5rem; font-weight: 900; margin: 10px 0; }
+        .signal-box { display: inline-block; padding: 12px 25px; border-radius: 12px; font-weight: 900; margin-top: 15px; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
 <body>
 
+<div class="ticker-wrap">
+    <div class="ticker">
+        <div class="ticker-item">BTC: $78,542</div>
+        <div class="ticker-item">ETH: $3,210</div>
+        <div class="ticker-item">SOL: $184.20</div>
+        <div class="ticker-item">BNB: $612.50</div>
+        <div class="ticker-item">XRP: $0.62</div>
+        <div class="ticker-item">ADA: $0.58</div>
+    </div>
+</div>
+
 <nav>
-    <a onclick="location.reload()">TERMINAL IA</a>
-    <a href="#">TOP 200 ANALYSE</a>
+    <a href="#about">C'EST QUOI LA CRYPTO ?</a>
+    <a href="#detector">TERMINAL IA</a>
     <a href="#">PIX ACADEMY</a>
 </nav>
 
 <div class="container">
-    <h1 class="hero-title">PIX</h1>
-    <div class="sub-title">INTELLIGENCE ARTIFICIELLE (IA)</div>
-
-    <div class="card">
-        <p style="color: #94a3b8; margin-bottom: 20px;">Analyse temps réel du Top 200 Market Cap</p>
-        <input type="text" id="coinInp" placeholder="Ex: solana, cardano, polkadot...">
-        <br>
-        <button onclick="runPIX()">Analyser avec PIX IA</button>
-
-        <div id="res"></div>
-    </div>
     
-    <p style="margin-top: 30px; color: rgba(255,255,255,0.3); font-size: 0.7rem;">SYSTEME IA V1.0 - CRYPTOMAN NETWORKS</p>
+    <div id="about" class="edu-section">
+        <h2>COMPRENDRE LA CRYPTO</h2>
+        <p>
+            Une <b>cryptomonnaie</b> est une monnaie numérique décentralisée qui utilise la <b>cryptographie</b> pour sécuriser les transactions. Contrairement aux monnaies classiques (Euro, Dollar), elle ne dépend d'aucune banque centrale.
+        </p>
+        <p>
+            Tout repose sur la <b>Blockchain</b> : un registre public et infalsifiable où chaque transaction est inscrite à jamais. Investir dans la crypto, c'est parier sur la technologie du futur et la liberté financière.
+        </p>
+        <p style="color: var(--accent); font-weight: bold;">
+            PIX utilise son Intelligence Artificielle pour analyser ces données complexes et vous donner un avantage stratégique.
+        </p>
+    </div>
+
+    <div id="detector">
+        <h1 class="hero-title">PIX</h1>
+        <div class="creator-main">Créée par Abdelmalek</div>
+
+        <div class="card">
+            <input type="text" id="coinInp" placeholder="Ex: bitcoin, ethereum, solana...">
+            <br>
+            <button onclick="runPIX()">Lancer l'Analyse Expert</button>
+            <div id="res"></div>
+        </div>
+    </div>
+
+    <p style="margin-top: 60px; color: rgba(255,255,255,0.2); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 2px;">
+        Propriété Exclusive de CryptoMan Networks © 2026 | Powered by Abdelmalek
+    </p>
 </div>
 
 <script>
@@ -181,31 +172,29 @@
         const res = document.getElementById('res');
         if(!query) return;
 
-        res.innerHTML = "<p style='color:var(--accent)'>Calcul des probabilités en cours...</p>";
+        res.innerHTML = "<p style='color:var(--accent);'>Calcul des probabilités IA...</p>";
 
         try {
-            // L'API va chercher parmis les milliers de tokens, donc le Top 200 est inclus d'office
             const resp = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${query}&vs_currencies=usd&include_24hr_change=true`);
             const data = await resp.json();
 
             if(data[query]) {
                 const p = data[query].usd;
                 const ch = data[query].usd_24h_change;
-                let sig = ch < -5 ? "FORTE OPPORTUNITÉ (ACHAT)" : (ch > 5 ? "ZONE DE DANGER (VENTE)" : "NEUTRE / STABLE");
+                let sig = ch < -5 ? "ACHAT FORT" : (ch > 5 ? "VENTE / PRUDENCE" : "NEUTRE");
                 let col = ch < -5 ? "#4ade80" : (ch > 5 ? "#f87171" : "#94a3b8");
 
                 res.innerHTML = `
-                    <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN</div>
                     <div class="price">$${p.toLocaleString()}</div>
-                    <div class="signal-box" style="background: ${col}22; color: ${col}; border: 1px solid ${col}">
+                    <div class="signal-box" style="background: ${col}15; color: ${col}; border: 1px solid ${col}">
                         ${sig}
                     </div>
                     <p style="color: #64748b; margin-top: 15px;">Variation 24h : ${ch.toFixed(2)}%</p>
                 `;
             } else {
-                res.innerHTML = "<p style='color:red'>Erreur : Token non reconnu dans la base Top 200.</p>";
+                res.innerHTML = "<p style='color:#f87171;'>Token non détecté dans le Top 200.</p>";
             }
-        } catch(e) { res.innerHTML = "Erreur de connexion."; }
+        } catch(e) { res.innerHTML = "Erreur de réseau."; }
     }
 </script>
 

@@ -3,112 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | Intelligence Artificielle & Académie</title>
+    <title>PIX | L'Intelligence de la Crypto</title>
     <style>
         :root {
-            --primary: #f7931a; /* Orange Bitcoin */
-            --accent: #22d3ee;  /* Cyan Néon */
-            --bg: #020617;      /* Noir Profond */
-            --glass: rgba(255, 255, 255, 0.03);
-            --border: rgba(255, 255, 255, 0.1);
+            --primary: #f7931a;    /* Orange Bitcoin */
+            --secondary: #8b5cf6;  /* Violet Électrique */
+            --bg: #050505;         /* Noir Profond OLED */
+            --card-bg: rgba(15, 15, 15, 0.8);
+            --border: rgba(255, 255, 255, 0.08);
+            --text-main: #f8fafc;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+        * { box-sizing: border-box; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
         body {
             font-family: 'Lexend', sans-serif;
-            background: radial-gradient(circle at top right, #0f172a 0%, #020617 100%);
-            color: white;
+            background-color: var(--bg);
+            /* Effet de lumières diffuses en fond */
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(139, 92, 246, 0.15) 0%, transparent 40%),
+                radial-gradient(circle at 90% 80%, rgba(247, 147, 26, 0.1) 0%, transparent 40%);
+            color: var(--text-main);
             margin: 0;
             min-height: 100vh;
-            overflow-x: hidden;
         }
 
-        /* Ticker Premium */
+        /* Ticker Premium avec effet flou */
         .ticker-wrap {
-            width: 100%; background: rgba(0, 0, 0, 0.9); border-bottom: 1px solid var(--primary);
-            padding: 12px 0; overflow: hidden; position: fixed; top: 0; z-index: 1000;
+            width: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 15px 0; position: fixed; top: 0; z-index: 1000;
         }
-        .ticker { display: flex; white-space: nowrap; animation: ticker 40s linear infinite; }
-        .ticker-item { padding: 0 40px; font-size: 0.85rem; font-weight: 800; color: var(--primary); }
+        .ticker { display: flex; white-space: nowrap; animation: ticker 35s linear infinite; }
+        .ticker-item { padding: 0 40px; font-size: 0.9rem; font-weight: 700; color: #fff; border-right: 1px solid var(--border); }
+        .ticker-item span { color: var(--primary); margin-right: 8px; }
         @keyframes ticker { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
 
         nav {
-            backdrop-filter: blur(15px); background: rgba(0,0,0,0.7);
-            padding: 20px; display: flex; justify-content: center; gap: 40px;
-            margin-top: 45px; border-bottom: 1px solid var(--border);
+            padding: 25px; display: flex; justify-content: center; gap: 50px;
+            margin-top: 60px;
         }
-        nav a { color: #64748b; text-decoration: none; font-weight: 600; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; }
-        nav a:hover { color: var(--primary); text-shadow: 0 0 10px var(--primary); }
+        nav a { 
+            color: #94a3b8; text-decoration: none; font-weight: 700; 
+            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 3px; 
+        }
+        nav a:hover { color: #fff; transform: translateY(-2px); }
 
-        .container { padding: 80px 20px; max-width: 1200px; margin: auto; text-align: center; }
+        .container { padding: 60px 20px; max-width: 1200px; margin: auto; text-align: center; }
 
         .hero-title { 
-            font-size: clamp(5rem, 15vw, 10rem); font-weight: 900; margin: 0; 
-            background: linear-gradient(180deg, #fff 30%, #475569 100%);
+            font-size: clamp(5rem, 18vw, 12rem); font-weight: 900; margin: 0; 
+            background: linear-gradient(to bottom, #fff, #334155);
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 0.8;
+            line-height: 0.9;
         }
-        .sub-title { color: var(--accent); letter-spacing: 8px; font-weight: 700; margin-bottom: 60px; text-transform: uppercase; font-size: 1rem; opacity: 0.8; }
+        .sub-title { 
+            color: var(--secondary); letter-spacing: 12px; font-weight: 800; 
+            margin-bottom: 70px; text-transform: uppercase; font-size: 1.1rem;
+            text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+        }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); gap: 40px; margin-top: 20px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 50px; }
 
-        /* Style des Cartes Glassmorphism */
+        /* Cartes Premium "Glow" */
         .card {
-            background: var(--glass);
-            backdrop-filter: blur(25px);
+            background: var(--card-bg);
+            backdrop-filter: blur(30px);
             border: 1px solid var(--border);
-            padding: 50px 40px;
-            border-radius: 40px;
+            padding: 60px 45px;
+            border-radius: 50px;
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
-        .card:hover { border-color: var(--primary); transform: translateY(-10px); background: rgba(255, 255, 255, 0.05); }
+        .card::after {
+            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 50px; padding: 2px; 
+            background: linear-gradient(135deg, var(--border), transparent, var(--border));
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none;
+        }
+        .card:hover { 
+            border-color: var(--secondary); 
+            box-shadow: 0 0 50px rgba(139, 92, 246, 0.15); 
+            transform: scale(1.02);
+        }
 
-        h3 { color: var(--primary); text-transform: uppercase; letter-spacing: 3px; font-size: 1.5rem; margin-top: 0; }
+        h3 { color: #fff; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 30px; font-weight: 900; }
 
-        /* Styling du SELECTIONNEUR (Dropdown) */
-        .select-wrapper { position: relative; width: 100%; margin-bottom: 25px; }
-        select {
-            width: 100%; appearance: none;
-            background: rgba(0, 0, 0, 0.6);
-            border: 2px solid var(--border);
-            padding: 18px; border-radius: 20px; color: white;
-            font-size: 1rem; font-family: 'Lexend'; cursor: pointer;
-            outline: none; text-align-last: center;
+        /* Inputs & Select Stylisés */
+        input, select {
+            width: 100%; background: #111; border: 1px solid var(--border);
+            padding: 22px; border-radius: 25px; color: #fff;
+            font-size: 1.1rem; margin-bottom: 30px; outline: none; text-align: center;
+            font-family: 'Lexend';
         }
-        select:focus { border-color: var(--primary); box-shadow: 0 0 15px rgba(247, 147, 26, 0.2); }
-        
-        input {
-            width: 100%; background: rgba(0, 0, 0, 0.6); border: 2px solid var(--border);
-            padding: 18px; border-radius: 20px; color: white;
-            font-size: 1rem; margin-bottom: 25px; outline: none; text-align: center;
-        }
-        input:focus { border-color: var(--accent); }
+        input:focus, select:focus { border-color: var(--primary); background: #151515; }
 
         button {
-            background: linear-gradient(90deg, var(--primary), #ffa433);
-            color: black; border: none; padding: 20px; border-radius: 20px;
+            background: #fff; color: #000; border: none; padding: 22px; border-radius: 25px;
             font-weight: 900; cursor: pointer; text-transform: uppercase; width: 100%;
-            letter-spacing: 1px; font-size: 1rem;
+            font-size: 1rem; letter-spacing: 2px;
         }
-        button:hover { filter: brightness(1.2); box-shadow: 0 0 30px rgba(247, 147, 26, 0.4); }
+        button:hover { background: var(--primary); transform: scale(0.98); }
 
         .result-box {
-            margin-top: 30px; padding: 25px; border-radius: 25px;
-            background: rgba(0, 0, 0, 0.4); border: 1px inset var(--border);
-            min-height: 120px; display: flex; flex-direction: column; justify-content: center;
+            margin-top: 40px; padding: 30px; border-radius: 30px;
+            background: rgba(255, 255, 255, 0.02); border: 1px solid var(--border);
+            min-height: 140px; display: flex; flex-direction: column; justify-content: center;
         }
 
-        /* Zone Risques */
         .warning-box {
-            background: rgba(248, 113, 113, 0.05); border: 1px solid rgba(248, 113, 113, 0.2);
-            padding: 40px; border-radius: 35px; margin-top: 80px; text-align: left;
-            border-left: 5px solid #f87171;
+            background: linear-gradient(90deg, rgba(248, 113, 113, 0.05), transparent);
+            border-left: 4px solid #ef4444; padding: 40px; border-radius: 0 30px 30px 0;
+            margin-top: 100px; text-align: left; max-width: 800px; margin-inline: auto;
         }
 
-        footer { margin-top: 100px; padding-bottom: 50px; color: rgba(255,255,255,0.2); font-size: 0.7rem; letter-spacing: 5px; text-transform: uppercase; }
+        footer { margin-top: 120px; padding-bottom: 60px; color: #475569; font-size: 0.7rem; letter-spacing: 6px; text-transform: uppercase; }
 
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
@@ -117,117 +127,113 @@
 
 <div class="ticker-wrap">
     <div class="ticker" id="liveTicker">
-        <div class="ticker-item">CHARGEMENT DES DONNÉES TEMPS RÉEL...</div>
+        <div class="ticker-item"><span>BTC</span> $-- ---</div>
+        <div class="ticker-item"><span>ETH</span> $-- ---</div>
+        <div class="ticker-item"><span>SOL</span> $-- ---</div>
     </div>
 </div>
 
 <nav>
-    <a href="#analyse">TERMINAL</a>
-    <a href="#academy">ACADÉMIE</a>
-    <a href="#risques">SÉCURITÉ</a>
+    <a href="#analyse">Terminal</a>
+    <a href="#academy">Académie</a>
+    <a href="#risques">Sécurité</a>
 </nav>
 
 <div class="container">
     <h1 class="hero-title">PIX</h1>
-    <div class="sub-title">Intelligence Artificielle de Formation</div>
+    <div class="sub-title">IA créée par CryptoMan</div>
 
     <div class="grid">
         <div class="card" id="analyse">
             <h3>Terminal IA</h3>
-            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 30px;">Analyse algorithmique du Top 200</p>
-            <input type="text" id="coinInp" placeholder="Entrez un symbole (BTC, SOL...)">
-            <button onclick="runPIX()">Analyser l'Actif</button>
+            <input type="text" id="coinInp" placeholder="Symbole (BTC, SOL...)">
+            <button onclick="runPIX()">Analyser</button>
             <div id="resAnalyse" class="result-box">
-                <span style="color: #475569;">En attente de commande...</span>
+                <span style="color: #475569; letter-spacing: 1px;">EN ATTENTE DE COMMANDE...</span>
             </div>
         </div>
 
         <div class="card" id="academy">
-            <h3>PIX Académie</h3>
-            <p style="color: #94a3b8; font-size: 0.8rem; margin-bottom: 30px;">Apprentissage par niveau</p>
-            <div class="select-wrapper">
-                <select id="levelSel">
-                    <option value="debutant">Niveau : Débutant</option>
-                    <option value="amateur">Niveau : Amateur</option>
-                    <option value="intermediaire">Niveau : Intermédiaire</option>
-                    <option value="confirme">Niveau : Expert / Confirmé</option>
-                </select>
-            </div>
-            <button onclick="runAcademy()">Lancer la Leçon</button>
+            <h3>Académie</h3>
+            <select id="levelSel">
+                <option value="debutant">Niveau : Débutant</option>
+                <option value="amateur">Niveau : Amateur</option>
+                <option value="intermediaire">Niveau : Intermédiaire</option>
+                <option value="confirme">Niveau : Confirmé</option>
+            </select>
+            <button onclick="runAcademy()">Lancer Formation</button>
             <div id="resAcademy" class="result-box">
-                <span style="color: #475569;">Prêt pour la formation.</span>
+                <span style="color: #475569; letter-spacing: 1px;">CHOISISSEZ UN PARCOURS...</span>
             </div>
         </div>
     </div>
 
     <div id="risques" class="warning-box">
-        <h4 style="color: #f87171; margin-top: 0; text-transform: uppercase;">Avertissement de Vigilance</h4>
-        <p style="font-size: 0.9rem; line-height: 1.8; color: #cbd5e1; margin: 0;">
-            PIX est un outil éducatif propulsé par l'IA. La cryptomonnaie comporte des risques élevés de perte en capital. 
-            L'IA de CryptoMan vous aide à comprendre le marché, mais vous restez seul maître de vos décisions. 
-            <b>Éduquez-vous avant d'investir.</b>
+        <h4 style="color: #ef4444; margin: 0 0 15px 0; text-transform: uppercase; letter-spacing: 2px;">Vigilance Risques</h4>
+        <p style="font-size: 0.95rem; line-height: 1.8; color: #94a3b8; margin: 0;">
+            Le trading de crypto-actifs présente des risques de perte totale du capital. 
+            PIX est une IA éducative destinée à la compréhension des marchés. 
+            <b>Ne confiez jamais vos accès privés.</b>
         </p>
     </div>
 
-    <footer>Propriété Exclusive de CryptoMan Networks © 2026</footer>
+    <footer>CryptoMan Networks © 2026</footer>
 </div>
 
 <script>
-    // --- LIVE TICKER ---
+    // --- TICKER ---
     async function updateTicker() {
         try {
             const r = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,polkadot,ripple&vs_currencies=usd');
             const d = await r.json();
             document.getElementById('liveTicker').innerHTML = `
-                <div class="ticker-item">BITCOIN: $${d.bitcoin.usd.toLocaleString()}</div>
-                <div class="ticker-item">ETHEREUM: $${d.ethereum.usd.toLocaleString()}</div>
-                <div class="ticker-item">SOLANA: $${d.solana.usd.toLocaleString()}</div>
-                <div class="ticker-item">POLKADOT: $${d.polkadot.usd.toLocaleString()}</div>
-                <div class="ticker-item">XRP: $${d.ripple.usd.toLocaleString()}</div>
+                <div class="ticker-item"><span>BTC</span> $${d.bitcoin.usd.toLocaleString()}</div>
+                <div class="ticker-item"><span>ETH</span> $${d.ethereum.usd.toLocaleString()}</div>
+                <div class="ticker-item"><span>SOL</span> $${d.solana.usd.toLocaleString()}</div>
+                <div class="ticker-item"><span>DOT</span> $${d.polkadot.usd.toLocaleString()}</div>
+                <div class="ticker-item"><span>XRP</span> $${d.ripple.usd.toLocaleString()}</div>
             `;
-        } catch(e) { console.log("Erreur Ticker"); }
+        } catch(e) {}
     }
     setInterval(updateTicker, 60000);
     updateTicker();
 
-    // --- ANALYSEUR PIX ---
+    // --- PIX ENGINE ---
     async function runPIX() {
         const input = document.getElementById('coinInp').value.toLowerCase().trim();
         const res = document.getElementById('resAnalyse');
-        const map = { 'btc':'bitcoin','eth':'ethereum','dot':'polkadot','sol':'solana','ada':'cardano','bnb':'binancecoin' };
+        const map = { 'btc':'bitcoin','eth':'ethereum','dot':'polkadot','sol':'solana','ada':'cardano' };
         const query = map[input] || input;
 
         if(!query) return;
-        res.innerHTML = "Analyse IA...";
+        res.innerHTML = "<span style='color:var(--secondary);'>IA EN COURS...</span>";
 
         try {
             const r = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${query}&vs_currencies=usd&include_24hr_change=true&precision=2`);
             const d = await r.json();
-
             if(d[query]) {
                 const p = d[query].usd;
                 const ch = d[query].usd_24h_change;
-                const col = ch < 0 ? "#f87171" : "#4ade80";
+                const col = ch < 0 ? "#ef4444" : "#22c55e";
                 res.innerHTML = `
-                    <div style="font-size: 0.6rem; color:var(--primary); font-weight:900;">IA BY CRYPTOMAN</div>
-                    <div style="font-size: 2.8rem; font-weight: 900;">$${p.toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
-                    <div style="color:${col}; font-weight:bold;">${ch.toFixed(2)}% (24h)</div>
+                    <div style="font-size: 3rem; font-weight: 900;">$${p.toLocaleString()}</div>
+                    <div style="color:${col}; font-weight:bold; font-size:1.2rem;">${ch > 0 ? '+':''}${ch.toFixed(2)}%</div>
                 `;
-            } else { res.innerHTML = "Actif non reconnu."; }
-        } catch(e) { res.innerHTML = "Erreur réseau."; }
+            } else { res.innerHTML = "ACTIF INCONNU"; }
+        } catch(e) { res.innerHTML = "ERREUR RÉSEAU"; }
     }
 
-    // --- ACADÉMIE ---
+    // --- ACADEMY ---
     function runAcademy() {
         const level = document.getElementById('levelSel').value;
         const res = document.getElementById('resAcademy');
-        const content = {
-            'debutant': "<b>Module 1 :</b> La Blockchain expliquée simplement. C'est un livre de comptes ouvert et sécurisé.",
-            'amateur': "<b>Module 2 :</b> Comment sécuriser ses fonds avec un Wallet froid et éviter les scams.",
-            'intermediaire': "<b>Module 3 :</b> Analyse des cycles de marché et compréhension de la Market Cap.",
-            'confirme': "<b>Expert :</b> Stratégies DeFi avancées et gestion psychologique du trading."
+        const data = {
+            'debutant': "<b>Leçon 1 :</b> Fondations. Comprendre pourquoi le Bitcoin est une réserve de valeur numérique.",
+            'amateur': "<b>Leçon 2 :</b> Sécurité. Apprendre à utiliser un Ledger et sécuriser ses phrases de récupération.",
+            'intermediaire': "<b>Leçon 3 :</b> Analyse. Maîtriser le RSI et les supports de prix majeurs.",
+            'confirme': "<b>Expert :</b> DeFi Avançée. Interagir avec les pools de liquidité et les protocoles de prêt."
         };
-        res.innerHTML = `<div style="text-align:left; font-size:0.9rem; line-height:1.4;">${content[level]}</div>`;
+        res.innerHTML = `<div style="text-align:left; font-size:1rem; line-height:1.6;">${data[level]}</div>`;
     }
 </script>
 

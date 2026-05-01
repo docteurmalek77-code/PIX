@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | IA par CryptoMan</title>
+    <title>PIX | Intelligence Artificielle (IA)</title>
     <style>
         :root {
             --primary: #f7931a; 
@@ -19,9 +19,23 @@
             margin: 0;
             min-height: 100vh;
             overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Ticker de prix défilant */
+        /* Logo Bitcoin en arrière-plan */
+        body::before {
+            content: "₿";
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 50vw;
+            color: rgba(247, 147, 26, 0.02);
+            z-index: -1;
+        }
+
+        /* Barre de prix défilante */
         .ticker-wrap {
             width: 100%;
             background: rgba(0, 0, 0, 0.9);
@@ -42,7 +56,7 @@
             font-size: 0.85rem;
             font-weight: bold;
             color: var(--primary);
-            text-shadow: 0 0 5px rgba(247, 147, 26, 0.3);
+            text-transform: uppercase;
         }
         @keyframes ticker {
             0% { transform: translateX(100%); }
@@ -56,16 +70,16 @@
             display: flex;
             justify-content: center;
             gap: 30px;
-            margin-top: 45px; /* Pour laisser place au ticker */
+            margin-top: 45px;
             border-bottom: 1px solid rgba(255,255,255,0.05);
         }
 
         nav a { color: #94a3b8; text-decoration: none; font-weight: 600; text-transform: uppercase; cursor: pointer; transition: 0.3s; font-size: 0.8rem; letter-spacing: 1px; }
         nav a:hover { color: var(--primary); }
 
-        .container { padding: 60px 20px; display: flex; flex-direction: column; align-items: center; }
+        .container { padding: 60px 20px; flex: 1; display: flex; flex-direction: column; align-items: center; }
 
-        /* Section Education */
+        /* Section Académie */
         .edu-section {
             max-width: 800px;
             background: var(--glass);
@@ -79,6 +93,7 @@
         }
         .edu-section h2 { color: var(--primary); font-weight: 900; margin-top: 0; letter-spacing: 1px; }
 
+        /* Titre PIX Géant */
         .hero-title {
             font-size: clamp(5rem, 20vw, 10rem);
             font-weight: 900;
@@ -115,10 +130,12 @@
         }
         button:hover { transform: scale(1.02); box-shadow: 0 0 30px rgba(247, 147, 26, 0.4); }
 
+        /* Résultats de l'IA */
+        .signature-text { margin-bottom: 10px; font-weight: bold; color: var(--primary); letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
         .price { font-size: 4rem; font-weight: 900; margin: 15px 0; letter-spacing: -2px; }
         .signal-box { display: inline-block; padding: 15px 30px; border-radius: 15px; font-weight: 900; margin-top: 20px; letter-spacing: 1px; }
-        .signature-text { margin-top: 25px; font-weight: bold; color: var(--primary); letter-spacing: 2px; font-size: 0.75rem; text-transform: uppercase; }
 
+        footer { margin-top: 80px; padding-bottom: 40px; color: rgba(255,255,255,0.2); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px; }
     </style>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;600;900&display=swap" rel="stylesheet">
 </head>
@@ -130,16 +147,15 @@
         <div class="ticker-item">ETHEREUM: $3,210</div>
         <div class="ticker-item">SOLANA: $184.20</div>
         <div class="ticker-item">BINANCE COIN: $612.50</div>
+        <div class="ticker-item">POLKADOT: $7.35</div>
         <div class="ticker-item">XRP: $0.62</div>
         <div class="ticker-item">CARDANO: $0.58</div>
-        <div class="ticker-item">POLKADOT: $7.45</div>
     </div>
 </div>
 
 <nav>
     <a href="#about">ACADÉMIE</a>
     <a href="#detector">TERMINAL IA</a>
-    <a href="#">RECHERCHE TOP 200</a>
 </nav>
 
 <div class="container">
@@ -147,10 +163,10 @@
     <div id="about" class="edu-section">
         <h2>L'ÉCOSYSTÈME CRYPTO</h2>
         <p>
-            La <b>cryptomonnaie</b> n'est pas seulement de l'argent numérique. C'est une révolution basée sur la <b>décentralisation</b>. Grâce à la technologie Blockchain, nous pouvons échanger de la valeur sans intermédiaire (banques), de manière transparente et sécurisée.
+            La <b>cryptomonnaie</b> est une révolution numérique basée sur la <b>Blockchain</b>. Elle permet des échanges de valeur sécurisés, sans banques centrales, partout dans le monde. Investir dans ce marché demande une précision chirurgicale.
         </p>
         <p>
-            Chaque jeton (token) représente souvent un projet technologique : contrat intelligent, stockage de données ou système de paiement mondial. Comprendre le marché, c'est comprendre l'évolution du Web.
+            C'est pourquoi <b>PIX</b> analyse en temps réel les données du Top 200 Market Cap pour vous offrir une vision claire de la tendance globale.
         </p>
     </div>
 
@@ -159,48 +175,70 @@
         <div class="creator-main">Intelligence Artificielle (IA)</div>
 
         <div class="card">
-            <input type="text" id="coinInp" placeholder="Nom de la crypto (ex: bitcoin)">
+            <input type="text" id="coinInp" placeholder="Symbole (BTC, ETH, SOL, DOT...)">
             <br>
-            <button onclick="runPIX()">Analyser le Marché</button>
+            <button onclick="runPIX()">Lancer l'Analyse Expert</button>
             <div id="res"></div>
         </div>
     </div>
 
-    <p style="margin-top: 80px; color: rgba(255,255,255,0.1); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 3px;">
-        Propriété de CryptoMan Networks © 2026
-    </p>
+    <footer>Propriété de CryptoMan Networks © 2026</footer>
 </div>
 
 <script>
     async function runPIX() {
-        const query = document.getElementById('coinInp').value.toLowerCase().trim();
+        const input = document.getElementById('coinInp').value.toLowerCase().trim();
         const res = document.getElementById('res');
+        
+        // Système de traduction des symboles pour corriger les bugs d'affichage
+        const mapping = { 
+            'btc': 'bitcoin', 
+            'eth': 'ethereum', 
+            'dot': 'polkadot', 
+            'sol': 'solana', 
+            'ada': 'cardano', 
+            'bnb': 'binancecoin',
+            'xrp': 'ripple',
+            'pepe': 'pepe',
+            'doge': 'dogecoin'
+        };
+        const query = mapping[input] || input;
+
         if(!query) return;
 
-        res.innerHTML = "<p style='color:var(--accent); font-weight:bold;'>SCANNING BLOCKCHAIN DATA...</p>";
+        res.innerHTML = "<p style='color:var(--accent); font-weight:bold;'>SYNC BLOCKCHAIN DATA...</p>";
 
         try {
-            const resp = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${query}&vs_currencies=usd&include_24hr_change=true`);
+            // Forcer la précision à 2 chiffres pour éviter les erreurs
+            const resp = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${query}&vs_currencies=usd&include_24hr_change=true&precision=2`);
             const data = await resp.json();
 
-            if(data[query]) {
+            if(data[query] && data[query].usd !== undefined) {
                 const p = data[query].usd;
                 const ch = data[query].usd_24h_change;
-                let sig = ch < -5 ? "ACHAT FORT" : (ch > 5 ? "VENTE / PRUDENCE" : "NEUTRE / HOLD");
-                let col = ch < -5 ? "#4ade80" : (ch > 5 ? "#f87171" : "#94a3b8");
+                
+                let sig = "NEUTRE / HOLD";
+                let col = "#94a3b8";
+                
+                if(ch < -5) { sig = "SIGNAL : ACHAT FORT"; col = "#4ade80"; }
+                else if(ch > 5) { sig = "SIGNAL : VENTE / PRUDENCE"; col = "#f87171"; }
 
                 res.innerHTML = `
-                    <div class="signature-text">IA crée par CryptoMan</div>
-                    <div class="price">$${p.toLocaleString()}</div>
-                    <div class="signal-box" style="background: ${col}20; color: ${col}; border: 1px solid ${col}">
-                        ${sig}
+                    <div style="margin-top:25px; border-top:1px solid rgba(255,255,255,0.1); padding-top:25px;">
+                        <div class="signature-text">IA créée par CryptoMan</div>
+                        <div class="price">$${p.toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+                        <div class="signal-box" style="background: ${col}20; color: ${col}; border: 1px solid ${col}">
+                            ${sig}
+                        </div>
+                        <p style="color: #64748b; margin-top: 15px;">Variation 24h : ${ch.toFixed(2)}%</p>
                     </div>
-                    <p style="color: #64748b; margin-top: 20px; font-size: 0.9rem;">Variation 24h : ${ch.toFixed(2)}%</p>
                 `;
             } else {
-                res.innerHTML = "<p style='color:#f87171; font-weight:bold;'>ERREUR : ACTIF INTROUVABLE DANS LE TOP 200.</p>";
+                res.innerHTML = "<p style='color:#f87171; font-weight:bold; margin-top:20px;'>ACTIF NON DÉTECTÉ.<br><span style='font-size:0.8rem; font-weight:normal;'>Essayez le nom complet (ex: polkadot)</span></p>";
             }
-        } catch(e) { res.innerHTML = "ERREUR DE RÉSEAU."; }
+        } catch(e) { 
+            res.innerHTML = "<p style='color:#f87171; margin-top:20px;'>ERREUR DE RÉSEAU.</p>"; 
+        }
     }
 </script>
 

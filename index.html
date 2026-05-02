@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | V12 Cryptomzn</title>
+    <title>PIX | Masterpiece V14</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -14,6 +14,7 @@
             --down: #ff3366;
             --border: rgba(139, 92, 246, 0.2);
             --card-bg: rgba(10, 8, 20, 0.9);
+            --gray-text: rgba(255, 255, 255, 0.4);
         }
 
         * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
@@ -25,21 +26,23 @@
             overflow-x: hidden;
         }
 
-        /* BANDEAU PRIX RALENTI */
+        /* BANDEAU PRIX ULTRA-DYNAMIC */
         .tickers-header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
-            background: rgba(3, 2, 8, 0.95); backdrop-filter: blur(20px);
+            background: rgba(3, 2, 8, 0.95); backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border);
+            height: 65px; display: flex; align-items: center;
         }
-        .ticker-row { display: flex; overflow: hidden; padding: 15px 0; }
+        .ticker-row { display: flex; overflow: hidden; width: 100%; }
         .ticker-move { 
             display: flex; 
-            animation: slide 120s linear infinite; /* VITESSE RÉDUITE ICI */
-            gap: 80px; white-space: nowrap; 
-            padding-right: 80px;
+            animation: slide 50s linear infinite;
+            gap: 60px; white-space: nowrap; 
+            padding-right: 60px;
         }
-        .t-item { font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; gap: 12px; }
-        .t-item span { color: var(--violet); }
+        .t-item { font-size: 0.85rem; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
+        .t-item span { color: var(--violet); opacity: 0.8; }
+        .trend-icon { font-size: 0.75rem; margin-left: 4px; }
         
         @keyframes slide { 
             0% { transform: translateX(0); } 
@@ -47,19 +50,20 @@
         }
 
         /* NAVIGATION */
-        nav { margin-top: 100px; display: flex; justify-content: center; gap: 30px; }
+        nav { margin-top: 110px; display: flex; justify-content: center; gap: 30px; }
         nav a { text-decoration: none; color: rgba(255,255,255,0.2); font-size: 0.65rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
         nav a:hover { color: var(--violet); }
 
-        /* HERO SECTION */
+        /* HERO */
         .hero { text-align: center; padding: 40px 20px; }
         .hero h1 { 
-            font-size: 8.5rem; font-weight: 900; margin: 0;
+            font-size: 9rem; font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff, var(--violet));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 0.8; letter-spacing: -6px;
         }
-        .tagline { color: var(--violet); letter-spacing: 5px; font-weight: 900; text-transform: uppercase; margin-top: 20px; font-size: 0.8rem; opacity: 1; }
+        .tagline { color: var(--violet); letter-spacing: 6px; font-weight: 900; text-transform: uppercase; margin-top: 25px; font-size: 0.85rem; }
+        .sub-tagline { color: var(--gray-text); font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-top: 10px; }
 
         /* GRID */
         .container { max-width: 1200px; margin: auto; padding: 0 20px 60px 20px; }
@@ -71,80 +75,77 @@
             margin-bottom: 25px;
         }
 
-        .bottom-row { display: flex; justify-content: center; width: 100%; }
-        .bottom-row .card { max-width: 650px; width: 100%; }
-
         .card {
             background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 40px; padding: 40px; text-align: center;
-            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            border-radius: 40px; padding: 45px; text-align: center;
+            box-shadow: 0 30px 70px rgba(0,0,0,0.7);
             display: flex; flex-direction: column;
-            backdrop-filter: blur(15px);
+            backdrop-filter: blur(20px);
         }
-        h3 { text-transform: uppercase; letter-spacing: 6px; font-size: 0.9rem; margin-bottom: 30px; font-weight: 900; color: rgba(255,255,255,0.8); }
+        h3 { text-transform: uppercase; letter-spacing: 6px; font-size: 0.95rem; margin-bottom: 35px; font-weight: 900; color: rgba(255,255,255,0.8); }
 
         input {
             width: 100%; background: #000; border: 1px solid var(--border);
-            padding: 20px; border-radius: 20px; color: white; font-family: inherit;
-            font-size: 1.1rem; text-align: center; outline: none; font-weight: 800;
-            margin-bottom: 15px; text-transform: uppercase;
+            padding: 22px; border-radius: 20px; color: white; font-family: inherit;
+            font-size: 1.2rem; text-align: center; outline: none; font-weight: 800;
+            margin-bottom: 18px; text-transform: uppercase;
         }
         .btn {
-            width: 100%; padding: 20px; border-radius: 20px; border: none;
+            width: 100%; padding: 22px; border-radius: 20px; border: none;
             font-weight: 900; font-size: 0.85rem; cursor: pointer;
             text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
         }
         .btn-white { background: #fff; color: #000; }
-        .btn-violet { background: var(--violet); color: #fff; box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4); }
+        .btn-violet { background: var(--violet); color: #fff; box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
 
         .res-display {
-            background: rgba(0,0,0,0.5); border-radius: 25px; padding: 30px;
-            min-height: 220px; display: flex; flex-direction: column;
+            background: rgba(0,0,0,0.6); border-radius: 25px; padding: 35px;
+            min-height: 250px; display: flex; flex-direction: column;
             justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.03);
         }
 
-        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 100%; margin-top: 15px; }
-        .stat-box { background: rgba(255,255,255,0.02); padding: 15px; border-radius: 18px; border: 1px solid rgba(255,255,255,0.05); }
-        .stat-head { font-size: 0.6rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 800; margin-bottom: 5px; }
-        .stat-body { font-size: 1rem; font-weight: 900; }
+        .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; margin-top: 20px; }
+        .stat-box { background: rgba(255,255,255,0.02); padding: 18px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
+        .stat-head { font-size: 0.65rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; }
+        .stat-body { font-size: 1.1rem; font-weight: 900; }
 
         .risk-circle {
-            width: 100px; height: 100px; border-radius: 50%; border: 7px solid;
+            width: 120px; height: 120px; border-radius: 50%; border: 8px solid;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px; transition: border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .risk-val { font-size: 2rem; font-weight: 900; }
+        .risk-val { font-size: 2.5rem; font-weight: 900; }
 
-        .academy-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 25px; }
+        /* ACADEMY */
+        .academy-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
         .lvl-btn {
-            padding: 15px 5px; border-radius: 15px; border: 1px solid var(--border);
-            background: rgba(255,255,255,0.03); cursor: pointer; font-size: 0.55rem;
-            font-weight: 900; text-transform: uppercase; color: rgba(255,255,255,0.5);
+            padding: 18px 5px; border-radius: 18px; border: 1px solid var(--border);
+            background: rgba(255,255,255,0.03); cursor: pointer; font-size: 0.6rem;
+            font-weight: 900; text-transform: uppercase; color: rgba(255,255,255,0.4);
         }
-        .lvl-btn.active { background: var(--violet); color: white; border-color: var(--violet); box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4); }
+        .lvl-btn.active { background: var(--violet); color: white; border-color: var(--violet); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4); }
 
-        /* FOOTER & CRYPTOMZN */
         .creator-tag {
-            text-align: center; margin-top: 40px; font-weight: 900;
-            font-size: 0.8rem; letter-spacing: 4px; color: #fff;
+            text-align: center; margin-top: 60px; font-weight: 900;
+            font-size: 0.9rem; letter-spacing: 5px; color: #fff;
             text-transform: uppercase;
         }
         .disclaimer-box { 
-            max-width: 800px; margin: 20px auto 0; padding: 25px; 
+            max-width: 900px; margin: 30px auto 0; padding: 30px; 
             text-align: center; border-top: 1px solid rgba(255,255,255,0.05); 
         }
         .disclaimer-text { 
-            font-size: 0.55rem; color: rgba(255,255,255,0.2); 
+            font-size: 0.6rem; color: rgba(255,255,255,0.15); 
             text-transform: uppercase; font-weight: 700; 
-            line-height: 1.8; letter-spacing: 1px;
+            line-height: 1.8; letter-spacing: 1.5px;
         }
 
         .up { color: var(--up); }
         .down { color: var(--down); }
-        .loader { width: 35px; height: 35px; border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        .loader { width: 40px; height: 40px; border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        footer { text-align: center; padding: 40px; color: rgba(255,255,255,0.03); font-size: 0.5rem; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
+        footer { text-align: center; padding: 50px; color: rgba(255,255,255,0.02); font-size: 0.5rem; letter-spacing: 6px; font-weight: 900; text-transform: uppercase; }
     </style>
 </head>
 <body>
@@ -152,45 +153,46 @@
 <div class="tickers-header">
     <div class="ticker-row">
         <div class="ticker-move" id="tick1">
-            <!-- Injecté par JS -->
+            <span style="padding-left:100px; font-weight:900; opacity:0.3; letter-spacing:5px;">SYNCHRONISATION DES MARCHÉS...</span>
         </div>
     </div>
 </div>
 
 <nav>
-    <a href="#market">TERMINAL</a>
-    <a href="#ai">RISQUE</a>
-    <a href="#academy">ÉDUCATION</a>
+    <a href="#market">TERMINAL LIVE</a>
+    <a href="#ai">ANALYSE IA</a>
+    <a href="#academy">ACADÉMIE</a>
 </nav>
 
 <div class="hero">
     <h1>PIX</h1>
-    <div class="tagline">INTELLIGENCE ARTIFICIELLE & FORMATION</div>
+    <div class="tagline">INTELLIGENCE ANALYTIQUE SUPRÊME</div>
+    <div class="sub-tagline">IA conçue par CryptoMan</div>
 </div>
 
 <div class="container">
     <div class="top-grid">
         <div class="card" id="market">
-            <h3>TERMINAL LIVE</h3>
-            <input type="text" id="mktInp" placeholder="BTC, ETH, SOL..." value="BTC">
-            <button class="btn btn-white" onclick="getMarketData()">ACTUALISER LE SIGNAL</button>
+            <h3>TERMINAL DE SIGNAL</h3>
+            <input type="text" id="mktInp" placeholder="SYMBOLE (BTC, SOL...)" value="BTC">
+            <button class="btn btn-white" onclick="getMarketData()">LANCER LA REQUÊTE</button>
             <div id="mktRes" class="res-display">
-                <span style="opacity:0.2; font-size:0.7rem; font-weight:800; letter-spacing:2px;">EN ATTENTE DE SYMBOLE</span>
+                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">EN ATTENTE DE COMMANDE</span>
             </div>
         </div>
 
         <div class="card" id="ai">
-            <h3>ANALYSE DE RISQUE</h3>
-            <input type="text" id="aiInp" placeholder="TOKEN (ex: DOT, SOL...)" value="DOT">
-            <button class="btn btn-violet" onclick="getRiskAnalyse()">SCANNER LE TOKEN</button>
+            <h3>SCORE DE RISQUE IA</h3>
+            <input type="text" id="aiInp" placeholder="JETON (DOT, LINK...)" value="DOT">
+            <button class="btn btn-violet" onclick="getRiskAnalyse()">ANALYSER LE PROFIL</button>
             <div id="aiRes" class="res-display">
-                <span style="opacity:0.2; font-size:0.7rem; font-weight:800; letter-spacing:2px;">ANALYSEUR IA V12</span>
+                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">ALGORITHME V14 ACTIF</span>
             </div>
         </div>
     </div>
 
-    <div class="bottom-row">
-        <div class="card" id="academy">
+    <div style="display: flex; justify-content: center;">
+        <div class="card" id="academy" style="max-width: 800px; width: 100%;">
             <h3>PIXELISÉE ACADÉMIE</h3>
             <div class="academy-options">
                 <div class="lvl-btn active" onclick="setLvl(this, 'debutant')">Débutant</div>
@@ -198,37 +200,26 @@
                 <div class="lvl-btn" onclick="setLvl(this, 'intermediaire')">Intermédiaire</div>
                 <div class="lvl-btn" onclick="setLvl(this, 'expert')">Expert</div>
             </div>
-            <button class="btn btn-white" onclick="getAcademyContent()">CHARGER LE MODULE</button>
+            <button class="btn btn-white" onclick="getAcademyContent()">DÉVERROUILLER LE SAVOIR</button>
             <div id="acaRes" class="res-display">
-                <span style="opacity:0.2; font-size:0.7rem; font-weight:800; letter-spacing:2px;">SÉLECTIONNE TON RANG</span>
+                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">SÉLECTIONNE TON NIVEAU</span>
             </div>
         </div>
     </div>
 
-    <div class="creator-tag">IA CRÉÉE PAR CRYPTOMZN</div>
+    <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN</div>
 
     <div class="disclaimer-box">
         <div class="disclaimer-text">
-            PIX EST UN OUTIL D'ANALYSE ET D'INFORMATION UNIQUEMENT. LES DONNÉES FOURNIES NE CONSTITUENT EN AUCUN CAS DES CONSEILS EN INVESTISSEMENT, DES RECOMMANDATIONS FINANCIÈRES OU DES INCITATIONS À LA SPÉCULATION. LE MARCHÉ DES CRYPTO-ACTIFS EST SOUMIS À UNE VOLATILITÉ EXTRÊME. VOUS ÊTES SEUL RESPONSABLE DE VOS DÉCISIONS FINANCIÈRES. PIX DÉCLINE TOUTE RESPONSABILITÉ EN CAS DE PERTE DE CAPITAL LIÉE À L'UTILISATION DE CETTE PLATEFORME.
+            PIX EST UN LOGICIEL D'ANALYSE PROBABILISTE. TOUTE INFORMATION AFFICHÉE NE DOIT PAS ÊTRE CONSIDÉRÉE COMME UN CONSEIL FINANCIER. LE TRADING DE CRYPTO-MONNAIES COMPORTE DES RISQUES ÉLEVÉS DE PERTE EN CAPITAL. CRYPTOMAN ET PIX NE SONT PAS RESPONSABLES DE VOS RÉSULTATS. FAITES TOUJOURS VOS PROPRES RECHERCHES (DYOR).
         </div>
     </div>
 </div>
 
-<footer>SYSTÈME PIX PROPRIÉTAIRE © 2026</footer>
+<footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
 <script>
-    // Base de données locale de secours + aide à la détection des tokens
-    const backupData = [
-        { name: "Bitcoin", symbol: "btc", id: "bitcoin", current_price: 63500.50, price_change_percentage_24h: 1.5, market_cap: 1200000000000, total_volume: 35000000000, ath_change_percentage: -12 },
-        { name: "Ethereum", symbol: "eth", id: "ethereum", current_price: 3340.20, price_change_percentage_24h: -0.8, market_cap: 400000000000, total_volume: 18000000000, ath_change_percentage: -30 },
-        { name: "Solana", symbol: "sol", id: "solana", current_price: 138.45, price_change_percentage_24h: 3.2, market_cap: 62000000000, total_volume: 4500000000, ath_change_percentage: -48 },
-        { name: "Polkadot", symbol: "dot", id: "polkadot", current_price: 7.15, price_change_percentage_24h: -1.2, market_cap: 10000000000, total_volume: 200000000, ath_change_percentage: -87 },
-        { name: "Pepe", symbol: "pepe", id: "pepe", current_price: 0.0000084, price_change_percentage_24h: 15.4, market_cap: 3500000000, total_volume: 900000000, ath_change_percentage: -10 },
-        { name: "Cardano", symbol: "ada", id: "cardano", current_price: 0.45, price_change_percentage_24h: 0.5, market_cap: 16000000000, total_volume: 300000000, ath_change_percentage: -85 },
-        { name: "Ripple", symbol: "xrp", id: "ripple", current_price: 0.51, price_change_percentage_24h: -0.2, market_cap: 28000000000, total_volume: 1000000000, ath_change_percentage: -80 }
-    ];
-
-    let globalData = [...backupData];
+    let globalData = [];
     let currentLvl = 'debutant';
 
     function setLvl(el, lvl) {
@@ -239,44 +230,39 @@
 
     function formatVal(num) {
         if (!num) return "0";
-        if (num >= 1e12) return (num / 1e12).toFixed(1) + 'T';
-        if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
-        if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+        if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
+        if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+        if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
         return num.toLocaleString();
     }
 
-    async function init() {
+    async function fetchData() {
         try {
-            const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1');
-            if (!r.ok) throw new Error('API limit');
+            const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false');
             const data = await r.json();
-            if(data && data.length > 0) globalData = data;
-            updateTickers();
-        } catch(e) { 
-            console.warn("PIX: Données locales activées");
-            updateTickers();
-        }
+            if (data && data.length > 0) {
+                globalData = data;
+                updateTickers();
+            }
+        } catch(e) { console.error("Data Sync Error:", e); }
     }
 
     function updateTickers() {
-        let t1 = "";
-        // On prend les 15 premiers pour le bandeau
+        let tContent = "";
         globalData.slice(0, 15).forEach(c => {
             const price = c.current_price < 1 ? c.current_price.toFixed(4) : c.current_price.toLocaleString();
             const change = (c.price_change_percentage_24h || 0);
-            const arrow = change >= 0 ? '↑' : '↓';
             const colorClass = change >= 0 ? 'up' : 'down';
-            
-            t1 += `
+            const icon = change >= 0 ? '▲' : '▼';
+            tContent += `
                 <div class="t-item">
                     <span>${c.symbol.toUpperCase()}</span> 
-                    <b class="${colorClass}">$${price} ${arrow}</b>
+                    <b class="${colorClass}">$${price} <i class="trend-icon">${icon}</i></b>
                 </div>`;
         });
-        document.getElementById('tick1').innerHTML = t1 + t1;
+        document.getElementById('tick1').innerHTML = tContent + tContent;
     }
 
-    // Fonction de recherche améliorée pour trouver par symbole ou ID
     function findCoin(query) {
         const q = query.toLowerCase().trim();
         return globalData.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
@@ -287,24 +273,23 @@
         const res = document.getElementById('mktRes');
         res.innerHTML = '<div class="loader"></div>';
         
-        await new Promise(r => setTimeout(r, 600));
         const coin = findCoin(val);
-        
         if (!coin) {
-            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON NON TROUVÉ</span>';
+            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON INTRUVABLE</span>';
             return;
         }
 
         const price = coin.current_price < 0.01 ? coin.current_price.toFixed(8) : coin.current_price.toLocaleString();
+        const icon = coin.price_change_percentage_24h >= 0 ? '▲' : '▼';
 
         res.innerHTML = `
-            <div style="font-size:0.6rem; color:var(--violet); font-weight:900; letter-spacing:3px; margin-bottom:8px;">FLUX LIVE: ${coin.name.toUpperCase()}</div>
-            <div style="font-size:2.8rem; font-weight:900; letter-spacing:-2px;">$${price}</div>
+            <div style="font-size:0.65rem; color:var(--violet); font-weight:900; letter-spacing:4px; margin-bottom:10px;">FLUX SÉCURISÉ : ${coin.name.toUpperCase()}</div>
+            <div style="font-size:3.2rem; font-weight:900; letter-spacing:-3px;">$${price}</div>
             <div class="market-grid">
-                <div class="stat-box"><div class="stat-head">Capitalisation</div><div class="stat-body">$${formatVal(coin.market_cap)}</div></div>
-                <div class="stat-box"><div class="stat-head">Vol 24h</div><div class="stat-body">$${formatVal(coin.total_volume)}</div></div>
-                <div class="stat-box"><div class="stat-head">Variation</div><div class="stat-body ${coin.price_change_percentage_24h >= 0 ? 'up':'down'}">${coin.price_change_percentage_24h.toFixed(2)}%</div></div>
-                <div class="stat-box"><div class="stat-head">Signal ATH</div><div class="stat-body" style="opacity:0.6;">${coin.ath_change_percentage ? coin.ath_change_percentage.toFixed(0) : '--'}%</div></div>
+                <div class="stat-box"><div class="stat-head">Market Cap</div><div class="stat-body">$${formatVal(coin.market_cap)}</div></div>
+                <div class="stat-box"><div class="stat-head">Volume 24h</div><div class="stat-body">$${formatVal(coin.total_volume)}</div></div>
+                <div class="stat-box"><div class="stat-head">Évolution</div><div class="stat-body ${coin.price_change_percentage_24h >= 0 ? 'up':'down'}">${icon} ${Math.abs(coin.price_change_percentage_24h).toFixed(2)}%</div></div>
+                <div class="stat-box"><div class="stat-head">Rang</div><div class="stat-body">#${coin.market_cap_rank}</div></div>
             </div>
         `;
     }
@@ -314,34 +299,55 @@
         const res = document.getElementById('aiRes');
         res.innerHTML = '<div class="loader"></div>';
 
-        await new Promise(r => setTimeout(r, 1000));
+        await new Promise(r => setTimeout(r, 1200));
         const coin = findCoin(val);
         
         if (!coin) {
-            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">ANALYSE IMPOSSIBLE</span>';
+            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">CIBLE INCONNUE</span>';
             return;
         }
 
-        let risk = 5.0;
-        const mcap = coin.market_cap || 0;
+        let riskScore;
+        const symbol = coin.symbol.toLowerCase();
         
-        if (coin.symbol === 'btc' || coin.symbol === 'eth') risk = 1.2;
-        else if (mcap > 1e10) risk = 3.5;
-        else if (mcap < 5e8) risk = 8.9;
-        else risk = 4.5 + (Math.random() * 3);
+        // ALGORITHME DE RISQUE IA V14 PAR CRYPTOMAN
+        if (symbol === 'btc') {
+            riskScore = (1.2 + (Math.random() * 0.3)).toFixed(1);
+        } else if (symbol === 'eth') {
+            riskScore = (2.1 + (Math.random() * 0.4)).toFixed(1);
+        } else {
+            // Logique intelligente pour Alts
+            const mcap = coin.market_cap || 1e8;
+            const vol = coin.total_volume || 1e7;
+            const change = Math.abs(coin.price_change_percentage_24h || 5);
+            
+            // 1. Facteur Cap (Plus c'est petit, plus c'est risqué)
+            let capFactor = 10 - (Math.log10(mcap) / 1.1);
+            
+            // 2. Facteur Liquidité (Volume / Cap) - Si volume faible par rapport au cap = danger
+            let liqRatio = vol / mcap;
+            let liqFactor = liqRatio < 0.05 ? 1.5 : (liqRatio < 0.1 ? 0.5 : -0.5);
+            
+            // 3. Facteur Volatilité 24h
+            let volFactor = change / 4; 
+            
+            riskScore = capFactor + liqFactor + volFactor;
+            
+            // Protection : Les Alts oscillent désormais de façon intelligente entre ~5.4 et 9.8
+            riskScore = Math.max(5.4, Math.min(9.8, riskScore)).toFixed(1);
+        }
 
-        risk = Math.min(risk, 10).toFixed(1);
-        let color = risk < 3 ? 'var(--up)' : (risk < 7 ? 'var(--primary)' : 'var(--down)');
-        let status = risk < 3 ? 'FAIBLE RISQUE' : (risk < 7 ? 'RISQUE MODÉRÉ' : 'HAUT RISQUE');
+        let color = riskScore < 3 ? 'var(--up)' : (riskScore < 6.5 ? 'var(--primary)' : 'var(--down)');
+        let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
 
         res.innerHTML = `
             <div class="risk-circle" style="border-color:${color}; color:${color}">
-                <div class="risk-val">${risk}</div>
-                <div style="font-size:0.45rem; font-weight:900; letter-spacing:1px;">INDICE</div>
+                <div class="risk-val">${riskScore}</div>
+                <div style="font-size:0.5rem; font-weight:900; letter-spacing:1px; opacity:0.6;">MAX 10</div>
             </div>
-            <div style="font-weight:900; letter-spacing:4px; font-size:1rem; color:${color}">${status}</div>
-            <div style="font-size:0.65rem; opacity:0.7; margin-top:20px; font-weight:600; line-height:1.6; max-width:320px;">
-                ANALYSE CRYPTOMZN : Le jeton ${coin.name} (${coin.symbol.toUpperCase()}) présente un score de ${risk}/10 basé sur sa liquidité et son volume actuel. ${risk > 7 ? 'Attention aux manipulations de marché.' : 'Configuration saine pour du long terme.'}
+            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${color}">${status}</div>
+            <div style="font-size:0.7rem; opacity:0.8; margin-top:22px; font-weight:600; line-height:1.7; max-width:340px; text-align:center;">
+                <b style="color:${color}">NOTE IA :</b> ${riskScore >= 7.5 ? "Attention : La liquidité est instable. Le risque de manipulation ou de dump est critique." : "Structure de marché relativement saine malgré la volatilité inhérente aux alts."}
             </div>
         `;
     }
@@ -352,17 +358,19 @@
 
         setTimeout(() => {
             const lessons = {
-                debutant: "MODULE 01 : Fondamentaux. La Blockchain est un registre immuable. Apprenez à sécuriser vos accès avant de déposer le moindre centime sur un exchange.",
-                amateur: "MODULE 02 : Graphiques. Le RSI et les Moyennes Mobiles sont vos meilleurs amis. Identifiez la tendance globale avant de chercher un point d'entrée.",
-                intermediaire: "MODULE 03 : Stratégie. Le DCA (Dollar Cost Averaging) bat 90% des traders. La patience est la compétence la plus rémunératrice en crypto.",
-                expert: "MODULE 04 : On-Chain & DeFi. Apprenez à lire les contrats intelligents sur Etherscan et à repérer les 'Rugpulls' avant qu'ils ne se produisent."
+                debutant: "PIX : LES BASES. Comprenez la différence entre un Wallet Centralisé (CEX) et Décentralisé (DEX). Règle d'or : Vos clés, vos Bitcoins.",
+                amateur: "PIX : STRATÉGIE. Apprenez le DCA (Dollar Cost Averaging). Acheter régulièrement lisse la volatilité et réduit le stress émotionnel.",
+                intermediaire: "PIX : PSYCHOLOGIE. Le marché est un transfert d'argent de l'impatient vers le patient. Apprenez à gérer le FOMO et le FUD.",
+                expert: "PIX : MAÎTRISE. Analyse des carnets d'ordres et de la profondeur de marché. Utilisez les indicateurs RSI et MACD pour confirmer vos entrées."
             };
-            res.innerHTML = `<div style="font-size:0.85rem; font-weight:600; line-height:1.8; color:rgba(255,255,255,0.9); padding:0 15px;">${lessons[currentLvl]}</div>`;
-        }, 700);
+            res.innerHTML = `<div style="font-size:0.95rem; font-weight:600; line-height:1.9; color:rgba(255,255,255,0.95); padding:0 20px; text-align:center;">${lessons[currentLvl]}</div>`;
+        }, 800);
     }
 
-    window.onload = init;
-    setInterval(init, 60000); // Mise à jour douce toutes les minutes
+    window.onload = () => {
+        fetchData();
+        setInterval(fetchData, 30000);
+    };
 </script>
 
 </body>

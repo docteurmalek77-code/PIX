@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIX | Masterpiece V15</title>
+    <title>PIX | Masterpiece V17</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -114,7 +114,7 @@
         .timer-val { font-size: 2.2rem; font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
         .timer-label { font-size: 0.5rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-text); margin-top: 5px; }
 
-        /* --- TOP 10 MODULE --- */
+        /* --- TOP 10 MODULE AMÉLIORÉ --- */
         .top10-section {
             max-width: 1160px; margin: 0 auto 40px; padding: 0 20px;
         }
@@ -125,28 +125,46 @@
         .top10-header {
             display: flex; justify-content: space-between; align-items: center;
             margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.05);
-            padding-bottom: 15px;
+            padding-bottom: 15px; flex-wrap: wrap; gap: 15px;
         }
-        .top10-title { font-weight: 900; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; color: var(--up); }
+        .top10-title { font-weight: 900; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; color: #fff; }
         
+        /* Sélecteur d'onglet */
+        .perf-toggle { display: flex; background: rgba(0,0,0,0.4); padding: 5px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
+        .toggle-btn { 
+            padding: 10px 18px; border-radius: 10px; border: none; background: transparent;
+            color: var(--gray-text); font-weight: 900; font-size: 0.6rem; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .toggle-btn.active.gainers { background: var(--up); color: #000; }
+        .toggle-btn.active.losers { background: var(--down); color: #fff; }
+
         .perf-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
             gap: 15px;
         }
         .perf-item {
             background: rgba(255,255,255,0.03);
-            border-radius: 20px; padding: 15px 20px;
+            border-radius: 20px; padding: 18px 22px;
             display: flex; justify-content: space-between; align-items: center;
             border: 1px solid rgba(255,255,255,0.02);
             position: relative; overflow: hidden;
         }
-        .perf-item:hover { background: rgba(0, 255, 163, 0.05); border-color: var(--up); transform: translateY(-3px); }
+        .perf-item.up-item:hover { background: rgba(0, 255, 163, 0.05); border-color: var(--up); transform: translateY(-3px); }
+        .perf-item.down-item:hover { background: rgba(255, 51, 102, 0.05); border-color: var(--down); transform: translateY(-3px); }
+        
         .perf-info { display: flex; flex-direction: column; }
-        .perf-rank { position: absolute; left: 8px; top: 4px; font-size: 0.5rem; font-weight: 900; color: var(--up); opacity: 0.5; }
-        .perf-name { font-weight: 900; font-size: 0.85rem; letter-spacing: 1px; }
+        .perf-rank { position: absolute; left: 8px; top: 4px; font-size: 0.5rem; font-weight: 900; opacity: 0.5; }
+        .up-item .perf-rank { color: var(--up); }
+        .down-item .perf-rank { color: var(--down); }
+        
+        .perf-name { font-weight: 900; font-size: 0.9rem; letter-spacing: 1px; }
         .perf-price { font-size: 0.7rem; color: var(--gray-text); font-weight: 600; margin-top: 2px; }
-        .perf-pct { font-weight: 900; font-size: 1.1rem; color: var(--up); text-shadow: 0 0 10px rgba(0, 255, 163, 0.3); }
+        .perf-pct { font-weight: 900; font-size: 1.15rem; }
+        
+        /* Petite barre de force sous l'item */
+        .perf-bar { position: absolute; bottom: 0; left: 0; height: 3px; width: 0%; transition: width 1s ease; }
 
         /* GRID TERMINAL */
         .container { max-width: 1200px; margin: auto; padding: 0 20px 60px 20px; }
@@ -238,6 +256,7 @@
         @media (max-width: 768px) {
             .halving-card { grid-template-columns: 1fr; text-align: center; }
             .perf-grid { grid-template-columns: 1fr 1fr; }
+            .top10-header { justify-content: center; }
         }
     </style>
 </head>
@@ -283,14 +302,17 @@
     </div>
 </div>
 
+<!-- MODULE TOP 10 AVEC SÉLECTEUR -->
 <div class="top10-section" id="top10">
     <div class="top10-card">
         <div class="top10-header">
-            <div class="top10-title">TOP 10 PERFORMEURS (24H)</div>
-            <div style="font-size: 0.6rem; font-weight: 900; letter-spacing: 2px; color: var(--gray-text);">SÉLECTION TOP 100 MCAP</div>
+            <div class="top10-title">RADAR PERFORMANCE (24H)</div>
+            <div class="perf-toggle">
+                <button class="toggle-btn active gainers" onclick="setPerfMode('gainers')">Top Gainers</button>
+                <button class="toggle-btn losers" onclick="setPerfMode('losers')">Top Losers</button>
+            </div>
         </div>
         <div class="perf-grid" id="perfGrid">
-            <!-- Injecté par JS -->
             <div class="loader"></div>
         </div>
     </div>
@@ -346,6 +368,9 @@
 
 <script>
     const HALVING_DATE = new Date("April 17, 2028 00:00:00").getTime();
+    let globalData = [];
+    let currentLvl = 'debutant';
+    let perfMode = 'gainers'; // 'gainers' ou 'losers'
 
     function updateHalving() {
         const now = Date.now();
@@ -364,26 +389,17 @@
         document.getElementById("h-secs").innerText = s.toString().padStart(2, '0');
     }
 
-    const FALLBACK_DATA = [
-        {id: "bitcoin", symbol: "btc", name: "Bitcoin", current_price: 63450, market_cap: 1200000000000, total_volume: 35000000000, price_change_percentage_24h: 1.2, market_cap_rank: 1},
-        {id: "ethereum", symbol: "eth", name: "Ethereum", current_price: 3120, market_cap: 375000000000, total_volume: 15000000000, price_change_percentage_24h: -0.5, market_cap_rank: 2},
-        {id: "solana", symbol: "sol", name: "Solana", current_price: 145, market_cap: 65000000000, total_volume: 4000000000, price_change_percentage_24h: 4.8, market_cap_rank: 5},
-        {id: "pepe", symbol: "pepe", name: "Pepe", current_price: 0.000008, market_cap: 3500000000, total_volume: 1200000000, price_change_percentage_24h: 15.4, market_cap_rank: 35},
-        {id: "dogwifhat", symbol: "wif", name: "Dogwifhat", current_price: 2.8, market_cap: 2800000000, total_volume: 800000000, price_change_percentage_24h: 12.1, market_cap_rank: 45},
-        {id: "bonk", symbol: "bonk", name: "Bonk", current_price: 0.000025, market_cap: 1500000000, total_volume: 400000000, price_change_percentage_24h: 9.8, market_cap_rank: 60},
-        {id: "render-token", symbol: "render", name: "Render", current_price: 8.5, market_cap: 3200000000, total_volume: 300000000, price_change_percentage_24h: 7.2, market_cap_rank: 30},
-        {id: "fet", symbol: "fet", name: "Fetch.ai", current_price: 2.1, market_cap: 2100000000, total_volume: 250000000, price_change_percentage_24h: 6.5, market_cap_rank: 55},
-        {id: "ondo", symbol: "ondo", name: "Ondo Finance", current_price: 0.85, market_cap: 1200000000, total_volume: 180000000, price_change_percentage_24h: 5.9, market_cap_rank: 85},
-        {id: "pendle", symbol: "pendle", name: "Pendle", current_price: 5.4, market_cap: 1300000000, total_volume: 150000000, price_change_percentage_24h: 5.2, market_cap_rank: 82}
-    ];
-
-    let globalData = FALLBACK_DATA; 
-    let currentLvl = 'debutant';
-
     function setLvl(el, lvl) {
         document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
         el.classList.add('active');
         currentLvl = lvl;
+    }
+
+    function setPerfMode(mode) {
+        perfMode = mode;
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.toggle-btn.${mode}`).classList.add('active');
+        updateTop10();
     }
 
     function formatVal(num) {
@@ -396,13 +412,8 @@
 
     async function fetchData(retries = 3) {
         try {
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000); 
-            const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false', {
-                signal: controller.signal
-            });
-            clearTimeout(timeoutId);
-            if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+            const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+            if (!r.ok) throw new Error();
             const data = await r.json();
             if (data && data.length > 0) {
                 globalData = data;
@@ -410,7 +421,6 @@
             }
         } catch(e) { 
             if (retries > 0) setTimeout(() => fetchData(retries - 1), 3000);
-            else updateUI();
         }
     }
 
@@ -421,8 +431,8 @@
 
     function updateTickers() {
         let tContent = "";
-        const dataToUse = globalData.length > 0 ? globalData : FALLBACK_DATA;
-        dataToUse.slice(0, 15).forEach(c => {
+        if (!globalData.length) return;
+        globalData.slice(0, 15).forEach(c => {
             const price = c.current_price < 1 ? c.current_price.toFixed(4) : c.current_price.toLocaleString();
             const change = (c.price_change_percentage_24h || 0);
             const colorClass = change >= 0 ? 'up' : 'down';
@@ -438,22 +448,34 @@
 
     function updateTop10() {
         const grid = document.getElementById('perfGrid');
-        // On trie par performance descendante
-        const sorted = [...globalData].sort((a, b) => (b.price_change_percentage_24h || 0) - (a.price_change_percentage_24h || 0));
+        if (!globalData.length) return;
+
+        let sorted = [...globalData].sort((a, b) => {
+            const valA = a.price_change_percentage_24h || 0;
+            const valB = b.price_change_percentage_24h || 0;
+            return perfMode === 'gainers' ? valB - valA : valA - valB;
+        });
+
         const top10 = sorted.slice(0, 10);
+        const maxChange = Math.max(...top10.map(c => Math.abs(c.price_change_percentage_24h || 0)));
 
         let html = "";
         top10.forEach((c, index) => {
-            const change = (c.price_change_percentage_24h || 0).toFixed(1);
+            const rawChange = c.price_change_percentage_24h || 0;
+            const change = rawChange.toFixed(1);
             const price = c.current_price < 0.1 ? c.current_price.toFixed(5) : c.current_price.toFixed(2);
+            const barWidth = Math.min(100, (Math.abs(rawChange) / maxChange) * 100);
+            const isUp = rawChange >= 0;
+
             html += `
-                <div class="perf-item">
+                <div class="perf-item ${isUp ? 'up-item' : 'down-item'}">
                     <div class="perf-rank">#${index + 1}</div>
                     <div class="perf-info">
                         <div class="perf-name">${c.symbol.toUpperCase()}</div>
                         <div class="perf-price">$${price}</div>
                     </div>
-                    <div class="perf-pct">+${change}%</div>
+                    <div class="perf-pct ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}${change}%</div>
+                    <div class="perf-bar" style="width: ${barWidth}%; background: ${isUp ? 'var(--up)' : 'var(--down)'}; opacity: 0.3;"></div>
                 </div>`;
         });
         grid.innerHTML = html;
@@ -461,8 +483,7 @@
 
     function findCoin(query) {
         const q = query.toLowerCase().trim();
-        const dataToUse = globalData.length > 0 ? globalData : FALLBACK_DATA;
-        return dataToUse.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
+        return globalData.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
     }
 
     async function getMarketData() {
@@ -515,17 +536,11 @@
         let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
         
         let aiNote = "";
-        if (riskScore < 3) {
-            aiNote = "Actif institutionnel à haute dominance. Structure de prix extrêmement robuste. Risque de liquidation systémique quasi nul sur court terme. Idéal pour stockage de valeur.";
-        } else if (riskScore < 5) {
-            aiNote = "Projet majeur avec liquidité profonde. Supporte bien les corrections de marché. Volatilité présente mais prévisible via analyse technique standard.";
-        } else if (riskScore < 7) {
-            aiNote = "Actif spéculatif à volatilité moyenne. Corrélation forte avec les mouvements du BTC. Risque de décrochage rapide en cas de panique vendeuse. Gestion de stop-loss recommandée.";
-        } else if (riskScore < 8.5) {
-            aiNote = "Risque de volatilité extrême. Liquidité fragile sur les carnets d'ordres. Susceptible de manipulations de type 'pump & dump'. Ne pas s'exposer à plus de 5% du capital.";
-        } else {
-            aiNote = "DANGER CRITIQUE : Micro-cap ou instabilité technique majeure détectée. Probabilité de perte totale du capital élevée. Sortie de position conseillée si profit réalisé.";
-        }
+        if (riskScore < 3) aiNote = "Actif institutionnel à haute dominance. Structure de prix extrêmement robuste. Risque de liquidation systémique quasi nul sur court terme. Idéal pour stockage de valeur.";
+        else if (riskScore < 5) aiNote = "Projet majeur avec liquidité profonde. Supporte bien les corrections de marché. Volatilité présente mais prévisible via analyse technique standard.";
+        else if (riskScore < 7) aiNote = "Actif spéculatif à volatilité moyenne. Corrélation forte avec les mouvements du BTC. Risque de décrochage rapide en cas de panique vendeuse. Gestion de stop-loss recommandée.";
+        else if (riskScore < 8.5) aiNote = "Risque de volatilité extrême. Liquidité fragile sur les carnets d'ordres. Susceptible de manipulations de type 'pump & dump'. Ne pas s'exposer à plus de 5% du capital.";
+        else aiNote = "DANGER CRITIQUE : Micro-cap ou instabilité technique majeure détectée. Probabilité de perte totale du capital élevée. Sortie de position conseillée si profit réalisé.";
 
         res.innerHTML = `
             <div class="risk-circle" style="border-color:${color}; box-shadow: inset 0 0 15px ${color}, 0 0 15px ${color}44;">
@@ -552,10 +567,9 @@
     }
 
     window.onload = () => {
-        updateUI();
         fetchData();
         setInterval(updateHalving, 1000);
-        setInterval(fetchData, 60000); // Rafraîchissement auto toutes les minutes
+        setInterval(fetchData, 60000);
         updateHalving();
     };
 </script>

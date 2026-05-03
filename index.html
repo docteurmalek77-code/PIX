@@ -297,11 +297,25 @@
 <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
 <script>
-    const SIMULATED_NOW = new Date("May 3, 2026 14:13:00").getTime();
-    const REAL_START = Date.now();
     const HALVING_DATE = new Date("April 17, 2028 00:00:00").getTime();
 
-    // Fallback data if API fails
+    function updateHalving() {
+        const now = Date.now();
+        const diff = HALVING_DATE - now;
+        if (diff <= 0) {
+            document.querySelectorAll(".timer-val").forEach(el => el.innerText = "00");
+            return;
+        }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById("h-days").innerText = d;
+        document.getElementById("h-hours").innerText = h.toString().padStart(2, '0');
+        document.getElementById("h-mins").innerText = m.toString().padStart(2, '0');
+        document.getElementById("h-secs").innerText = s.toString().padStart(2, '0');
+    }
+
     const FALLBACK_DATA = [
         {id: "bitcoin", symbol: "btc", name: "Bitcoin", current_price: 63450, market_cap: 1200000000000, total_volume: 35000000000, price_change_percentage_24h: 1.2, market_cap_rank: 1},
         {id: "ethereum", symbol: "eth", name: "Ethereum", current_price: 3120, market_cap: 375000000000, total_volume: 15000000000, price_change_percentage_24h: -0.5, market_cap_rank: 2},
@@ -309,23 +323,7 @@
         {id: "polkadot", symbol: "dot", name: "Polkadot", current_price: 7.20, market_cap: 10000000000, total_volume: 200000000, price_change_percentage_24h: -2.1, market_cap_rank: 15}
     ];
 
-    function updateHalving() {
-        const elapsed = Date.now() - REAL_START;
-        const now = SIMULATED_NOW + elapsed;
-        const diff = HALVING_DATE - now;
-
-        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById("h-days").innerText = d;
-        document.getElementById("h-hours").innerText = h.toString().padStart(2, '0');
-        document.getElementById("h-mins").innerText = m.toString().padStart(2, '0');
-        document.getElementById("h-secs").innerText = s.toString().padStart(2, '0');
-    }
-
-    let globalData = FALLBACK_DATA; // Initialize with fallbacks
+    let globalData = FALLBACK_DATA; 
     let currentLvl = 'debutant';
 
     function setLvl(el, lvl) {
@@ -345,30 +343,20 @@
     async function fetchData(retries = 3) {
         try {
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
-
+            const timeoutId = setTimeout(() => controller.abort(), 8000); 
             const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false', {
                 signal: controller.signal
             });
-            
             clearTimeout(timeoutId);
-            
             if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
-            
             const data = await r.json();
             if (data && data.length > 0) {
                 globalData = data;
                 updateTickers();
             }
         } catch(e) { 
-            console.warn(`Data Sync Attempt Failed: ${e.message}`);
-            if (retries > 0) {
-                console.log(`Retrying... (${retries} attempts left)`);
-                setTimeout(() => fetchData(retries - 1), 3000);
-            } else {
-                console.error("Critical: API unreachable. Using fallback data mode.");
-                updateTickers(); // Still update tickers with fallback data
-            }
+            if (retries > 0) setTimeout(() => fetchData(retries - 1), 3000);
+            else updateTickers();
         }
     }
 
@@ -399,19 +387,14 @@
         const val = document.getElementById('mktInp').value;
         const res = document.getElementById('mktRes');
         res.innerHTML = '<div class="loader"></div>';
-        
-        // Brief artificial delay for "AI thinking" feel
         await new Promise(r => setTimeout(r, 600));
-
         const coin = findCoin(val);
         if (!coin) {
             res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON INTRUVABLE</span>';
             return;
         }
-
         const price = coin.current_price < 0.01 ? coin.current_price.toFixed(8) : coin.current_price.toLocaleString();
         const icon = coin.price_change_percentage_24h >= 0 ? '▲' : '▼';
-
         res.innerHTML = `
             <div style="font-size:0.65rem; color:var(--violet); font-weight:900; letter-spacing:4px; margin-bottom:10px;">FLUX SÉCURISÉ : ${coin.name.toUpperCase()}</div>
             <div style="font-size:3.2rem; font-weight:900; letter-spacing:-3px;">$${price}</div>
@@ -420,18 +403,15 @@
                 <div class="stat-box"><div class="stat-head">Volume 24h</div><div class="stat-body">$${formatVal(coin.total_volume)}</div></div>
                 <div class="stat-box"><div class="stat-head">Évolution</div><div class="stat-body ${coin.price_change_percentage_24h >= 0 ? 'up':'down'}">${icon} ${Math.abs(coin.price_change_percentage_24h).toFixed(2)}%</div></div>
                 <div class="stat-box"><div class="stat-head">Rang</div><div class="stat-body">#${coin.market_cap_rank}</div></div>
-            </div>
-        `;
+            </div>`;
     }
 
     async function getRiskAnalyse() {
         const val = document.getElementById('aiInp').value;
         const res = document.getElementById('aiRes');
         res.innerHTML = '<div class="loader"></div>';
-
         await new Promise(r => setTimeout(r, 1200));
         const coin = findCoin(val);
-        
         if (!coin) {
             res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">CIBLE INCONNUE</span>';
             return;
@@ -439,42 +419,46 @@
 
         let riskScore;
         const symbol = coin.symbol.toLowerCase();
-        
-        if (symbol === 'btc') {
-            riskScore = (1.2 + (Math.random() * 0.3)).toFixed(1);
-        } else if (symbol === 'eth') {
-            riskScore = (2.1 + (Math.random() * 0.4)).toFixed(1);
-        } else {
-            const mcap = coin.market_cap || 1e8;
-            const change = Math.abs(coin.price_change_percentage_24h || 5);
-            let base = 5.0;
-            let volatilityImpact = change / 3;
-            let mcapImpact = 15 / (Math.log10(mcap)); 
-            let randomFactor = (Math.random() * 1.0);
-            riskScore = (base + volatilityImpact + mcapImpact + randomFactor);
-            riskScore = Math.max(5.1, Math.min(9.9, riskScore)).toFixed(1);
+        const change = Math.abs(coin.price_change_percentage_24h || 5);
+        const mcap = coin.market_cap || 1e8;
+
+        if (symbol === 'btc') riskScore = (1.2 + (Math.random() * 0.3)).toFixed(1);
+        else if (symbol === 'eth') riskScore = (2.1 + (Math.random() * 0.4)).toFixed(1);
+        else {
+            riskScore = (5.0 + (change / 3) + (15 / Math.log10(mcap)) + Math.random()).toFixed(1);
+            riskScore = Math.max(5.1, Math.min(9.9, riskScore));
         }
 
         let color = riskScore < 3 ? 'var(--up)' : (riskScore < 6.5 ? 'var(--primary)' : 'var(--down)');
         let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
-        const neonEffect = `text-shadow: 0 0 10px ${color}, 0 0 20px ${color};`;
+        
+        // LOGIQUE DE NOTE IA DÉTAILLÉE
+        let aiNote = "";
+        if (riskScore < 3) {
+            aiNote = "Actif institutionnel à haute dominance. Structure de prix extrêmement robuste. Risque de liquidation systémique quasi nul sur court terme. Idéal pour stockage de valeur.";
+        } else if (riskScore < 5) {
+            aiNote = "Projet majeur avec liquidité profonde. Supporte bien les corrections de marché. Volatilité présente mais prévisible via analyse technique standard.";
+        } else if (riskScore < 7) {
+            aiNote = "Actif spéculatif à volatilité moyenne. Corrélation forte avec les mouvements du BTC. Risque de décrochage rapide en cas de panique vendeuse. Gestion de stop-loss recommandée.";
+        } else if (riskScore < 8.5) {
+            aiNote = "Risque de volatilité extrême. Liquidité fragile sur les carnets d'ordres. Susceptible de manipulations de type 'pump & dump'. Ne pas s'exposer à plus de 5% du capital.";
+        } else {
+            aiNote = "DANGER CRITIQUE : Micro-cap ou instabilité technique majeure détectée. Probabilité de perte totale du capital élevée. Sortie de position conseillée si profit réalisé.";
+        }
 
         res.innerHTML = `
             <div class="risk-circle" style="border-color:${color}; box-shadow: inset 0 0 15px ${color}, 0 0 15px ${color}44;">
-                <div class="risk-val" style="color:${color}; ${neonEffect}">${riskScore}</div>
-                <div style="font-size:0.5rem; font-weight:900; letter-spacing:1px; opacity:0.6; color:${color}">MAX 10</div>
+                <div class="risk-val" style="color:${color}; text-shadow: 0 0 10px ${color}">${riskScore}</div>
             </div>
-            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${color}; text-shadow: 0 0 8px ${color}88;">${status}</div>
+            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${color}">${status}</div>
             <div style="font-size:0.7rem; opacity:0.8; margin-top:22px; font-weight:600; line-height:1.7; max-width:340px; text-align:center;">
-                <b style="color:${color}">NOTE IA :</b> ${riskScore >= 7.5 ? "Attention : La liquidité est instable. Le risque de manipulation ou de dump est critique." : "Structure de marché relativement saine malgré la volatilité inhérente aux alts."}
-            </div>
-        `;
+                <b style="color:${color}">NOTE IA :</b> ${aiNote}
+            </div>`;
     }
 
     function getAcademyContent() {
         const res = document.getElementById('acaRes');
         res.innerHTML = '<div class="loader"></div>';
-
         setTimeout(() => {
             const lessons = {
                 debutant: "PIX : LES BASES. Comprenez la différence entre un Wallet Centralisé (CEX) et Décentralisé (DEX). Règle d'or : Vos clés, vos Bitcoins.",
@@ -487,10 +471,11 @@
     }
 
     window.onload = () => {
-        updateTickers(); // Load fallback immediately
-        fetchData(); // Try to get live data
+        updateTickers();
+        fetchData();
         setInterval(updateHalving, 1000);
-        setInterval(fetchData, 60000); // Check every minute
+        setInterval(fetchData, 60000);
+        updateHalving();
     };
 </script>
 

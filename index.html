@@ -39,6 +39,12 @@
             100% { box-shadow: 0 0 5px #fff, 0 0 10px #fff; }
         }
 
+        @keyframes neon-pulse-primary {
+            0% { box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+            50% { box-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
+            100% { box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+        }
+
         /* BANDEAU PRIX */
         .tickers-header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
@@ -78,6 +84,36 @@
         .tagline { color: var(--violet); letter-spacing: 6px; font-weight: 900; text-transform: uppercase; margin-top: 25px; font-size: 0.85rem; }
         .sub-tagline { color: var(--gray-text); font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-top: 10px; }
 
+        /* --- SECTION HALVING --- */
+        .halving-section {
+            max-width: 1160px; margin: 20px auto 40px; padding: 0 20px;
+        }
+        .halving-card {
+            background: rgba(10, 8, 20, 0.95); border: 1px solid var(--primary);
+            border-radius: 40px; padding: 40px; backdrop-filter: blur(20px);
+            display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;
+            box-shadow: 0 0 30px rgba(247, 147, 26, 0.1);
+        }
+        .h-title { color: var(--primary); font-weight: 900; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 15px; }
+        .h-text { font-size: 0.75rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 20px; }
+        
+        .h-status {
+            display: inline-block;
+            background: var(--primary); color: #000;
+            font-weight: 900; font-size: 0.7rem; letter-spacing: 2px;
+            padding: 10px 20px; border-radius: 12px;
+            text-transform: uppercase;
+            animation: neon-pulse-primary 2s infinite;
+        }
+
+        .timer-container { display: flex; gap: 12px; justify-content: center; }
+        .timer-unit {
+            background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.2);
+            padding: 15px; border-radius: 20px; min-width: 85px; text-align: center;
+        }
+        .timer-val { font-size: 2.2rem; font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
+        .timer-label { font-size: 0.5rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-text); margin-top: 5px; }
+
         /* GRID */
         .container { max-width: 1200px; margin: auto; padding: 0 20px 60px 20px; }
         .top-grid { 
@@ -104,7 +140,6 @@
         }
         input:focus { border-color: var(--violet); box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
 
-        /* BOUTONS ANIMÉS */
         .btn {
             width: 100%; padding: 22px; border-radius: 20px; border: none;
             font-weight: 900; font-size: 0.85rem; cursor: pointer;
@@ -123,25 +158,19 @@
             justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.03);
         }
 
-        /* SCORE NÉON */
         .risk-circle {
             width: 130px; height: 130px; border-radius: 50%; border: 6px solid;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             margin-bottom: 20px; transition: all 0.6s ease;
             background: rgba(0,0,0,0.4);
         }
-        .risk-val { 
-            font-size: 2.8rem; 
-            font-weight: 900; 
-            /* L'ombre portée est gérée en JS dynamiquement pour la couleur */
-        }
+        .risk-val { font-size: 2.8rem; font-weight: 900; }
 
         .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; margin-top: 20px; }
         .stat-box { background: rgba(255,255,255,0.02); padding: 18px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
         .stat-head { font-size: 0.65rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; }
         .stat-body { font-size: 1.1rem; font-weight: 900; }
 
-        /* ACADEMY */
         .academy-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
         .lvl-btn {
             padding: 18px 5px; border-radius: 18px; border: 1px solid var(--border);
@@ -171,6 +200,11 @@
         @keyframes spin { to { transform: rotate(360deg); } }
 
         footer { text-align: center; padding: 50px; color: rgba(255,255,255,0.02); font-size: 0.5rem; letter-spacing: 6px; font-weight: 900; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .halving-card { grid-template-columns: 1fr; text-align: center; }
+            .hero h1 { font-size: 4rem; }
+        }
     </style>
 </head>
 <body>
@@ -193,6 +227,25 @@
     <h1>PIX</h1>
     <div class="tagline">INTELLIGENCE ANALYTIQUE SUPRÊME</div>
     <div class="sub-tagline">IA conçue par CryptoMan</div>
+</div>
+
+<div class="halving-section">
+    <div class="halving-card">
+        <div>
+            <div class="h-title">IA PROTOCOLE HALVING</div>
+            <div class="h-text">
+                En 2028, l'émission de Bitcoin passera de <b>3,125</b> à <b>1,5625 BTC</b> par bloc. 
+                Une réduction massive de l'offre qui précède historiquement une explosion de la demande.
+            </div>
+            <div class="h-status">ACCUMULATION CONSEILLÉE</div>
+        </div>
+        <div class="timer-container">
+            <div class="timer-unit"><div class="timer-val" id="h-days">--</div><div class="timer-label">Jours</div></div>
+            <div class="timer-unit"><div class="timer-val" id="h-hours">--</div><div class="timer-label">Heures</div></div>
+            <div class="timer-unit"><div class="timer-val" id="h-mins">--</div><div class="timer-label">Min</div></div>
+            <div class="timer-unit"><div class="timer-val" id="h-secs">--</div><div class="timer-label">Sec</div></div>
+        </div>
+    </div>
 </div>
 
 <div class="container">
@@ -244,7 +297,35 @@
 <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
 <script>
-    let globalData = [];
+    const SIMULATED_NOW = new Date("May 3, 2026 14:13:00").getTime();
+    const REAL_START = Date.now();
+    const HALVING_DATE = new Date("April 17, 2028 00:00:00").getTime();
+
+    // Fallback data if API fails
+    const FALLBACK_DATA = [
+        {id: "bitcoin", symbol: "btc", name: "Bitcoin", current_price: 63450, market_cap: 1200000000000, total_volume: 35000000000, price_change_percentage_24h: 1.2, market_cap_rank: 1},
+        {id: "ethereum", symbol: "eth", name: "Ethereum", current_price: 3120, market_cap: 375000000000, total_volume: 15000000000, price_change_percentage_24h: -0.5, market_cap_rank: 2},
+        {id: "solana", symbol: "sol", name: "Solana", current_price: 145, market_cap: 65000000000, total_volume: 4000000000, price_change_percentage_24h: 4.8, market_cap_rank: 5},
+        {id: "polkadot", symbol: "dot", name: "Polkadot", current_price: 7.20, market_cap: 10000000000, total_volume: 200000000, price_change_percentage_24h: -2.1, market_cap_rank: 15}
+    ];
+
+    function updateHalving() {
+        const elapsed = Date.now() - REAL_START;
+        const now = SIMULATED_NOW + elapsed;
+        const diff = HALVING_DATE - now;
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+        document.getElementById("h-days").innerText = d;
+        document.getElementById("h-hours").innerText = h.toString().padStart(2, '0');
+        document.getElementById("h-mins").innerText = m.toString().padStart(2, '0');
+        document.getElementById("h-secs").innerText = s.toString().padStart(2, '0');
+    }
+
+    let globalData = FALLBACK_DATA; // Initialize with fallbacks
     let currentLvl = 'debutant';
 
     function setLvl(el, lvl) {
@@ -261,20 +342,40 @@
         return num.toLocaleString();
     }
 
-    async function fetchData() {
+    async function fetchData(retries = 3) {
         try {
-            const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false');
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000); // 8s timeout
+
+            const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=50&page=1&sparkline=false', {
+                signal: controller.signal
+            });
+            
+            clearTimeout(timeoutId);
+            
+            if (!r.ok) throw new Error(`HTTP error! status: ${r.status}`);
+            
             const data = await r.json();
             if (data && data.length > 0) {
                 globalData = data;
                 updateTickers();
             }
-        } catch(e) { console.error("Data Sync Error:", e); }
+        } catch(e) { 
+            console.warn(`Data Sync Attempt Failed: ${e.message}`);
+            if (retries > 0) {
+                console.log(`Retrying... (${retries} attempts left)`);
+                setTimeout(() => fetchData(retries - 1), 3000);
+            } else {
+                console.error("Critical: API unreachable. Using fallback data mode.");
+                updateTickers(); // Still update tickers with fallback data
+            }
+        }
     }
 
     function updateTickers() {
         let tContent = "";
-        globalData.slice(0, 15).forEach(c => {
+        const dataToUse = globalData.length > 0 ? globalData : FALLBACK_DATA;
+        dataToUse.slice(0, 15).forEach(c => {
             const price = c.current_price < 1 ? c.current_price.toFixed(4) : c.current_price.toLocaleString();
             const change = (c.price_change_percentage_24h || 0);
             const colorClass = change >= 0 ? 'up' : 'down';
@@ -290,7 +391,8 @@
 
     function findCoin(query) {
         const q = query.toLowerCase().trim();
-        return globalData.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
+        const dataToUse = globalData.length > 0 ? globalData : FALLBACK_DATA;
+        return dataToUse.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
     }
 
     async function getMarketData() {
@@ -298,6 +400,9 @@
         const res = document.getElementById('mktRes');
         res.innerHTML = '<div class="loader"></div>';
         
+        // Brief artificial delay for "AI thinking" feel
+        await new Promise(r => setTimeout(r, 600));
+
         const coin = findCoin(val);
         if (!coin) {
             res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON INTRUVABLE</span>';
@@ -335,34 +440,23 @@
         let riskScore;
         const symbol = coin.symbol.toLowerCase();
         
-        // --- LOGIQUE MISE À JOUR : SCORE DYNAMIQUE POUR LES ALTS ---
         if (symbol === 'btc') {
             riskScore = (1.2 + (Math.random() * 0.3)).toFixed(1);
         } else if (symbol === 'eth') {
             riskScore = (2.1 + (Math.random() * 0.4)).toFixed(1);
         } else {
-            // Calcul plus complexe et "vivant"
             const mcap = coin.market_cap || 1e8;
             const change = Math.abs(coin.price_change_percentage_24h || 5);
-            
-            // Base Alts : Minimum 5.0 + variation basée sur la marketcap et la volatilité
             let base = 5.0;
             let volatilityImpact = change / 3;
-            let mcapImpact = 15 / (Math.log10(mcap)); // Plus la cap est petite, plus l'impact est gros
-            
-            // On ajoute un facteur random (0.5 à 1.5) pour que ça bouge à chaque clic
+            let mcapImpact = 15 / (Math.log10(mcap)); 
             let randomFactor = (Math.random() * 1.0);
-            
             riskScore = (base + volatilityImpact + mcapImpact + randomFactor);
-            
-            // Sécurité : Reste entre 5.1 et 9.9
             riskScore = Math.max(5.1, Math.min(9.9, riskScore)).toFixed(1);
         }
 
         let color = riskScore < 3 ? 'var(--up)' : (riskScore < 6.5 ? 'var(--primary)' : 'var(--down)');
         let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
-        
-        // Effet Néon : on utilise la couleur de risque pour l'éclat
         const neonEffect = `text-shadow: 0 0 10px ${color}, 0 0 20px ${color};`;
 
         res.innerHTML = `
@@ -393,8 +487,10 @@
     }
 
     window.onload = () => {
-        fetchData();
-        setInterval(fetchData, 30000);
+        updateTickers(); // Load fallback immediately
+        fetchData(); // Try to get live data
+        setInterval(updateHalving, 1000);
+        setInterval(fetchData, 60000); // Check every minute
     };
 </script>
 

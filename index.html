@@ -17,7 +17,7 @@
             --gray-text: rgba(255, 255, 255, 0.4);
         }
 
-        * { box-sizing: border-box; transition: all 0.2s ease-in-out; }
+        * { box-sizing: border-box; transition: all 0.3s ease; }
         body {
             font-family: 'Lexend', sans-serif;
             background: var(--bg-deep);
@@ -26,7 +26,20 @@
             overflow-x: hidden;
         }
 
-        /* BANDEAU PRIX ULTRA-DYNAMIC */
+        /* --- EFFETS NÉON ANIMÉS --- */
+        @keyframes neon-pulse-violet {
+            0% { box-shadow: 0 0 5px var(--violet), 0 0 10px var(--violet); }
+            50% { box-shadow: 0 0 20px var(--violet), 0 0 30px var(--violet); }
+            100% { box-shadow: 0 0 5px var(--violet), 0 0 10px var(--violet); }
+        }
+
+        @keyframes neon-pulse-white {
+            0% { box-shadow: 0 0 5px #fff, 0 0 10px #fff; }
+            50% { box-shadow: 0 0 20px #fff, 0 0 30px #fff; }
+            100% { box-shadow: 0 0 5px #fff, 0 0 10px #fff; }
+        }
+
+        /* BANDEAU PRIX */
         .tickers-header {
             position: fixed; top: 0; width: 100%; z-index: 1000;
             background: rgba(3, 2, 8, 0.95); backdrop-filter: blur(25px);
@@ -52,7 +65,7 @@
         /* NAVIGATION */
         nav { margin-top: 110px; display: flex; justify-content: center; gap: 30px; }
         nav a { text-decoration: none; color: rgba(255,255,255,0.2); font-size: 0.65rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
-        nav a:hover { color: var(--violet); }
+        nav a:hover { color: var(--violet); text-shadow: 0 0 8px var(--violet); }
 
         /* HERO */
         .hero { text-align: center; padding: 40px 20px; }
@@ -67,7 +80,6 @@
 
         /* GRID */
         .container { max-width: 1200px; margin: auto; padding: 0 20px 60px 20px; }
-        
         .top-grid { 
             display: grid; 
             grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); 
@@ -90,13 +102,20 @@
             font-size: 1.2rem; text-align: center; outline: none; font-weight: 800;
             margin-bottom: 18px; text-transform: uppercase;
         }
+        input:focus { border-color: var(--violet); box-shadow: 0 0 15px rgba(139, 92, 246, 0.3); }
+
+        /* BOUTONS ANIMÉS */
         .btn {
             width: 100%; padding: 22px; border-radius: 20px; border: none;
             font-weight: 900; font-size: 0.85rem; cursor: pointer;
             text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px;
+            position: relative; overflow: hidden;
         }
         .btn-white { background: #fff; color: #000; }
-        .btn-violet { background: var(--violet); color: #fff; box-shadow: 0 15px 35px rgba(139, 92, 246, 0.4); }
+        .btn-white:hover { animation: neon-pulse-white 1.5s infinite; transform: translateY(-2px); }
+        
+        .btn-violet { background: var(--violet); color: #fff; }
+        .btn-violet:hover { animation: neon-pulse-violet 1.5s infinite; transform: translateY(-2px); }
 
         .res-display {
             background: rgba(0,0,0,0.6); border-radius: 25px; padding: 35px;
@@ -104,17 +123,23 @@
             justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.03);
         }
 
+        /* SCORE NÉON */
+        .risk-circle {
+            width: 130px; height: 130px; border-radius: 50%; border: 6px solid;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            margin-bottom: 20px; transition: all 0.6s ease;
+            background: rgba(0,0,0,0.4);
+        }
+        .risk-val { 
+            font-size: 2.8rem; 
+            font-weight: 900; 
+            /* L'ombre portée est gérée en JS dynamiquement pour la couleur */
+        }
+
         .market-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; width: 100%; margin-top: 20px; }
         .stat-box { background: rgba(255,255,255,0.02); padding: 18px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); }
         .stat-head { font-size: 0.65rem; color: rgba(255,255,255,0.4); text-transform: uppercase; font-weight: 800; margin-bottom: 8px; }
         .stat-body { font-size: 1.1rem; font-weight: 900; }
-
-        .risk-circle {
-            width: 120px; height: 120px; border-radius: 50%; border: 8px solid;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            margin-bottom: 20px; transition: border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .risk-val { font-size: 2.5rem; font-weight: 900; }
 
         /* ACADEMY */
         .academy-options { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 25px; }
@@ -123,7 +148,7 @@
             background: rgba(255,255,255,0.03); cursor: pointer; font-size: 0.6rem;
             font-weight: 900; text-transform: uppercase; color: rgba(255,255,255,0.4);
         }
-        .lvl-btn.active { background: var(--violet); color: white; border-color: var(--violet); box-shadow: 0 8px 25px rgba(139, 92, 246, 0.4); }
+        .lvl-btn.active { background: var(--violet); color: white; border-color: var(--violet); box-shadow: 0 0 15px var(--violet); }
 
         .creator-tag {
             text-align: center; margin-top: 60px; font-weight: 900;
@@ -310,42 +335,42 @@
         let riskScore;
         const symbol = coin.symbol.toLowerCase();
         
-        // ALGORITHME DE RISQUE IA V14 PAR CRYPTOMAN
+        // --- LOGIQUE MISE À JOUR : SCORE DYNAMIQUE POUR LES ALTS ---
         if (symbol === 'btc') {
             riskScore = (1.2 + (Math.random() * 0.3)).toFixed(1);
         } else if (symbol === 'eth') {
             riskScore = (2.1 + (Math.random() * 0.4)).toFixed(1);
         } else {
-            // Logique intelligente pour Alts
+            // Calcul plus complexe et "vivant"
             const mcap = coin.market_cap || 1e8;
-            const vol = coin.total_volume || 1e7;
             const change = Math.abs(coin.price_change_percentage_24h || 5);
             
-            // 1. Facteur Cap (Plus c'est petit, plus c'est risqué)
-            let capFactor = 10 - (Math.log10(mcap) / 1.1);
+            // Base Alts : Minimum 5.0 + variation basée sur la marketcap et la volatilité
+            let base = 5.0;
+            let volatilityImpact = change / 3;
+            let mcapImpact = 15 / (Math.log10(mcap)); // Plus la cap est petite, plus l'impact est gros
             
-            // 2. Facteur Liquidité (Volume / Cap) - Si volume faible par rapport au cap = danger
-            let liqRatio = vol / mcap;
-            let liqFactor = liqRatio < 0.05 ? 1.5 : (liqRatio < 0.1 ? 0.5 : -0.5);
+            // On ajoute un facteur random (0.5 à 1.5) pour que ça bouge à chaque clic
+            let randomFactor = (Math.random() * 1.0);
             
-            // 3. Facteur Volatilité 24h
-            let volFactor = change / 4; 
+            riskScore = (base + volatilityImpact + mcapImpact + randomFactor);
             
-            riskScore = capFactor + liqFactor + volFactor;
-            
-            // Protection : Les Alts oscillent désormais de façon intelligente entre ~5.4 et 9.8
-            riskScore = Math.max(5.4, Math.min(9.8, riskScore)).toFixed(1);
+            // Sécurité : Reste entre 5.1 et 9.9
+            riskScore = Math.max(5.1, Math.min(9.9, riskScore)).toFixed(1);
         }
 
         let color = riskScore < 3 ? 'var(--up)' : (riskScore < 6.5 ? 'var(--primary)' : 'var(--down)');
         let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
+        
+        // Effet Néon : on utilise la couleur de risque pour l'éclat
+        const neonEffect = `text-shadow: 0 0 10px ${color}, 0 0 20px ${color};`;
 
         res.innerHTML = `
-            <div class="risk-circle" style="border-color:${color}; color:${color}">
-                <div class="risk-val">${riskScore}</div>
-                <div style="font-size:0.5rem; font-weight:900; letter-spacing:1px; opacity:0.6;">MAX 10</div>
+            <div class="risk-circle" style="border-color:${color}; box-shadow: inset 0 0 15px ${color}, 0 0 15px ${color}44;">
+                <div class="risk-val" style="color:${color}; ${neonEffect}">${riskScore}</div>
+                <div style="font-size:0.5rem; font-weight:900; letter-spacing:1px; opacity:0.6; color:${color}">MAX 10</div>
             </div>
-            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${color}">${status}</div>
+            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${color}; text-shadow: 0 0 8px ${color}88;">${status}</div>
             <div style="font-size:0.7rem; opacity:0.8; margin-top:22px; font-weight:600; line-height:1.7; max-width:340px; text-align:center;">
                 <b style="color:${color}">NOTE IA :</b> ${riskScore >= 7.5 ? "Attention : La liquidité est instable. Le risque de manipulation ou de dump est critique." : "Structure de marché relativement saine malgré la volatilité inhérente aux alts."}
             </div>

@@ -26,6 +26,17 @@
             overflow-x: hidden;
         }
 
+        /* --- BACKGROUND PARTICULES --- */
+        #particles-js {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: var(--bg-deep);
+        }
+
         /* --- EFFETS NÉON ANIMÉS --- */
         @keyframes neon-pulse-violet {
             0% { box-shadow: 0 0 5px var(--violet), 0 0 10px var(--violet); }
@@ -89,7 +100,7 @@
             max-width: 1160px; margin: 20px auto 40px; padding: 0 20px;
         }
         .halving-card {
-            background: rgba(10, 8, 20, 0.95); border: 1px solid var(--primary);
+            background: var(--card-bg); border: 1px solid var(--primary);
             border-radius: 40px; padding: 40px; backdrop-filter: blur(20px);
             display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: center;
             box-shadow: 0 0 30px rgba(247, 147, 26, 0.1);
@@ -178,9 +189,9 @@
         .card {
             background: var(--card-bg); border: 1px solid var(--border);
             border-radius: 40px; padding: 45px; text-align: center;
-            box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+            box-shadow: 0 30px 70px rgba(0,0,0,0.5);
             display: flex; flex-direction: column;
-            backdrop-filter: blur(20px);
+            backdrop-filter: blur(15px);
         }
         h3 { text-transform: uppercase; letter-spacing: 6px; font-size: 0.95rem; margin-bottom: 35px; font-weight: 900; color: rgba(255,255,255,0.8); }
 
@@ -262,6 +273,8 @@
 </head>
 <body>
 
+<canvas id="particles-js"></canvas>
+
 <div class="tickers-header">
     <div class="ticker-row">
         <div class="ticker-move" id="tick1">
@@ -291,7 +304,7 @@
                 En 2028, l'émission de Bitcoin passera de <b>3,125</b> à <b>1,5625 BTC</b> par bloc. 
                 Une réduction massive de l'offre qui précède historiquement une explosion de la demande.
             </div>
-            <div class="h-status">ATTENTE CONSEILLÉE</div>
+            <div class="h-status">ACCUMULATION CONSEILLÉE</div>
         </div>
         <div class="timer-container">
             <div class="timer-unit"><div class="timer-val" id="h-days">--</div><div class="timer-label">Jours</div></div>
@@ -331,10 +344,10 @@
 
         <div class="card" id="ai">
             <h3>SCORE DE RISQUE IA</h3>
-            <input type="text" id="aiInp" placeholder="JETON (DOT, LINK...)" value="DOT">
+            <input type="text" id="aiInp" placeholder="JETON (DOT, LINK...)" value="SOL">
             <button class="btn btn-violet" onclick="getRiskAnalyse()">ANALYSER LE PROFIL</button>
             <div id="aiRes" class="res-display">
-                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">ALGORITHME V15 ACTIF</span>
+                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">ALGORITHME V22 ACTIF</span>
             </div>
         </div>
     </div>
@@ -367,6 +380,84 @@
 <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
 <script>
+    // --- MOTEUR DE PARTICULES (Canvas) ---
+    const canvas = document.getElementById('particles-js');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let width, height;
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.init();
+        }
+        init() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.6;
+            this.vy = (Math.random() - 0.5) * 0.6;
+            this.size = Math.random() * 2 + 1;
+            this.color = Math.random() > 0.5 ? '#8b5cf6' : '#f7931a';
+            this.alpha = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const count = Math.min(width / 12, 80);
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        // Lignes de connexion
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                if (dist < 100) {
+                    ctx.globalAlpha = (1 - dist / 100) * 0.15;
+                    ctx.strokeStyle = '#8b5cf6';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+        resize();
+        initParticles();
+    });
+
+    // --- LOGIQUE PIX ---
     const HALVING_DATE = new Date("April 17, 2028 00:00:00").getTime();
     let globalData = [];
     let currentLvl = 'debutant';
@@ -520,31 +611,59 @@
             return;
         }
 
-        let riskScore;
-        const symbol = coin.symbol.toLowerCase();
-        const change = Math.abs(coin.price_change_percentage_24h || 5);
-        const mcap = coin.market_cap || 1e8;
+        // --- ALGORITHME DE SCORE RISQUE ---
+        let score = 0;
+        const sym = coin.symbol.toLowerCase();
+        const vol = coin.total_volume;
+        const change = coin.price_change_percentage_24h || 0;
+        const mcap = coin.market_cap;
 
-        if (symbol === 'btc') riskScore = (1.2 + (Math.random() * 0.3)).toFixed(1);
-        else if (symbol === 'eth') riskScore = (2.1 + (Math.random() * 0.4)).toFixed(1);
-        else {
-            riskScore = (5.0 + (change / 3) + (15 / Math.log10(mcap)) + Math.random()).toFixed(1);
-            riskScore = Math.max(5.1, Math.min(9.9, riskScore));
+        // 1. Base
+        if (sym === 'btc' || sym === 'eth') {
+            score = 1.0;
+        } else {
+            score = 5.0;
         }
 
-        let color = riskScore < 3 ? 'var(--up)' : (riskScore < 6.5 ? 'var(--primary)' : 'var(--down)');
-        let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
+        // 2. Volume
+        if (vol >= 1000000000) { // 1 Milliard
+            score -= 1;
+        } else {
+            score += 2;
+        }
+
+        // 3. Variation 24h
+        if (change <= -10) {
+            score += 3;
+        } else if (change >= 10) {
+            score -= 0.5;
+        }
+
+        // 4. Market Cap
+        if (mcap >= 5000000000) { // 5 Milliards
+            score -= 1;
+        } else if (mcap < 1000000000) { // < 1 Milliard
+            score += 3;
+        }
+
+        // 5. Limites (1-10)
+        score = Math.max(1.0, Math.min(10.0, score));
+
+        let color = score <= 3 ? 'var(--up)' : (score <= 6.5 ? 'var(--primary)' : 'var(--down)');
+        let status = score <= 3 ? 'SÉCURISÉ' : (score <= 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
         
         let aiNote = "";
-        if (riskScore < 3) aiNote = "Actif institutionnel à haute dominance. Structure de prix extrêmement robuste. Risque de liquidation systémique quasi nul sur court terme. Idéal pour stockage de valeur.";
-        else if (riskScore < 5) aiNote = "Projet majeur avec liquidité profonde. Supporte bien les corrections de marché. Volatilité présente mais prévisible via analyse technique standard.";
-        else if (riskScore < 7) aiNote = "Actif spéculatif à volatilité moyenne. Corrélation forte avec les mouvements du BTC. Risque de décrochage rapide en cas de panique vendeuse. Gestion de stop-loss recommandée.";
-        else if (riskScore < 8.5) aiNote = "Risque de volatilité extrême. Liquidité fragile sur les carnets d'ordres. Susceptible de manipulations de type 'pump & dump'. Ne pas s'exposer à plus de 5% du capital.";
-        else aiNote = "DANGER CRITIQUE : Micro-cap ou instabilité technique majeure détectée. Probabilité de perte totale du capital élevée. Sortie de position conseillée si profit réalisé.";
+        if (score < 3) aiNote = "Actif institutionnel à haute dominance. Structure de prix extrêmement robuste. Risque de liquidation systémique quasi nul sur court terme. Idéal pour stockage de valeur.";
+        else if (score < 5) aiNote = "Projet majeur avec liquidité profonde. Supporte bien les corrections de marché. Volatilité présente mais prévisible via analyse technique standard.";
+        else if (score < 7) aiNote = "Actif spéculatif à volatilité moyenne. Corrélation forte avec les mouvements du BTC. Risque de décrochage rapide en cas de panique vendeuse. Gestion de stop-loss recommandée.";
+        else if (score < 8.5) aiNote = "Risque de volatilité extrême. Liquidité fragile sur les carnets d'ordres. Susceptible de manipulations de type 'pump & dump'. Ne pas s'exposer à plus de 5% du capital.";
+        else aiNote = "DANGER CRITIQUE : Micro-cap ou instabilité technique majeure d'après les flux actuels. Probabilité de perte totale du capital élevée.";
+
+        const neonEffect = `text-shadow: 0 0 10px ${color}, 0 0 20px ${color};`;
 
         res.innerHTML = `
             <div class="risk-circle" style="border-color:${color}; box-shadow: inset 0 0 15px ${color}, 0 0 15px ${color}44;">
-                <div class="risk-val" style="color:${color}; text-shadow: 0 0 10px ${color}">${riskScore}</div>
+                <div class="risk-val" style="color:${color}; ${neonEffect}">${score.toFixed(1)}</div>
             </div>
             <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${color}">${status}</div>
             <div style="font-size:0.7rem; opacity:0.8; margin-top:22px; font-weight:600; line-height:1.7; max-width:340px; text-align:center;">
@@ -567,6 +686,9 @@
     }
 
     window.onload = () => {
+        resize();
+        initParticles();
+        animate();
         fetchData();
         setInterval(updateHalving, 1000);
         setInterval(fetchData, 60000);

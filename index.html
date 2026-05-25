@@ -380,11 +380,7 @@
 <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
 <script>
-    // --- DATE PRECISE DU HALVING (Mi-Avril 2028, heure UTC) ---
-    // Utilisation d'une date fixe pour éviter les bugs de fuseau horaire
-    const HALVING_DATE = new Date(2028, 3, 17, 0, 0, 0, 0).getTime(); // 17 Avril 2028, 00:00:00
-    
-    // --- BASE DE DONNÉES DU TOP 50 ---
+    // --- BASE DE DONNÉES DU TOP 50 CONFORME AUX CAPTURES D'ÉCRAN ---
     const cryptoData = [
         {"rank": 1, "name": "Bitcoin", "symbol": "BTC", "market_cap": 1302489467318, "volume_24h": 25000000000},
         {"rank": 2, "name": "Ethereum", "symbol": "ETH", "market_cap": 214573828537, "volume_24h": 12000000000},
@@ -438,27 +434,359 @@
         {"rank": 50, "name": "Bitget Token", "symbol": "BGB", "market_cap": 1181468029, "volume_24h": 20000000}
     ];
 
-    // --- FONCTION COMPTEUR HALVING CORRIGÉE ---
+    // Extraction des min et max sur le sous-ensemble (rank >= 5) pour les calculs logarithmiques
+    const dfRest = cryptoData.filter(d => d.rank >= 5);
+    const mcapValues = dfRest.map(d => d.market_cap);
+    const volValues = dfRest.map(d => d.volume_24h);
+
+    const minMcap = Math.min(...mcapValues);
+    const maxMcap = Math.max(...mcapValues);
+    const minVol = Math.min(...volValues);
+    const maxVol = Math.max(...volValues);
+
+    // --- ALGORITHME DE CALCUL DU SCORE DE RISQUE IA TRADUIT ---
+    function calculateAiRiskScore(coin) {
+        if (coin.rank <= 4) {
+            return parseFloat(coin.rank);
+        }
+        
+        const normMcap = (Math.log(coin.market_cap) - Math.log(minMcap)) / (Math.log(maxMcap) - Math.log(minMcap));
+        const normVol = (Math.log(coin.volume_24h) - Math.log(minVol)) / (Math.log(maxVol) - Math.log(minVol));
+        
+        const sizeLiquidityScore = (normMcap * 0.6) + (normVol * 0.4);
+        const riskScore = 5.0 + (1.0 - sizeLiquidityScore) * 5.0;
+        
+        return parseFloat(riskScore.toFixed(2));
+    }
+
+    // Association dynamique du score calculé à notre dictionnaire de base de données
+    const aiRiskDictionary = {};
+    cryptoData.forEach(coin => {
+        const calculatedRisk = calculateAiRiskScore(coin);
+        aiRiskDictionary[coin.symbol.toUpperCase()] = {
+            name: coin.name,
+            rank: coin.rank,
+            market_cap: coin.market_cap,
+            volume_24h: coin.volume_24h,
+            risk_score_10: calculatedRisk
+        };
+    });
+
+    // --- MOTEUR DE PARTICULES (Canvas) ---
+    const canvas = document.getElementById('particles-js');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let width, height;
+
+    function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() {
+            this.init();
+        }
+        init() {
+            this.x = Math.random() * width;
+            this.y = Math.random() * height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.size = Math.random() * 2 + 1;
+            this.color = Math.random() > 0.5 ? '#8b5cf6' : '#f7931a';
+            this.alpha = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0 || this.x > width) this.vx *= -1;
+            if (this.y < 0 || this.y > height) this.vy *= -1;
+        }
+        draw() {
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const count = Math.min(width / 12, 80);
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        // Lignes de connexion
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                if (dist < 100) {
+                    ctx.globalAlpha = (1 - dist / 100) * 0.15;
+                    ctx.strokeStyle = '#8b5cf6';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
+    window.addEventListener('resize', () => {
+        resize();
+        initParticles();
+    });
+
+    // --- LOGIQUE PIX ---
+    const HALVING_DATE = new Date("April 17, 2028 00:00:00").getTime();
+    let globalData = [];
+    let currentLvl = 'debutant';
+    let perfMode = 'gainers'; // 'gainers' ou 'losers'
+
     function updateHalving() {
         const now = Date.now();
         const diff = HALVING_DATE - now;
-        
         if (diff <= 0) {
-            // Halving atteint ou dépassé
-            document.getElementById("h-days").innerText = "00";
-            document.getElementById("h-hours").innerText = "00";
-            document.getElementById("h-mins").innerText = "00";
-            document.getElementById("h-secs").innerText = "00";
+            document.querySelectorAll(".timer-val").forEach(el => el.innerText = "00");
             return;
         }
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        document.getElementById("h-days").innerText = d;
+        document.getElementById("h-hours").innerText = h.toString().padStart(2, '0');
+        document.getElementById("h-mins").innerText = m.toString().padStart(2, '0');
+        document.getElementById("h-secs").innerText = s.toString().padStart(2, '0');
+    }
+
+    function setLvl(el, lvl) {
+        document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
+        el.classList.add('active');
+        currentLvl = lvl;
+    }
+
+    function setPerfMode(mode) {
+        perfMode = mode;
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.toggle-btn.${mode}`).classList.add('active');
+        updateTop10();
+    }
+
+    function formatVal(num) {
+        if (!num) return "0";
+        if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
+        if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
+        return num.toLocaleString();
+    }
+
+    async function fetchData(retries = 3) {
+        try {
+            const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
+            const data = await r.json();
+            if (data && data.length > 0) {
+                globalData = data;
+                updateUI();
+            }
+        } catch(e) { console.error("Data Sync Error"); }
+    }
+
+    function updateUI() {
+        updateTickers();
+        updateTop10();
+    }
+
+    function updateTickers() {
+        let tContent = "";
+        const sourceList = globalData.length > 0 ? globalData.slice(0, 15) : cryptoData.slice(0, 15);
         
-        // Calculs précis des durées
-        const totalSeconds = Math.floor(diff / 1000);
-        const days = Math.floor(totalSeconds / 86400);
-        const hours = Math.floor((totalSeconds % 86400) / 3600);
-        const minutes = Math.floor((totalSeconds % 3600) / 60);
-        const seconds = totalSeconds % 60;
+        sourceList.forEach(c => {
+            const price = c.current_price ? (c.current_price < 1 ? c.current_price.toFixed(4) : c.current_price.toLocaleString()) : "N/A";
+            const change = c.price_change_percentage_24h || 1.5;
+            tContent += `
+                <div class="t-item">
+                    <span>${c.symbol.toUpperCase()}</span> 
+                    <b class="${change >= 0 ? 'up':'down'}">$${price}</b>
+                </div>`;
+        });
+        document.getElementById('tick1').innerHTML = tContent + tContent;
+    }
+
+    function updateTop10() {
+        const grid = document.getElementById('perfGrid');
+        if (!grid) return;
+
+        const sourceList = globalData.length > 0 ? globalData : cryptoData.map(c => ({
+            ...c,
+            current_price: c.market_cap / 1e10, // Prix simulé cohérent
+            price_change_percentage_24h: c.rank % 2 === 0 ? 3.5 : -1.2
+        }));
+
+        let sorted = [...sourceList].sort((a, b) => {
+            const valA = a.price_change_percentage_24h || 0;
+            const valB = b.price_change_percentage_24h || 0;
+            return perfMode === 'gainers' ? valB - valA : valA - valB;
+        });
+
+        const top10 = sorted.slice(0, 10);
+        const maxChange = Math.max(...top10.map(c => Math.abs(c.price_change_percentage_24h || 0)));
+
+        let html = "";
+        top10.forEach((c, index) => {
+            const rawChange = c.price_change_percentage_24h || 0;
+            const change = rawChange.toFixed(1);
+            const price = c.current_price < 0.1 ? c.current_price.toFixed(5) : c.current_price.toFixed(2);
+            const barWidth = Math.min(100, (Math.abs(rawChange) / maxChange) * 100);
+            const isUp = rawChange >= 0;
+
+            html += `
+                <div class="perf-item ${isUp ? 'up-item' : 'down-item'}">
+                    <div class="perf-rank">#${index + 1}</div>
+                    <div class="perf-info">
+                        <div class="perf-name">${c.symbol.toUpperCase()}</div>
+                        <div class="perf-price">$${parseFloat(price).toLocaleString()}</div>
+                    </div>
+                    <div class="perf-pct ${isUp ? 'up' : 'down'}">${isUp ? '+' : ''}${change}%</div>
+                    <div class="perf-bar" style="width: ${barWidth}%; background: ${isUp ? 'var(--up)' : 'var(--down)'}; opacity: 0.3;"></div>
+                </div>`;
+        });
+        grid.innerHTML = html;
+    }
+
+    // Récupère la donnée d'un jeton soit de l'API live, soit du dictionnaire offline du Top 50
+    function findCoinData(symbolOrName) {
+        const q = symbolOrName.toLowerCase().trim();
         
-        // Mise à jour de l'affichage
-        document.getElementById("h-days").innerText = days;
-        document.getElementById("h
+        // 1. Chercher dans les données de l'API en ligne
+        let found = globalData.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
+        if (found) {
+            // S'il est dans notre dictionnaire calculé, on applique le score exact de l'algorithme
+            const dictMatch = aiRiskDictionary[found.symbol.toUpperCase()];
+            return {
+                name: found.name,
+                symbol: found.symbol.toUpperCase(),
+                current_price: found.current_price,
+                market_cap: found.market_cap,
+                total_volume: found.total_volume,
+                price_change_percentage_24h: found.price_change_percentage_24h || 0,
+                market_cap_rank: found.market_cap_rank,
+                risk_score: dictMatch ? dictMatch.risk_score_10 : calculateAiRiskScore({
+                    rank: found.market_cap_rank,
+                    market_cap: found.market_cap,
+                    volume_24h: found.total_volume
+                })
+            };
+        }
+
+        // 2. Fallback vers le dictionnaire local du Top 50 si hors ligne ou API Geeko non disponible
+        const upperQuery = symbolOrName.toUpperCase().trim();
+        const dictCoin = aiRiskDictionary[upperQuery] || Object.values(aiRiskDictionary).find(c => c.name.toLowerCase() === q);
+        
+        if (dictCoin) {
+            // Simulation d'une variation 24h cohérente pour le local
+            return {
+                name: dictCoin.name,
+                symbol: upperQuery,
+                current_price: upperQuery === 'BTC' ? 64230 : (upperQuery === 'ETH' ? 3450 : (120000000 / dictCoin.market_cap) * 10),
+                market_cap: dictCoin.market_cap,
+                total_volume: dictCoin.volume_24h,
+                price_change_percentage_24h: (upperQuery === 'BTC' ? 1.5 : -0.8),
+                market_cap_rank: dictCoin.rank,
+                risk_score: dictCoin.risk_score_10
+            };
+        }
+        return null;
+    }
+
+    async function getMarketData() {
+        const val = document.getElementById('mktInp').value;
+        const res = document.getElementById('mktRes');
+        res.innerHTML = '<div class="loader"></div>';
+        await new Promise(r => setTimeout(r, 600));
+        const coin = findCoinData(val);
+        if (!coin) { res.innerHTML = '<span class="down">JETON INTRUVABLE</span>'; return; }
+
+        const price = coin.current_price < 0.01 ? coin.current_price.toFixed(8) : coin.current_price.toLocaleString();
+        res.innerHTML = `
+            <div style="font-size:0.65rem; color:var(--violet); font-weight:900; letter-spacing:4px; margin-bottom:10px;">PROFIL : ${coin.name.toUpperCase()}</div>
+            <div style="font-size:3.2rem; font-weight:900; letter-spacing:-3px;">$${price}</div>
+            <div class="market-grid">
+                <div class="stat-box"><div class="stat-head">Market Cap</div><div class="stat-body">$${formatVal(coin.market_cap)}</div></div>
+                <div class="stat-box"><div class="stat-head">Volume 24h</div><div class="stat-body">$${formatVal(coin.total_volume)}</div></div>
+                <div class="stat-box"><div class="stat-head">Évolution</div><div class="stat-body ${coin.price_change_percentage_24h >= 0 ? 'up':'down'}">${coin.price_change_percentage_24h.toFixed(2)}%</div></div>
+                <div class="stat-box"><div class="stat-head">Rang</div><div class="stat-body">#${coin.market_cap_rank}</div></div>
+            </div>
+        `;
+    }
+
+    async function getRiskAnalyse() {
+        const val = document.getElementById('aiInp').value;
+        const res = document.getElementById('aiRes');
+        res.innerHTML = '<div class="loader"></div>';
+        
+        await new Promise(r => setTimeout(r, 1000));
+        const coin = findCoinData(val);
+        if (!coin) { res.innerHTML = '<span class="down">SCAN IMPOSSIBLE</span>'; return; }
+
+        // Récupération de la note calculée par l'algorithme mathématique exact
+        const riskScore = coin.risk_score.toFixed(2);
+        let color = riskScore < 3 ? 'var(--up)' : (riskScore < 6 ? 'var(--primary)' : 'var(--down)');
+        let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6 ? 'PRUDENCE' : 'ALERTE RISQUE');
+        
+        let aiNote = "";
+        if (riskScore < 3) aiNote = "Actif institutionnel à haute dominance. Structure de prix extrêmement robuste. Risque de liquidation systémique quasi nul sur court terme. Idéal pour stockage de valeur.";
+        else if (riskScore < 5) aiNote = "Projet majeur avec liquidité profonde. Supporte bien les corrections de marché. Volatilité présente mais prévisible via analyse technique standard.";
+        else if (riskScore < 7) aiNote = "Actif spéculatif à volatilité moyenne. Corrélation forte avec les mouvements du BTC. Risque de décrochage rapide en cas de panique vendeuse. Gestion de stop-loss recommandée.";
+        else if (riskScore < 8.5) aiNote = "Risque de volatilité extrême. Liquidité fragile sur les carnets d'ordres. Susceptible de manipulations de type 'pump & dump'. Ne pas s'exposer à plus de 5% du capital.";
+        else aiNote = "DANGER CRITIQUE : Micro-cap ou instabilité technique majeure d'après les flux actuels. Probabilité de perte totale du capital élevée.";
+
+        const neonEffect = `text-shadow: 0 0 10px ${color}, 0 0 20px ${color};`;
+
+        res.innerHTML = `
+            <div class="risk-circle" style="border-color:${color}; box-shadow: inset 0 0 15px ${color}, 0 0 15px ${color}44;">
+                <div class="risk-val" style="color:${color}; ${neonEffect}">${riskScore}</div>
+            </div>
+            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${color}">${status}</div>
+            <div style="font-size:0.7rem; opacity:0.8; margin-top:22px; font-weight:600; line-height:1.7; max-width:340px; text-align:center;">
+                <b style="color:${color}">NOTE IA :</b> ${aiNote}
+            </div>
+        `;
+    }
+
+    function getAcademyContent() {
+        const res = document.getElementById('acaRes');
+        res.innerHTML = '<div class="loader"></div>';
+        setTimeout(() => {
+            const lessons = {
+                debutant: "PIX : LES BASES. Comprenez la différence entre un Wallet Centralisé (CEX) et Décentralisé (DEX). Règle d'or : Vos clés, vos Bitcoins.",
+                amateur: "PIX : ANALYSE. Le volume précède souvent le prix. Une hausse sans volume est souvent un piège (Bull Trap).",
+                intermediaire: "PIX : GESTION. Ne risquez jamais plus de 2% de votre capital total sur une seule position 'Altcoin'.",
+                expert: "PIX : MAÎTRISE. Surveillez la dominance du BTC. Quand elle chute et que l'ETH monte, l'Altseason commence."
+            };
+            res.innerHTML = `<div style="font-size:0.95rem; font-weight:600; line-height:1.9; padding:0 20px;">${lessons[currentLvl]}</div>`;
+        }, 600);
+    }
+
+    window.onload = () => {
+        resize();
+        initParticles();
+        animate();
+        fetchData();
+        setInterval(fetchData, 30000);
+    };
+</script>
+
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>PIX | Masterpiece V17</title>
+    <title>PIX | Masterpiece V18</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -90,10 +90,10 @@
         nav a { text-decoration: none; color: rgba(255,255,255,0.2); font-size: 0.6rem; letter-spacing: 2px; font-weight: 900; text-transform: uppercase; }
         nav a:hover { color: var(--violet); text-shadow: 0 0 8px var(--violet); }
 
-        /* HERO */
+        /* HERO - LOGO PIX AGRANDI SUR MOBILE */
         .hero { text-align: center; padding: 30px 15px; }
         .hero h1 { 
-            font-size: clamp(3.5rem, 15vw, 8.5rem); font-weight: 900; margin: 0;
+            font-size: clamp(5.5rem, 22vw, 8.5rem); font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff, var(--violet));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 0.85; letter-spacing: -4px;
@@ -328,7 +328,6 @@
     </div>
 </div>
 
-<!-- MODULE TOP 10 AVEC SÉLECTEUR -->
 <div class="top10-section" id="top10">
     <div class="top10-card">
         <div class="top10-header">
@@ -416,7 +415,7 @@
         {"rank": 19, "name": "Stellar", "symbol": "XLM", "market_cap": 4187727766, "volume_24h": 90000000},
         {"rank": 20, "name": "Toncoin", "symbol": "TON", "market_cap": 4123752240, "volume_24h": 180000000},
         {"rank": 21, "name": "World Liberty Financial USD", "symbol": "USD1", "market_cap": 4110463572, "volume_24h": 50000000},
-        {"rank": 22, "name": "Ethena USDe", "symbol": "USDe", "market_cap": 3828636513, "volume_24h": 80000000},
+        {"rank": 22, "name": "Ethena USDe", "symbol": "USDe", "market_cap": 3828636513, "volume_24h": 8000000},
         {"rank": 23, "name": "Sui", "symbol": "SUI", "market_cap": 3597142317, "volume_24h": 200000000},
         {"rank": 24, "name": "Litecoin", "symbol": "LTC", "market_cap": 3515040160, "volume_24h": 220000000},
         {"rank": 25, "name": "Avalanche", "symbol": "AVAX", "market_cap": 3398406262, "volume_24h": 190000000},
@@ -447,7 +446,6 @@
         {"rank": 50, "name": "Bitget Token", "symbol": "BGB", "market_cap": 1181468029, "volume_24h": 20000000}
     ];
 
-    // Extraction des min et max sur le sous-ensemble (rank >= 5) pour les calculs logarithmiques
     const dfRest = cryptoData.filter(d => d.rank >= 5);
     const mcapValues = dfRest.map(d => d.market_cap);
     const volValues = dfRest.map(d => d.volume_24h);
@@ -457,7 +455,6 @@
     const minVol = Math.min(...volValues);
     const maxVol = Math.max(...volValues);
 
-    // --- ALGORITHME DE CALCUL DU SCORE DE RISQUE IA TRADUIT ---
     function calculateAiRiskScore(coin) {
         if (coin.rank <= 4) {
             return parseFloat(coin.rank);
@@ -472,7 +469,6 @@
         return parseFloat(riskScore.toFixed(2));
     }
 
-    // Association dynamique du score calculé à notre dictionnaire de base de données
     const aiRiskDictionary = {};
     cryptoData.forEach(coin => {
         const calculatedRisk = calculateAiRiskScore(coin);
@@ -536,7 +532,6 @@
             p.draw();
         });
         
-        // Lignes de connexion
         for (let i = 0; i < particles.length; i++) {
             for (let j = i + 1; j < particles.length; j++) {
                 const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
@@ -558,7 +553,7 @@
     const HALVING_DATE = new Date("April 17, 2028 00:00:00").getTime();
     let globalData = [];
     let currentLvl = 'debutant';
-    let perfMode = 'gainers'; // 'gainers' ou 'losers'
+    let perfMode = 'gainers';
 
     function updateHalving() {
         const now = Date.now();
@@ -635,7 +630,7 @@
 
         const sourceList = globalData.length > 0 ? globalData : cryptoData.map(c => ({
             ...c,
-            current_price: c.market_cap / 1e10, // Prix simulé cohérent
+            current_price: c.market_cap / 1e10,
             price_change_percentage_24h: c.rank % 2 === 0 ? 3.5 : -1.2
         }));
 
@@ -728,7 +723,6 @@
             });
         }
 
-        // Configuration unie électrique Néon Pure sans gradient
         let neonColor, shadowEffect;
         if (riskScore <= 3.0) {
             neonColor = "var(--neon-green)";

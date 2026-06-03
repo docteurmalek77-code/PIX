@@ -9,11 +9,12 @@
         :root {
             --primary: #f7931a;
             --violet: #8b5cf6;
+            --violet-bright: #a78bfa;
             --bg-deep: #030208;
             --up: #00ffa3;
             --down: #ff3366;
-            --border: rgba(139, 92, 246, 0.2);
-            --card-bg: rgba(10, 8, 20, 0.9);
+            --border: rgba(139, 92, 246, 0.25);
+            --card-bg: rgba(8, 6, 15, 0.95);
             --gray-text: rgba(255, 255, 255, 0.4);
             
             /* Teintes Néon pures d'origine */
@@ -23,43 +24,40 @@
             --neon-red: #ff3366;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        
+        /* STRUCTURE ET RENDU DU FOND SÉCURISÉS AVEC STACKING CONTEXT INFAILLIBLE */
+        html {
+            background-color: var(--bg-deep) !important;
+        }
+        
         body {
             font-family: 'Lexend', sans-serif;
-            background: transparent; /* Permet de voir le canvas à l'arrière-plan */
+            background: transparent !important;
             color: white; margin: 0; min-height: 100vh;
             overflow-x: hidden;
+            position: relative;
         }
 
-        /* --- BACKGROUND PARTICULES ET GRADIENT INTÉGRÉ --- */
-        #particles-js {
-            position: fixed;
-            top: 0;
-            left: 0;
+        /* --- LE CANEVAS DES PARTICULES (CALQUE INFÉRIEUR 1) --- */
+        #bg-canvas {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            z-index: 1 !important; /* Forcé au premier plan d'arrière-plan */
+            pointer-events: none !important;
+            background: var(--bg-deep) !important;
+            background-image: radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.25), transparent 75%) !important;
+        }
+
+        /* --- LE CONTENEUR DE L'APPLICATION (CALQUE SUPÉRIEUR 2) --- */
+        #app-wrapper {
+            position: relative;
+            z-index: 2 !important; /* Force tout le contenu à flotter au-dessus du canvas */
             width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: var(--bg-deep);
-            background-image: radial-gradient(circle at 50% -20%, rgba(139, 92, 246, 0.2), transparent 75%);
-        }
-
-        /* --- EFFETS NÉON ANIMÉS --- */
-        @keyframes neon-pulse-violet {
-            0% { box-shadow: 0 0 5px var(--violet), 0 0 10px var(--violet); }
-            50% { box-shadow: 0 0 20px var(--violet), 0 0 30px var(--violet); }
-            100% { box-shadow: 0 0 5px var(--violet), 0 0 10px var(--violet); }
-        }
-
-        @keyframes neon-pulse-white {
-            0% { box-shadow: 0 0 5px #fff, 0 0 10px #fff; }
-            50% { box-shadow: 0 0 20px #fff, 0 0 30px #fff; }
-            100% { box-shadow: 0 0 5px #fff, 0 0 10px #fff; }
-        }
-
-        @keyframes neon-pulse-primary {
-            0% { box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
-            50% { box-shadow: 0 0 20px var(--primary), 0 0 30px var(--primary); }
-            100% { box-shadow: 0 0 5px var(--primary), 0 0 10px var(--primary); }
+            min-height: 100vh;
         }
 
         /* BANDEAU PRIX */
@@ -97,6 +95,7 @@
             background: linear-gradient(to bottom, #fff, var(--violet));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 0.8; letter-spacing: -6px;
+            filter: drop-shadow(0 0 40px rgba(139, 92, 246, 0.4));
         }
         .tagline { color: var(--violet); letter-spacing: 6px; font-weight: 900; text-transform: uppercase; margin-top: 25px; font-size: 0.85rem; }
         .sub-tagline { color: var(--gray-text); font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-top: 10px; }
@@ -123,15 +122,16 @@
             animation: neon-pulse-primary 2s infinite;
         }
 
-        .timer-container { display: flex; gap: 12px; justify-content: center; }
+        /* COMPTEUR RESPONSIVE */
+        .timer-container { display: flex; gap: 8px; justify-content: center; width: 100%; }
         .timer-unit {
             background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.2);
-            padding: 15px; border-radius: 20px; min-width: 85px; text-align: center;
+            padding: 12px 8px; border-radius: 15px; flex: 1; min-width: 60px; max-width: 85px; text-align: center;
         }
-        .timer-val { font-size: 2.2rem; font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
-        .timer-label { font-size: 0.5rem; text-transform: uppercase; letter-spacing: 2px; color: var(--gray-text); margin-top: 5px; }
+        .timer-val { font-size: 1.6rem; font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
+        .timer-label { font-size: 0.45rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-text); margin-top: 3px; }
 
-        /* --- TOP 10 MODULE AMÉLIORÉ (SÉCURISÉ CONTRE LES TRONCATURES) --- */
+        /* --- TOP 10 MODULE --- */
         .top10-section {
             max-width: 1160px; margin: 0 auto 40px; padding: 0 20px;
         }
@@ -146,7 +146,6 @@
         }
         .top10-title { font-weight: 900; font-size: 1rem; letter-spacing: 4px; text-transform: uppercase; color: #fff; }
         
-        /* Sélecteur d'onglet */
         .perf-toggle { display: flex; background: rgba(0,0,0,0.4); padding: 5px; border-radius: 15px; border: 1px solid rgba(255,255,255,0.05); }
         .toggle-btn { 
             padding: 10px 18px; border-radius: 10px; border: none; background: transparent;
@@ -172,20 +171,17 @@
         .perf-item.up-item:hover { background: rgba(0, 255, 163, 0.05); border-color: var(--up); transform: translateY(-3px); }
         .perf-item.down-item:hover { background: rgba(255, 51, 102, 0.05); border-color: var(--down); transform: translateY(-3px); }
         
-        .perf-info { display: flex; flex-direction: column; min-width: 0; }
+        .perf-info { display: flex; flex-direction: column; min-width: 0; flex: 1; }
         .perf-rank { position: absolute; left: 8px; top: 4px; font-size: 0.5rem; font-weight: 900; opacity: 0.5; }
         .up-item .perf-rank { color: var(--up); }
         .down-item .perf-rank { color: var(--down); }
         
-        /* CORRECTION : Plus de masquage "..." pour garder la visibilité complète */
         .perf-name { font-weight: 900; font-size: 0.95rem; letter-spacing: 1px; color: #fff; }
         .perf-price { font-size: 0.7rem; color: var(--gray-text); font-weight: 600; margin-top: 2px; }
-        .perf-pct { font-weight: 900; font-size: 1rem; white-space: nowrap; z-index: 1; }
-        
-        /* Petite barre de force sous l'item */
+        .perf-pct { font-weight: 900; font-size: 1rem; white-space: nowrap; z-index: 1; margin-left: auto; text-align: right; }
         .perf-bar { position: absolute; bottom: 0; left: 0; height: 3px; width: 0%; transition: width 1s ease; }
 
-        /* GRID TERMINAL - 4 SECTIONS SYMÉTRIQUES */
+        /* GRID TERMINAL */
         .container { max-width: 1200px; margin: auto; padding: 0 15px 40px 15px; }
         .top-grid { 
             display: grid; 
@@ -250,10 +246,9 @@
             cursor: pointer;
             border-radius: 10px;
         }
-        /* CORRECTION : Lueur augmentée au clic (Boutons qui brillent) */
-        .picker-btn.active.long-btn { background: var(--up); color: #000; box-shadow: 0 0 20px #00ffa3; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
-        .picker-btn.active.short-btn { background: var(--down); color: #fff; box-shadow: 0 0 20px #ff3366; }
-        .picker-btn.active.asset-btn { background: var(--violet); color: #fff; box-shadow: 0 0 25px #8b5cf6; }
+        .picker-btn.active.long-btn { background: var(--up); color: #000; box-shadow: 0 0 25px #00ffa3, 0 0 5px #00ffa3; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
+        .picker-btn.active.short-btn { background: var(--down); color: #fff; box-shadow: 0 0 25px #ff3366, 0 0 5px #ff3366; }
+        .picker-btn.active.asset-btn { background: var(--violet); color: #fff; box-shadow: 0 0 30px #8b5cf6, 0 0 10px #8b5cf6; }
 
         .btn {
             width: 100%; padding: 18px; border-radius: 15px; border: none;
@@ -265,7 +260,7 @@
         .btn-white:hover { box-shadow: 0 0 20px rgba(255,255,255,0.4); transform: translateY(-2px); }
         
         .btn-violet { background: var(--violet); color: #fff; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
-        .btn-violet:hover { background: #9d7cff; box-shadow: 0 0 30px rgba(139,92,246,0.5); transform: translateY(-2px); }
+        .btn-violet:hover { background: #9d7cff; box-shadow: 0 0 35px rgba(139,92,246,0.5), 0 0 15px rgba(139,92,246,0.4); transform: translateY(-2px); }
 
         .res-display {
             background: rgba(0,0,0,0.6); border-radius: 20px; padding: 25px 15px;
@@ -274,12 +269,14 @@
             overflow: hidden;
         }
 
-        /* --- SCORE DE RISQUE NÉON --- */
+        /* --- SCORE DE RISQUE NÉON HYPER GLOWING --- */
         .risk-circle {
             width: 110px; height: 110px; border-radius: 50%; border: 6px solid;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             margin-bottom: 15px; transition: all 0.6s ease;
             background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 25px currentColor, inset 0 0 15px currentColor;
+            filter: drop-shadow(0 0 10px currentColor);
         }
         .risk-val { font-size: 2.2rem; font-weight: 900; }
         .risk-text-lbl { font-size: 0.55rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-top: 5px; }
@@ -293,23 +290,23 @@
         .lvl-btn {
             padding: 12px 5px; border-radius: 12px; border: 1px solid var(--border);
             background: rgba(255,255,255,0.03); cursor: pointer; font-size: 0.55rem;
-            font-weight: 900; text-transform: uppercase; color: rgba(255,255,255,0.4);
+            font-weight: 900; text-transform: uppercase; color: rgba(255,255,255,0.5);
         }
-        .lvl-btn.active { background: var(--violet); color: white; border-color: var(--violet); box-shadow: 0 0 15px var(--violet); }
+        .lvl-btn.active { background: var(--violet); color: white; border-color: var(--violet); box-shadow: 0 5px 20px rgba(139, 92, 246, 0.4); }
 
         .creator-tag {
             text-align: center; margin-top: 40px; font-weight: 900;
-            font-size: 0.75rem; letter-spacing: 4px; color: #fff;
+            font-size: 0.8rem; letter-spacing: 4px; color: #fff;
             text-transform: uppercase;
         }
         .disclaimer-box { 
-            max-width: 900px; margin: 20px auto 0; padding: 20px; 
+            max-width: 900px; margin: 20px auto 0; padding: 25px; 
             text-align: center; border-top: 1px solid rgba(255,255,255,0.05); 
         }
         .disclaimer-text { 
-            font-size: 0.55rem; color: rgba(255,255,255,0.15); 
+            font-size: 0.55rem; color: rgba(255,255,255,0.2); 
             text-transform: uppercase; font-weight: 700; 
-            line-height: 1.6; letter-spacing: 1px;
+            line-height: 1.8; letter-spacing: 1px;
         }
 
         /* --- DESIGN LIQUIDATIONS --- */
@@ -321,23 +318,23 @@
         }
         @keyframes slideUp { from { transform: translateY(5px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-        .up { color: var(--up); }
-        .down { color: var(--down); }
+        .up { color: var(--up); text-shadow: 0 0 5px rgba(0, 255, 163, 0.5); }
+        .down { color: var(--down); text-shadow: 0 0 5px rgba(255, 51, 102, 0.5); }
         .loader { width: 35px; height: 35px; border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        footer { text-align: center; padding: 40px 10px; color: rgba(255,255,255,0.02); font-size: 0.5rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
+        footer { text-align: center; padding: 40px; color: rgba(255,255,255,0.03); font-size: 0.5rem; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
 
         /* --- MEDIA QUERIES ÉCRANS LARGES --- */
         @media (min-width: 768px) {
-            .halving-card { grid-template-columns: 1fr 1fr; }
+            .halving-card { grid-template-columns: 1fr 1fr; border-radius: 40px; padding: 40px; }
             .perf-grid { grid-template-columns: repeat(5, 1fr); }
             .top-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .academy-options { grid-template-columns: repeat(4, 1fr); gap: 12px; }
             .timer-container { gap: 12px; }
-            .timer-unit { padding: 15px; min-width: 85px; }
+            .timer-unit { padding: 15px; min-width: 85px; max-width: none; }
             .timer-val { font-size: 2.2rem; }
-            .timer-label { font-size: 0.5rem; }
+            .timer-label { font-size: 0.5rem; letter-spacing: 2px; }
             .top10-title { font-size: 1rem; }
             .hero h1 { font-size: 9rem; }
         }
@@ -364,142 +361,215 @@
 </head>
 <body>
 
-<!-- CANVAS DE FOND PARTICULES -->
-<canvas id="particles-js"></canvas>
+<!-- CANVAS DE FOND PARTICULES RENDU DE MANIÈRE PRIORITAIRE -->
+<canvas id="bg-canvas"></canvas>
 
-<div class="tickers-header">
-    <div class="ticker-row">
-        <div class="ticker-move" id="tick1">
-            <span style="padding-left:100px; font-weight:900; opacity:0.3; letter-spacing:5px;">SYNCHRONISATION DES MARCHÉS...</span>
+<!-- APP WRAPPER POUR FORCER LA PRIORITÉ DU CONTENU SANS CONFLIT DE Z-INDEX -->
+<div id="app-wrapper">
+
+    <div class="tickers-header">
+        <div class="ticker-row">
+            <div class="ticker-move" id="tick1">
+                <span style="padding-left:100px; font-weight:900; opacity:0.3; letter-spacing:5px;">SYNCHRONISATION DES MARCHÉS...</span>
+            </div>
         </div>
     </div>
-</div>
 
-<nav>
-    <a href="#market">TERMINAL</a>
-    <a href="#ai">RISQUE</a>
-    <a href="#liquidation">LIQUIDATION</a>
-    <a href="#academy">ACADÉMIE</a>
-</nav>
+    <nav>
+        <a href="#market">TERMINAL</a>
+        <a href="#ai">RISQUE</a>
+        <a href="#liquidation">LIQUIDATION</a>
+        <a href="#academy">ACADÉMIE</a>
+    </nav>
 
-<div class="hero">
-    <h1>PIX</h1>
-    <div class="tagline">INTELLIGENCE ANALYTIQUE SUPRÊME</div>
-    <div class="sub-tagline">IA conçue par CryptoMan</div>
-</div>
-
-<div class="halving-section">
-    <div class="halving-card">
-        <div>
-            <div class="h-title">IA PROTOCOLE HALVING</div>
-            <div class="h-text">
-                En 2028, l'émission de Bitcoin passera de <b>3,125</b> à <b>1,5625 BTC</b> par bloc. 
-                Une réduction massive de l'offre qui précède historiquement une explosion de la demande.
-            </div>
-            <div class="h-status">ACCUMULATION CONSEILLÉE</div>
-        </div>
-        <div class="timer-container">
-            <div class="timer-unit"><div class="timer-val" id="h-days">--</div><div class="timer-label">Jours</div></div>
-            <div class="timer-unit"><div class="timer-val" id="h-hours">--</div><div class="timer-label">Heures</div></div>
-            <div class="timer-unit"><div class="timer-val" id="h-mins">--</div><div class="timer-label">Min</div></div>
-            <div class="timer-unit"><div class="timer-val" id="h-secs">--</div><div class="timer-label">Sec</div></div>
-        </div>
+    <div class="hero">
+        <h1>PIX</h1>
+        <div class="tagline">INTELLIGENCE ANALYTIQUE SUPRÊME</div>
     </div>
-</div>
 
-<!-- MODULE TOP 10 AVEC SÉLECTEUR -->
-<div class="top10-section" id="top10">
-    <div class="top10-card">
-        <div class="top10-header">
-            <div class="top10-title">RADAR PERFORMANCE (24H)</div>
-            <div class="perf-toggle">
-                <button class="toggle-btn active gainers" onclick="setPerfMode('gainers')">Top Gainers</button>
-                <button class="toggle-btn losers" onclick="setPerfMode('losers')">Top Losers</button>
-            </div>
-        </div>
-        <div class="perf-grid" id="perfGrid">
-            <div class="loader"></div>
-        </div>
-    </div>
-</div>
-
-<div class="container">
-    <div class="top-grid">
-        <!-- SECTION 1 : TERMINAL DE SIGNAL -->
-        <div class="card" id="market">
-            <h3>TERMINAL DE SIGNAL</h3>
-            <input type="text" id="mktInp" placeholder="SYMBOLE (BTC, SOL...)" value="BTC">
-            <button class="btn btn-white" onclick="getMarketData()">LANCER LA REQUÊTE</button>
-            <div id="mktRes" class="res-display">
-                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">EN ATTENTE DE COMMANDE</span>
-            </div>
-        </div>
-
-        <!-- SECTION 2 : SCORE DE RISQUE IA -->
-        <div class="card" id="ai">
-            <h3>SCORE DE RISQUE IA</h3>
-            <input type="text" id="aiInp" placeholder="JETON (DOT, LINK...)" value="SOL">
-            <button class="btn btn-violet" onclick="getRiskAnalyse()">ANALYSER LE PROFIL</button>
-            <div id="aiRes" class="res-display">
-                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">ALGORITHME V15 ACTIF</span>
-            </div>
-        </div>
-
-        <!-- SECTION 3 : WATCH LIQUIDATION (DYNAMIQUE SIMULÉE) -->
-        <div class="card" id="liquidation">
-            <h3>WATCH LIQUIDATION LIVE</h3>
-            
-            <div class="custom-selector-container">
-                <div>
-                    <div class="selector-box-title">Direction Trade</div>
-                    <div class="glass-picker">
-                        <button class="picker-btn active long-btn" onclick="setTradeDirection('long')">LONG</button>
-                        <button class="picker-btn short-btn" onclick="setTradeDirection('short')">SHORT</button>
-                    </div>
+    <div class="halving-section">
+        <div class="halving-card">
+            <div>
+                <div class="h-title">IA PROTOCOLE HALVING</div>
+                <div class="h-text">
+                    En 2028, l'émission de Bitcoin passera de <b>3,125</b> à <b>1,5625 BTC</b> par bloc. 
+                    Une réduction massive de l'offre qui précède historiquement une explosion de la demande.
                 </div>
-                <div>
-                    <div class="selector-box-title">Actif Cible</div>
-                    <div class="glass-picker">
-                        <button class="picker-btn active asset-btn" id="btnAssetBTC" onclick="setAssetTarget('BTC')">BTC</button>
-                        <button class="picker-btn" id="btnAssetETH" onclick="setAssetTarget('ETH')">ETH</button>
-                    </div>
+                <div class="h-status">ACCUMULATION CONSEILLÉE</div>
+            </div>
+            <div class="timer-container">
+                <div class="timer-unit"><div class="timer-val" id="h-days">--</div><div class="timer-label">Jours</div></div>
+                <div class="timer-unit"><div class="timer-val" id="h-hours">--</div><div class="timer-label">Heures</div></div>
+                <div class="timer-unit"><div class="timer-val" id="h-mins">--</div><div class="timer-label">Min</div></div>
+                <div class="timer-unit"><div class="timer-val" id="h-secs">--</div><div class="timer-label">Sec</div></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODULE TOP 10 AVEC SÉLECTEUR -->
+    <div class="top10-section" id="top10">
+        <div class="top10-card">
+            <div class="top10-header">
+                <div class="top10-title">RADAR PERFORMANCE (24H)</div>
+                <div class="perf-toggle">
+                    <button class="toggle-btn active gainers" onclick="setPerfMode('gainers')">Top Gainers</button>
+                    <button class="toggle-btn losers" onclick="setPerfMode('losers')">Top Losers</button>
+                </div>
+            </div>
+            <div class="perf-grid" id="perfGrid">
+                <div class="loader"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="top-grid">
+            <!-- SECTION 1 : TERMINAL DE SIGNAL -->
+            <div class="card" id="market">
+                <h3>TERMINAL DE SIGNAL</h3>
+                <input type="text" id="mktInp" placeholder="SYMBOLE (BTC, SOL...)" value="BTC">
+                <button class="btn btn-white" onclick="getMarketData()">LANCER REQUÊTE</button>
+                <div id="mktRes" class="res-display">
+                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">EN ATTENTE DE COMMANDE</span>
                 </div>
             </div>
 
-            <button class="btn btn-violet" onclick="toggleLiquidationLive()">CONNECTER AUX FUTURES</button>
-            <div id="liqRes" class="res-display" style="justify-content: flex-start; padding: 15px; overflow-y: auto;">
-                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px; margin: auto;">ATTENTE LIAISON DES FLUX</span>
+            <!-- SECTION 2 : SCORE DE RISQUE IA -->
+            <div class="card" id="ai">
+                <h3>SCORE DE RISQUE IA</h3>
+                <input type="text" id="aiInp" placeholder="JETON (DOT, LINK...)" value="SOL">
+                <button class="btn btn-violet" onclick="getRiskAnalyse()">ANALYSER LE PROFIL</button>
+                <div id="aiRes" class="res-display">
+                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">ALGORITHME V15 ACTIF</span>
+                </div>
+            </div>
+
+            <!-- SECTION 3 : WATCH LIQUIDATION (DYNAMIQUE SIMULÉE) -->
+            <div class="card" id="liquidation">
+                <h3>WATCH LIQUIDATION LIVE</h3>
+                
+                <div class="custom-selector-container">
+                    <div>
+                        <div class="selector-box-title">Direction Trade</div>
+                        <div class="glass-picker">
+                            <button class="picker-btn active long-btn" onclick="setTradeDirection('long')">LONG</button>
+                            <button class="picker-btn short-btn" onclick="setTradeDirection('short')">SHORT</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="selector-box-title">Actif Cible</div>
+                        <div class="glass-picker">
+                            <button class="picker-btn active asset-btn" id="btnAssetBTC" onclick="setAssetTarget('BTC')">BTC</button>
+                            <button class="picker-btn" id="btnAssetETH" onclick="setAssetTarget('ETH')">ETH</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="btn btn-violet" onclick="toggleLiquidationLive()">CONNECTER AUX FUTURES</button>
+                <div id="liqRes" class="res-display" style="justify-content: flex-start; padding: 15px; overflow-y: auto;">
+                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px; margin: auto;">ATTENTE LIAISON DES FLUX</span>
+                </div>
+            </div>
+
+            <!-- SECTION 4 : ACADÉMIE -->
+            <div class="card" id="academy">
+                <h3>PIXELISÉE ACADÉMIE</h3>
+                <div class="academy-options">
+                    <div class="lvl-btn active" onclick="setLvl(this, 'debutant')">Débutant</div>
+                    <div class="lvl-btn" onclick="setLvl(this, 'amateur')">Amateur</div>
+                    <div class="lvl-btn" onclick="setLvl(this, 'intermediaire')">Intermédiaire</div>
+                    <div class="lvl-btn" onclick="setLvl(this, 'expert')">Expert</div>
+                </div>
+                <button class="btn btn-white" onclick="getAcademyContent()">CHARGER LE MODULE</button>
+                <div id="acaRes" class="res-display">
+                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">SÉLECTIONNE TON NIVEAU</span>
+                </div>
             </div>
         </div>
 
-        <!-- SECTION 4 : ACADÉMIE -->
-        <div class="card" id="academy">
-            <h3>PIXELISÉE ACADÉMIE</h3>
-            <div class="academy-options">
-                <div class="lvl-btn active" onclick="setLvl(this, 'debutant')">Débutant</div>
-                <div class="lvl-btn" onclick="setLvl(this, 'amateur')">Amateur</div>
-                <div class="lvl-btn" onclick="setLvl(this, 'intermediaire')">Intermédiaire</div>
-                <div class="lvl-btn" onclick="setLvl(this, 'expert')">Expert</div>
-            </div>
-            <button class="btn btn-white" onclick="getAcademyContent()">CHARGER LE MODULE</button>
-            <div id="acaRes" class="res-display">
-                <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">SÉLECTIONNE TON NIVEAU</span>
+        <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN</div>
+
+        <div class="disclaimer-box">
+            <div class="disclaimer-text">
+                PIX EST UN LOGICIEL D'ANALYSE PROBABILISTE. TOUTE INFORMATION AFFICHÉE NE DOIT PAS ÊTRE CONSIDÉRÉE COMME UN CONSEIL FINANCIER. LE TRADING DE CRYPTO-MONNAIES COMPORTE DES RISQUES ÉLEVÉS DE PERTE EN CAPITAL. CRYPTOMAN ET PIX NE SONT PAS RESPONSABLES DE VOS RÉSULTATS. FAITES TOUJOURS VOS PROPRES RECHERCHES (DYOR).
             </div>
         </div>
     </div>
 
-    <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN</div>
+    <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
-    <div class="disclaimer-box">
-        <div class="disclaimer-text">
-            PIX EST UN LOGICIEL D'ANALYSE PROBABILISTE. TOUTE INFORMATION AFFICHÉE NE DOIT PAS ÊTRE CONSIDÉRÉE COMME UN CONSEIL FINANCIER. LE TRADING DE CRYPTO-MONNAIES COMPORTE DES RISQUES ÉLEVÉS DE PERTE EN CAPITAL. CRYPTOMAN ET PIX NE SONT PAS RESPONSABLES DE VOS RÉSULTATS. FAITES TOUJOURS VOS PROPRES RECHERCHES (DYOR).
-        </div>
-    </div>
 </div>
-
-<footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
 <script>
+    // --- MOTEUR DE PARTICULES (Canvas - ID unique 'bg-canvas' insensible aux bloqueurs) ---
+    const canvas = document.getElementById('bg-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    let canvasWidth, canvasHeight;
+
+    function resize() {
+        canvasWidth = canvas.width = window.innerWidth;
+        canvasHeight = canvas.height = window.innerHeight;
+    }
+
+    class Particle {
+        constructor() { this.init(); }
+        init() {
+            this.x = Math.random() * canvasWidth;
+            this.y = Math.random() * canvasHeight;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.size = Math.random() * 2 + 1;
+            this.color = Math.random() > 0.5 ? '#8b5cf6' : '#f7931a';
+            this.alpha = Math.random() * 0.4 + 0.1;
+        }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > canvasWidth) this.vx *= -1;
+            if (this.y < 0 || this.y > canvasHeight) this.vy *= -1;
+        }
+        draw() {
+            ctx.globalAlpha = this.alpha;
+            ctx.fillStyle = this.color;
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        const count = Math.min(canvasWidth / 12, 80);
+        for (let i = 0; i < count; i++) {
+            particles.push(new Particle());
+        }
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        // Lignes de connexion
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
+                if (dist < 100) {
+                    ctx.globalAlpha = (1 - dist / 100) * 0.15;
+                    ctx.strokeStyle = '#8b5cf6';
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(animate);
+    }
+
     // --- BASE DE DONNÉES DU TOP 50 ---
     const cryptoData = [
         {"rank": 1, "name": "Bitcoin", "symbol": "BTC", "market_cap": 1302489467318, "volume_24h": 25000000000},
@@ -554,7 +624,7 @@
         {"rank": 50, "name": "Bitget Token", "symbol": "BGB", "market_cap": 1181468029, "volume_24h": 20000000}
     ];
 
-    // Extraction des min et max sur le sous-ensemble (rank >= 5) pour les calculs logarithmiques
+    // Extraction des min et max
     const dfRest = cryptoData.filter(d => d.rank >= 5);
     const mcapValues = dfRest.map(d => d.market_cap);
     const volValues = dfRest.map(d => d.volume_24h);
@@ -576,7 +646,6 @@
         return parseFloat(riskScore.toFixed(2));
     }
 
-    // Association dynamique du score calculé à notre dictionnaire de base de données
     const aiRiskDictionary = {};
     cryptoData.forEach(coin => {
         const calculatedRisk = calculateAiRiskScore(coin);
@@ -587,81 +656,6 @@
             volume_24h: coin.volume_24h,
             risk_score_10: calculatedRisk
         };
-    });
-
-    // --- MOTEUR DE PARTICULES (Canvas) ---
-    const canvas = document.getElementById('particles-js');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let width, height;
-
-    // RESTAURATION DE LA FONCTION RESIZE POUR RESOUDRE L'ERREUR DE COMPILATION
-    function resize() {
-        width = canvas.width = window.innerWidth;
-        height = canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-        constructor() { this.init(); }
-        init() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * height;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.size = Math.random() * 2 + 1;
-            this.color = Math.random() > 0.5 ? '#8b5cf6' : '#f7931a';
-            this.alpha = Math.random() * 0.4 + 0.1;
-        }
-        update() {
-            this.x += this.vx; this.y += this.vy;
-            if (this.x < 0 || this.x > width) this.vx *= -1;
-            if (this.y < 0 || this.y > height) this.vy *= -1;
-        }
-        draw() {
-            ctx.globalAlpha = this.alpha;
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    function initParticles() {
-        particles = [];
-        const count = Math.min(width / 12, 80);
-        for (let i = 0; i < count; i++) {
-            particles.push(new Particle());
-        }
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, width, height);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        
-        // Lignes de connexion
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
-                if (dist < 100) {
-                    ctx.globalAlpha = (1 - dist / 100) * 0.15;
-                    ctx.strokeStyle = '#8b5cf6';
-                    ctx.lineWidth = 0.5;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
-    window.addEventListener('resize', () => {
-        resize();
-        initParticles();
     });
 
     // --- LOGIQUE PIX CORE ---
@@ -693,20 +687,19 @@
         currentLvl = lvl;
     }
 
-    // --- SYNCHRONISATION DES TIQUETS ---
+    function setPerfMode(mode) {
+        perfMode = mode;
+        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
+        document.querySelector(`.toggle-btn.${mode}`).classList.add('active');
+        updateTop10();
+    }
+
     function formatVal(num) {
         if (!num) return "0";
         if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
         if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
         if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
         return num.toLocaleString();
-    }
-
-    function setPerfMode(mode) {
-        perfMode = mode;
-        document.querySelectorAll('.toggle-btn').forEach(b => b.classList.remove('active'));
-        document.querySelector(`.toggle-btn.${mode}`).classList.add('active');
-        updateTop10();
     }
 
     async function fetchData(retries = 3) {
@@ -741,13 +734,12 @@
         document.getElementById('tick1').innerHTML = tContent + tContent;
     }
 
-    // CORRECTION VISUELLE : Pas de "..." ni de caractères asiatiques bizarres
     function sanitizeName(name, symbol) {
         if (!symbol) return "N/A";
         const sym = symbol.toUpperCase().trim();
         const nm = name ? name.toUpperCase().trim() : "";
         if (/[\u4e00-\u9fa5]/.test(sym) || /[\u4e00-\u9fa5]/.test(nm) || sym.includes("币") || nm.includes("币")) {
-            return "MNT"; // Fallback propre
+            return "MNT";
         }
         return sym;
     }
@@ -807,7 +799,7 @@
         await new Promise(r => setTimeout(r, 600));
         const coin = findCoin(val);
         if (!coin) {
-            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON INTRUVABLE</span>';
+            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON NON TROUVÉ</span>';
             return;
         }
 
@@ -840,10 +832,10 @@
         }
 
         let riskScore;
-        const symbol = coin.symbol.toUpperCase();
+        const symbol = coin.symbol.toLowerCase();
         
-        if (aiRiskDictionary[symbol]) {
-            riskScore = aiRiskDictionary[symbol].risk_score_10;
+        if (aiRiskDictionary[symbol.toUpperCase()]) {
+            riskScore = aiRiskDictionary[symbol.toUpperCase()].risk_score_10;
         } else {
             riskScore = calculateAiRiskScore({
                 rank: coin.market_cap_rank || 100,
@@ -855,16 +847,16 @@
         let neonColor, shadowEffect;
         if (riskScore <= 3.0) {
             neonColor = "var(--neon-green)";
-            shadowEffect = "0 0 20px #00ffa3, inset 0 0 12px #00ffa3";
+            shadowEffect = "0 0 25px #00ffa3, inset 0 0 15px #00ffa3";
         } else if (riskScore <= 6.5) {
             neonColor = "var(--neon-yellow)";
-            shadowEffect = "0 0 20px #facc15, inset 0 0 12px #facc15";
+            shadowEffect = "0 0 25px #facc15, inset 0 0 15px #facc15";
         } else if (riskScore <= 8.5) {
             neonColor = "var(--neon-orange)";
-            shadowEffect = "0 0 20px #f7931a, inset 0 0 12px #f7931a";
+            shadowEffect = "0 0 25px #f7931a, inset 0 0 15px #f7931a";
         } else {
             neonColor = "var(--neon-red)";
-            shadowEffect = "0 0 20px #ff3366, inset 0 0 12px #ff3366";
+            shadowEffect = "0 0 35px #ff3366, inset 0 0 20px #ff3366";
         }
 
         let status = riskScore < 3 ? 'SÉCURISÉ' : (riskScore < 6.5 ? 'MODÉRÉ' : 'HAUT RISQUE');
@@ -877,64 +869,22 @@
         else aiNote = "DANGER CRITIQUE : Micro-cap ou instabilité technique majeure détectée. Probabilité de perte totale du capital élevée. Sortie de position conseillée si profit réalisé.";
 
         res.innerHTML = `
-            <div class="risk-circle" style="border-color:${neonColor}; color:${neonColor}; box-shadow: ${shadowEffect};">
-                <div class="risk-val" style="text-shadow: 0 0 10px ${neonColor}">${riskScore.toFixed(2)}</div>
+            <div class="risk-circle" style="border-color:${neonColor}; color:${neonColor}; box-shadow: ${shadowEffect}; filter: drop-shadow(0 0 15px ${neonColor});">
+                <div class="risk-val" style="text-shadow: 0 0 12px ${neonColor}">${riskScore.toFixed(2)}</div>
                 <div class="risk-text-lbl" style="text-shadow: 0 0 5px ${neonColor}">NOTE IA</div>
             </div>
-            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${neonColor}">${status}</div>
+            <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${neonColor}; text-shadow: 0 0 10px ${neonColor}">${status}</div>
             <div style="font-size:0.7rem; opacity:0.8; margin-top:22px; font-weight:600; line-height:1.7; max-width:340px; text-align:center;">
-                <b style="color:${neonColor}">NOTE IA :</b> ${aiNote}
+                <b style="color:${neonColor}">NOTE PIX :</b> ${aiNote}
             </div>`;
     }
 
-    // --- SÉLECTEURS DE NAVIGATION DE WATCH LIQUIDATION (FONCTIONS GLOBALISÉES) ---
-    window.selectedTradeDirection = 'long';
-    window.selectedAssetTarget = 'BTC';
-
-    window.setTradeDirection = function(dir) {
-        window.selectedTradeDirection = dir;
-        const parent = document.querySelector('#liquidation .glass-picker');
-        if (parent) {
-            parent.querySelectorAll('.picker-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.toLowerCase() === dir) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-        if (wsConnected) runLiquidationSimulation();
-    }
-
-    window.setAssetTarget = function(asset) {
-        window.selectedAssetTarget = asset;
-        const btcBtn = document.getElementById('btnAssetBTC');
-        const ethBtn = document.getElementById('btnAssetETH');
-        
-        if (btcBtn && ethBtn) {
-            if (asset === 'BTC') {
-                btcBtn.classList.add('active');
-                btcBtn.classList.add('asset-btn');
-                ethBtn.classList.remove('active');
-                ethBtn.classList.remove('asset-btn');
-            } else {
-                btcBtn.classList.remove('active');
-                btcBtn.classList.remove('asset-btn');
-                ethBtn.classList.add('active');
-                ethBtn.classList.add('asset-btn');
-            }
-        }
-        if (wsConnected) runLiquidationSimulation();
-    }
-
-    // --- ALGORITHME DE COMPORTEMENT FLUX ET SIMULATEUR DE LIQUIDATION ULTRA PRO ---
+    // --- WATCH LIQUIDATION DYNAMIQUE & COINGLASS-STYLE ---
     let wsConnected = false;
-    let longCount = 34; // Valeurs d'initialisation stables
+    let longCount = 34;
     let shortCount = 28;
-    
-    // Nouveaux compteurs totaux réclamés (24H Totaux cumulés)
-    let total24hLongLiqUSD = 18450000;  // Commencer avec un chiffre simulé réaliste
+    let total24hLongLiqUSD = 18450000;
     let total24hShortLiqUSD = 14210000;
-    
     let liquidationsHistory = [];
     let simulationTimer = null;
 
@@ -943,7 +893,6 @@
         const btn = document.querySelector('#liquidation .btn');
         
         if (wsConnected) {
-            // Déconnexion
             wsConnected = false;
             if (simulationTimer) {
                 clearInterval(simulationTimer);
@@ -963,7 +912,6 @@
             res.innerHTML = '<div class="loader"></div><span style="font-size: 0.65rem; text-transform: uppercase; tracking-widest: 2px; margin-top: 15px;">DÉCRYPTAGE DU FLUX FUTURES...</span>';
         }
         
-        // Simulation locale d'un WebSocket de Binance haut de gamme pour contourner l'interdiction de connexion réseau du Canvas
         setTimeout(() => {
             wsConnected = true;
             if (btn) {
@@ -973,8 +921,6 @@
             if (res) {
                 res.innerHTML = '<div class="up" style="font-weight:900; letter-spacing:2px; margin: auto;">● LIAISON ÉTABLIE (ALGORITHME TEMPS RÉEL ACTIF)</div>';
             }
-            
-            // Démarrer la génération d'ordres forcés (toutes les 1.5 à 3 secondes)
             runLiquidationSimulation();
         }, 1000);
     }
@@ -985,21 +931,15 @@
         const generateOrder = () => {
             if (!wsConnected) return;
 
-            const targetAsset = window.selectedAssetTarget; // BTC ou ETH
-            const tradeDirection = window.selectedTradeDirection; // long ou short
+            const targetAsset = window.selectedAssetTarget;
+            const tradeDirection = window.selectedTradeDirection;
             
-            // Détermination d'un prix de liquidation réaliste
             let btcPrice = 64000 + (Math.random() - 0.5) * 400;
             let ethPrice = 3400 + (Math.random() - 0.5) * 30;
             let selectedPrice = targetAsset === "BTC" ? btcPrice : ethPrice;
-            
-            // Sens de la liquidation (Aléatoire mais équilibré)
-            const isLongLiq = Math.random() > 0.46; // Un léger biais
-            
-            // Volume simulé (de $10K à $2.5M)
+            const isLongLiq = Math.random() > 0.46;
             const volumeUSD = Math.random() > 0.9 ? (Math.random() * 2e6 + 5e5) : (Math.random() * 8e4 + 1e4);
             
-            // Mise à jour de nos compteurs d'incidents
             if (isLongLiq) {
                 longCount++;
                 total24hLongLiqUSD += volumeUSD;
@@ -1008,7 +948,6 @@
                 total24hShortLiqUSD += volumeUSD;
             }
             
-            // Enregistrement dans l'historique de l'application
             liquidationsHistory.unshift({
                 symbol: targetAsset,
                 side: isLongLiq ? "LONG" : "SHORT",
@@ -1016,16 +955,11 @@
                 price: selectedPrice
             });
             
-            if (liquidationsHistory.length > 3) liquidationsHistory.pop(); // Plus compact (3 items max) pour libérer de la place pour les totaux
-            
-            // Rendu de l'affichage
+            if (liquidationsHistory.length > 3) liquidationsHistory.pop();
             renderLiquidationUI(targetAsset, tradeDirection);
         };
 
-        // Générer un premier ordre instantané
         generateOrder();
-        
-        // Boucle d'écoute simulée
         simulationTimer = setInterval(generateOrder, 2500);
     }
 
@@ -1037,7 +971,6 @@
         const longRatio = total > 0 ? (longCount / total) * 100 : 50;
         const shortRatio = 100 - longRatio;
 
-        // Calcul du Risk Trade Score (sur 10)
         let riskScore = 5.0;
         let warningText = "";
         let color = "var(--up)";
@@ -1076,8 +1009,6 @@
 
         res.innerHTML = `
             <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; text-align: left;">
-                
-                <!-- Totaux 24H Globalisés -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
                     <div style="background: rgba(0,0,0,0.4); padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(0,255,163,0.15); text-align: center;">
                         <div style="font-size: 0.55rem; color: var(--up); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px;">Total Longs 24h</div>
@@ -1089,7 +1020,6 @@
                     </div>
                 </div>
 
-                <!-- Ratio Visuel -->
                 <div style="margin-bottom: 10px;">
                     <div style="display: flex; justify-content: space-between; font-size: 0.65rem; font-weight: 800; margin-bottom: 6px;">
                         <span class="up">RATIO LONGS: ${longRatio.toFixed(0)}%</span>
@@ -1100,12 +1030,10 @@
                     </div>
                 </div>
 
-                <!-- Liste défilante live -->
                 <div style="flex-grow: 1; display: flex; flex-direction: column; justify-content: center; margin-bottom: 10px;">
                     ${listHTML}
                 </div>
 
-                <!-- Analyseur de risque dynamique -->
                 <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 8px;">
                     <div style="font-size: 0.75rem; font-weight: 900; margin-bottom: 3px; text-align: center;">
                         TRADE RISK : <span style="color: ${color}; text-shadow: 0 0 10px ${color};">${riskScore}/10</span>
@@ -1116,10 +1044,8 @@
         `;
     }
 
-    // --- ACADÉMIE ---
-    window.getAcademyContent = function() {
+    function getAcademyContent() {
         const res = document.getElementById('acaRes');
-        if (!res) return;
         res.innerHTML = '<div class="loader"></div>';
 
         setTimeout(() => {
@@ -1133,15 +1059,134 @@
         }, 800);
     }
 
-    // --- INITIALISATION ---
+    // SÉLECTEURS DE DIRECTION & ACTIF CIBLE
+    window.selectedTradeDirection = 'long';
+    window.selectedAssetTarget = 'BTC';
+
+    window.setTradeDirection = function(dir) {
+        window.selectedTradeDirection = dir;
+        const parent = document.querySelector('#liquidation .glass-picker');
+        if (parent) {
+            parent.querySelectorAll('.picker-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase() === dir) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        if (wsConnected) runLiquidationSimulation();
+    }
+
+    window.setAssetTarget = function(asset) {
+        window.selectedAssetTarget = asset;
+        const btcBtn = document.getElementById('btnAssetBTC');
+        const ethBtn = document.getElementById('btnAssetETH');
+        
+        if (btcBtn && ethBtn) {
+            if (asset === 'BTC') {
+                btcBtn.classList.add('active');
+                btcBtn.classList.add('asset-btn');
+                ethBtn.classList.remove('active');
+                ethBtn.classList.remove('asset-btn');
+            } else {
+                btcBtn.classList.remove('active');
+                btcBtn.classList.remove('asset-btn');
+                ethBtn.classList.add('active');
+                ethBtn.classList.add('asset-btn');
+            }
+        }
+        if (wsConnected) runLiquidationSimulation();
+    }
+</script>
+
+<script>
+    // --- SCRIPT D'INITIALISATION DU CANVAS ET DU RENDU DES PARTICULES ---
+    const canvasObj = document.getElementById('bg-canvas');
+    const drawCtx = canvasObj.getContext('2d');
+    let points = [];
+    let w, h;
+
+    function adjustSize() {
+        w = canvasObj.width = window.innerWidth;
+        h = canvasObj.height = window.innerHeight;
+    }
+
+    class Point {
+        constructor() { this.reset(); }
+        reset() {
+            this.x = Math.random() * w;
+            this.y = Math.random() * h;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.size = Math.random() * 2 + 1.2;
+            this.color = Math.random() > 0.5 ? '#8b5cf6' : '#f7931a';
+            this.alpha = Math.random() * 0.4 + 0.15;
+        }
+        update() {
+            this.x += this.vx; this.y += this.vy;
+            if (this.x < 0 || this.x > w) this.vx *= -1;
+            if (this.y < 0 || this.y > h) this.vy *= -1;
+        }
+        draw() {
+            drawCtx.globalAlpha = this.alpha;
+            drawCtx.fillStyle = this.color;
+            drawCtx.beginPath();
+            drawCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            drawCtx.fill();
+        }
+    }
+
+    function buildPoints() {
+        points = [];
+        const count = Math.min(w / 12, 85);
+        for (let i = 0; i < count; i++) {
+            points.push(new Point());
+        }
+    }
+
+    function drawFrame() {
+        drawCtx.clearRect(0, 0, w, h);
+        points.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        
+        // Relier les points
+        for (let i = 0; i < points.length; i++) {
+            for (let j = i + 1; j < points.length; j++) {
+                const dist = Math.hypot(points[i].x - points[j].x, points[i].y - points[j].y);
+                if (dist < 105) {
+                    drawCtx.globalAlpha = (1 - dist / 105) * 0.15;
+                    drawCtx.strokeStyle = '#8b5cf6';
+                    drawCtx.lineWidth = 0.5;
+                    drawCtx.beginPath();
+                    drawCtx.moveTo(points[i].x, points[i].y);
+                    drawCtx.lineTo(points[j].x, points[j].y);
+                    drawCtx.stroke();
+                }
+            }
+        }
+        requestAnimationFrame(drawFrame);
+    }
+
+    window.addEventListener('resize', () => {
+        adjustSize();
+        buildPoints();
+    });
+
+    // Initialisation
+    adjustSize();
+    buildPoints();
+    drawFrame();
+</script>
+
+<script>
+    // --- CHARGEMENT DU SYSTÈME PIX ---
     window.onload = () => {
-        resize();
-        initParticles();
-        animate();
         fetchData();
-        setInterval(updateHalving, 1000);
-        setInterval(fetchData, 60000);
+        setInterval(fetchData, 30000);
         updateHalving();
+        setInterval(updateHalving, 1000);
     };
 </script>
 

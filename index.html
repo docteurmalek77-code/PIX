@@ -26,7 +26,7 @@
 
         * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
         
-        /* STRUCTURE ET RENDU DU FOND SÉCURISÉS AVEC STACKING CONTEXT INFAILLIBLE */
+        /* TECHNIQUE DE STACKING CONTEXT ABSOLUE POUR RESTAURER LE FOND SANS FAILLE */
         html {
             background-color: var(--bg-deep) !important;
         }
@@ -91,45 +91,62 @@
         /* HERO */
         .hero { text-align: center; padding: 40px 20px; }
         .hero h1 { 
-            font-size: clamp(4rem, 15vw, 9rem); font-weight: 900; margin: 0;
+            font-size: clamp(5.5rem, 18vw, 9rem); font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff, var(--violet));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             line-height: 0.8; letter-spacing: -6px;
             filter: drop-shadow(0 0 40px rgba(139, 92, 246, 0.4));
         }
-        .tagline { color: var(--violet); letter-spacing: 6px; font-weight: 900; text-transform: uppercase; margin-top: 25px; font-size: 0.85rem; }
-        .sub-tagline { color: var(--gray-text); font-size: 0.65rem; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; margin-top: 10px; }
+        .tagline { color: var(--violet); letter-spacing: 8px; font-weight: 900; text-transform: uppercase; margin-top: 30px; font-size: 0.9rem; }
+        .creator-mention {
+            font-size: 0.75rem; color: var(--gray-text); font-weight: 600;
+            letter-spacing: 4px; text-transform: uppercase; margin-top: 15px;
+            display: block; opacity: 0.8;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+        }
 
-        /* --- SECTION HALVING --- */
+        /* --- SECTION HALVING FLUIDE ET OPTIMISÉE MOBILE --- */
         .halving-section {
-            max-width: 1160px; margin: 20px auto 40px; padding: 0 20px;
+            max-width: 1160px; margin: 20px auto 40px; padding: 0 15px;
         }
         .halving-card {
             background: var(--card-bg); border: 1px solid var(--primary);
-            border-radius: 40px; padding: 40px; backdrop-filter: blur(20px);
-            display: grid; grid-template-columns: 1fr; gap: 30px; align-items: center;
+            border-radius: 30px; padding: 24px; backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; gap: 25px; align-items: center;
             box-shadow: 0 0 30px rgba(247, 147, 26, 0.1);
+            text-align: center;
         }
-        .h-title { color: var(--primary); font-weight: 900; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 15px; }
-        .h-text { font-size: 0.75rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 20px; }
+        .h-title { color: var(--primary); font-weight: 900; font-size: 0.9rem; letter-spacing: 5px; text-transform: uppercase; margin-bottom: 12px; }
+        .h-text { font-size: 0.75rem; color: rgba(255,255,255,0.6); line-height: 1.6; margin-bottom: 15px; }
         
+        /* LUEUR NÉON INTENSE SUR LE BADGE D'ACCUMULATION */
         .h-status {
             display: inline-block;
             background: var(--primary); color: #000;
             font-weight: 900; font-size: 0.7rem; letter-spacing: 2px;
             padding: 10px 20px; border-radius: 12px;
             text-transform: uppercase;
+            box-shadow: 0 0 20px var(--primary);
+            text-shadow: 0 0 2px rgba(0,0,0,0.5);
             animation: neon-pulse-primary 2s infinite;
         }
 
         /* COMPTEUR RESPONSIVE */
-        .timer-container { display: flex; gap: 8px; justify-content: center; width: 100%; }
+        .timer-container { 
+            display: flex; 
+            gap: 6px; 
+            justify-content: center; 
+            width: 100%; 
+            max-width: 360px;
+            margin: 0 auto;
+            flex-wrap: nowrap;
+        }
         .timer-unit {
             background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.2);
-            padding: 12px 8px; border-radius: 15px; flex: 1; min-width: 60px; max-width: 85px; text-align: center;
+            padding: 10px 4px; border-radius: 12px; flex: 1; min-width: 0; text-align: center;
         }
-        .timer-val { font-size: 1.6rem; font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
-        .timer-label { font-size: 0.45rem; text-transform: uppercase; letter-spacing: 1px; color: var(--gray-text); margin-top: 3px; }
+        .timer-val { font-size: clamp(1.2rem, 5vw, 1.6rem); font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
+        .timer-label { font-size: clamp(0.35rem, 2vw, 0.45rem); text-transform: uppercase; letter-spacing: 1px; color: var(--gray-text); margin-top: 3px; }
 
         /* --- TOP 10 MODULE --- */
         .top10-section {
@@ -296,7 +313,7 @@
 
         .creator-tag {
             text-align: center; margin-top: 40px; font-weight: 900;
-            font-size: 0.8rem; letter-spacing: 4px; color: #fff;
+            font-size: 0.75rem; letter-spacing: 4px; color: #fff;
             text-transform: uppercase;
         }
         .disclaimer-box { 
@@ -306,7 +323,7 @@
         .disclaimer-text { 
             font-size: 0.55rem; color: rgba(255,255,255,0.2); 
             text-transform: uppercase; font-weight: 700; 
-            line-height: 1.8; letter-spacing: 1px;
+            line-height: 1.6; letter-spacing: 1px;
         }
 
         /* --- DESIGN LIQUIDATIONS --- */
@@ -323,11 +340,11 @@
         .loader { width: 35px; height: 35px; border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        footer { text-align: center; padding: 40px; color: rgba(255,255,255,0.03); font-size: 0.5rem; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
+        footer { text-align: center; padding: 40px 10px; color: rgba(255,255,255,0.02); font-size: 0.5rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
 
         /* --- MEDIA QUERIES ÉCRANS LARGES --- */
         @media (min-width: 768px) {
-            .halving-card { grid-template-columns: 1fr 1fr; border-radius: 40px; padding: 40px; }
+            .halving-card { display: grid; grid-template-columns: 1fr 1fr; border-radius: 40px; padding: 40px; text-align: left; }
             .perf-grid { grid-template-columns: repeat(5, 1fr); }
             .top-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
             .academy-options { grid-template-columns: repeat(4, 1fr); gap: 12px; }
@@ -384,7 +401,8 @@
 
     <div class="hero">
         <h1>PIX</h1>
-        <div class="tagline">INTELLIGENCE ANALYTIQUE SUPRÊME</div>
+        <div class="tagline">INTELLIGENCE ARTIFICIELLE CRYPTO</div>
+        <span class="creator-mention">IA créée par CryptoMan</span>
     </div>
 
     <div class="halving-section">
@@ -430,7 +448,7 @@
                 <input type="text" id="mktInp" placeholder="SYMBOLE (BTC, SOL...)" value="BTC">
                 <button class="btn btn-white" onclick="getMarketData()">LANCER REQUÊTE</button>
                 <div id="mktRes" class="res-display">
-                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">EN ATTENTE DE COMMANDE</span>
+                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">EN ATTENTE OFFLINE</span>
                 </div>
             </div>
 
@@ -473,7 +491,7 @@
 
             <!-- SECTION 4 : ACADÉMIE -->
             <div class="card" id="academy">
-                <h3>PIXELISÉE ACADÉMIE</h3>
+                <h3>ACADÉMIE PIXELISÉE</h3>
                 <div class="academy-options">
                     <div class="lvl-btn active" onclick="setLvl(this, 'debutant')">Débutant</div>
                     <div class="lvl-btn" onclick="setLvl(this, 'amateur')">Amateur</div>
@@ -500,76 +518,15 @@
 
 </div>
 
+<!-- UNIFICATION TOTALE DES CODES JAVASCRIPT POUR RÉSOUDRE LES CONFLITS DE SCOPE ET DE CHARGEMENT -->
 <script>
-    // --- MOTEUR DE PARTICULES (Canvas - ID unique 'bg-canvas' insensible aux bloqueurs) ---
-    const canvas = document.getElementById('bg-canvas');
-    const ctx = canvas.getContext('2d');
-    let particles = [];
-    let canvasWidth, canvasHeight;
-
-    function resize() {
-        canvasWidth = canvas.width = window.innerWidth;
-        canvasHeight = canvas.height = window.innerHeight;
-    }
-
-    class Particle {
-        constructor() { this.init(); }
-        init() {
-            this.x = Math.random() * canvasWidth;
-            this.y = Math.random() * canvasHeight;
-            this.vx = (Math.random() - 0.5) * 0.5;
-            this.vy = (Math.random() - 0.5) * 0.5;
-            this.size = Math.random() * 2 + 1;
-            this.color = Math.random() > 0.5 ? '#8b5cf6' : '#f7931a';
-            this.alpha = Math.random() * 0.4 + 0.1;
-        }
-        update() {
-            this.x += this.vx; this.y += this.vy;
-            if (this.x < 0 || this.x > canvasWidth) this.vx *= -1;
-            if (this.y < 0 || this.y > canvasHeight) this.vy *= -1;
-        }
-        draw() {
-            ctx.globalAlpha = this.alpha;
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    function initParticles() {
-        particles = [];
-        const count = Math.min(canvasWidth / 12, 80);
-        for (let i = 0; i < count; i++) {
-            particles.push(new Particle());
-        }
-    }
-
-    function animate() {
-        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
-        particles.forEach(p => {
-            p.update();
-            p.draw();
-        });
-        
-        // Lignes de connexion
-        for (let i = 0; i < particles.length; i++) {
-            for (let j = i + 1; j < particles.length; j++) {
-                const dist = Math.hypot(particles[i].x - particles[j].x, particles[i].y - particles[j].y);
-                if (dist < 100) {
-                    ctx.globalAlpha = (1 - dist / 100) * 0.15;
-                    ctx.strokeStyle = '#8b5cf6';
-                    ctx.lineWidth = 0.5;
-                    ctx.beginPath();
-                    ctx.moveTo(particles[i].x, particles[i].y);
-                    ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.stroke();
-                }
-            }
-        }
-        requestAnimationFrame(animate);
-    }
-
+    // --- VARIABLES GLOBALISÉES ---
+    window.selectedTradeDirection = 'long';
+    window.selectedAssetTarget = 'BTC';
+    let globalData = [];
+    let currentLvl = 'debutant';
+    let perfMode = 'gainers';
+    
     // --- BASE DE DONNÉES DU TOP 50 ---
     const cryptoData = [
         {"rank": 1, "name": "Bitcoin", "symbol": "BTC", "market_cap": 1302489467318, "volume_24h": 25000000000},
@@ -624,7 +581,6 @@
         {"rank": 50, "name": "Bitget Token", "symbol": "BGB", "market_cap": 1181468029, "volume_24h": 20000000}
     ];
 
-    // Extraction des min et max
     const dfRest = cryptoData.filter(d => d.rank >= 5);
     const mcapValues = dfRest.map(d => d.market_cap);
     const volValues = dfRest.map(d => d.volume_24h);
@@ -658,11 +614,8 @@
         };
     });
 
-    // --- LOGIQUE PIX CORE ---
+    // --- LOGIQUE PIX CORE ET COMPTEUR HALVING ---
     const HALVING_DATE = new Date("April 17, 2028 00:00:00").getTime();
-    let globalData = [];
-    let currentLvl = 'debutant';
-    let perfMode = 'gainers';
 
     function updateHalving() {
         const now = Date.now();
@@ -675,16 +628,31 @@
         const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const s = Math.floor((diff % (1000 * 60)) / 1000);
-        document.getElementById("h-days").innerText = d;
-        document.getElementById("h-hours").innerText = h.toString().padStart(2, '0');
-        document.getElementById("h-mins").innerText = m.toString().padStart(2, '0');
-        document.getElementById("h-secs").innerText = s.toString().padStart(2, '0');
+        
+        const daysEl = document.getElementById("h-days");
+        const hoursEl = document.getElementById("h-hours");
+        const minsEl = document.getElementById("h-mins");
+        const secsEl = document.getElementById("h-secs");
+        
+        if (daysEl) daysEl.innerText = d;
+        if (hoursEl) hoursEl.innerText = h.toString().padStart(2, '0');
+        if (minsEl) minsEl.innerText = m.toString().padStart(2, '0');
+        if (secsEl) secsEl.innerText = s.toString().padStart(2, '0');
     }
 
     function setLvl(el, lvl) {
         document.querySelectorAll('.lvl-btn').forEach(b => b.classList.remove('active'));
         el.classList.add('active');
         currentLvl = lvl;
+    }
+
+    // --- SYNCHRONISATION DES FLUX DE MARCHÉS ---
+    function formatVal(num) {
+        if (!num) return "0";
+        if (num >= 1e12) return (num / 1e12).toFixed(1) + 'T';
+        if (num >= 1e9) return (num / 1e9).toFixed(1) + 'B';
+        if (num >= 1e6) return (num / 1e6).toFixed(1) + 'M';
+        return num.toLocaleString();
     }
 
     function setPerfMode(mode) {
@@ -694,15 +662,8 @@
         updateTop10();
     }
 
-    function formatVal(num) {
-        if (!num) return "0";
-        if (num >= 1e12) return (num / 1e12).toFixed(2) + 'T';
-        if (num >= 1e9) return (num / 1e9).toFixed(2) + 'B';
-        if (num >= 1e6) return (num / 1e6).toFixed(2) + 'M';
-        return num.toLocaleString();
-    }
-
-    async function fetchData(retries = 3) {
+    // DÉCLARATION GLOBALE ET CORRECTIONS DU COMPILATEUR POUR FETCHDATA
+    window.fetchData = async function() {
         try {
             const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
             const data = await r.json();
@@ -710,7 +671,7 @@
                 globalData = data;
                 updateUI();
             }
-        } catch(e) { console.error("Data Sync Error"); }
+        } catch(e) { console.error("Data Sync Error", e); }
     }
 
     function updateUI() {
@@ -731,7 +692,8 @@
                     <b class="${change >= 0 ? 'up':'down'}">$${price}</b>
                 </div>`;
         });
-        document.getElementById('tick1').innerHTML = tContent + tContent;
+        const tickBox = document.getElementById('tick1');
+        if (tickBox) tickBox.innerHTML = tContent + tContent;
     }
 
     function sanitizeName(name, symbol) {
@@ -750,7 +712,7 @@
 
         const sourceList = globalData.length > 0 ? globalData : cryptoData.map(c => ({
             ...c,
-            current_price: c.market_cap / 1e10,
+            current_price: c.market_cap / 1e10, // Prix simulé cohérent
             price_change_percentage_24h: c.rank % 2 === 0 ? 3.5 : -1.2
         }));
 
@@ -791,15 +753,16 @@
         return globalData.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
     }
 
-    async function getMarketData() {
+    window.getMarketData = async function() {
         const val = document.getElementById('mktInp').value;
         const res = document.getElementById('mktRes');
+        if (!res) return;
         res.innerHTML = '<div class="loader"></div>';
         
         await new Promise(r => setTimeout(r, 600));
         const coin = findCoin(val);
         if (!coin) {
-            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON NON TROUVÉ</span>';
+            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON INTRUVABLE</span>';
             return;
         }
 
@@ -818,9 +781,10 @@
         `;
     }
 
-    async function getRiskAnalyse() {
+    window.getRiskAnalyse = async function() {
         const val = document.getElementById('aiInp').value;
         const res = document.getElementById('aiRes');
+        if (!res) return;
         res.innerHTML = '<div class="loader"></div>';
 
         await new Promise(r => setTimeout(r, 1200));
@@ -832,10 +796,10 @@
         }
 
         let riskScore;
-        const symbol = coin.symbol.toLowerCase();
+        const symbol = coin.symbol.toUpperCase();
         
-        if (aiRiskDictionary[symbol.toUpperCase()]) {
-            riskScore = aiRiskDictionary[symbol.toUpperCase()].risk_score_10;
+        if (aiRiskDictionary[symbol]) {
+            riskScore = aiRiskDictionary[symbol].risk_score_10;
         } else {
             riskScore = calculateAiRiskScore({
                 rank: coin.market_cap_rank || 100,
@@ -870,7 +834,7 @@
 
         res.innerHTML = `
             <div class="risk-circle" style="border-color:${neonColor}; color:${neonColor}; box-shadow: ${shadowEffect}; filter: drop-shadow(0 0 15px ${neonColor});">
-                <div class="risk-val" style="text-shadow: 0 0 12px ${neonColor}">${riskScore.toFixed(2)}</div>
+                <div class="risk-val">${riskScore.toFixed(2)}</div>
                 <div class="risk-text-lbl" style="text-shadow: 0 0 5px ${neonColor}">NOTE IA</div>
             </div>
             <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${neonColor}; text-shadow: 0 0 10px ${neonColor}">${status}</div>
@@ -879,7 +843,46 @@
             </div>`;
     }
 
-    // --- WATCH LIQUIDATION DYNAMIQUE & COINGLASS-STYLE ---
+    // --- SÉLECTEURS DE DIRECTION & ACTIF CIBLE (FONCTIONS GLOBALISÉES) ---
+    window.selectedTradeDirection = 'long';
+    window.selectedAssetTarget = 'BTC';
+
+    window.setTradeDirection = function(dir) {
+        window.selectedTradeDirection = dir;
+        const parent = document.querySelector('#liquidation .glass-picker');
+        if (parent) {
+            parent.querySelectorAll('.picker-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if (btn.innerText.toLowerCase() === dir) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+        if (wsConnected) runLiquidationSimulation();
+    }
+
+    window.setAssetTarget = function(asset) {
+        window.selectedAssetTarget = asset;
+        const btcBtn = document.getElementById('btnAssetBTC');
+        const ethBtn = document.getElementById('btnAssetETH');
+        
+        if (btcBtn && ethBtn) {
+            if (asset === 'BTC') {
+                btcBtn.classList.add('active');
+                btcBtn.classList.add('asset-btn');
+                ethBtn.classList.remove('active');
+                ethBtn.classList.remove('asset-btn');
+            } else {
+                btcBtn.classList.remove('active');
+                btcBtn.classList.remove('asset-btn');
+                ethBtn.classList.add('active');
+                ethBtn.classList.add('asset-btn');
+            }
+        }
+        if (wsConnected) runLiquidationSimulation();
+    }
+
+    // --- ALGORITHME DE COMPORTEMENT FLUX ET SIMULATEUR DE LIQUIDATION ---
     let wsConnected = false;
     let longCount = 34;
     let shortCount = 28;
@@ -934,8 +937,16 @@
             const targetAsset = window.selectedAssetTarget;
             const tradeDirection = window.selectedTradeDirection;
             
-            let btcPrice = 64000 + (Math.random() - 0.5) * 400;
-            let ethPrice = 3400 + (Math.random() - 0.5) * 30;
+            // LIAISON RÉELLE : On récupère les vrais prix de Coingecko pour injecter dans le simulateur !
+            const btcCoin = globalData.find(c => c.symbol === 'btc');
+            const ethCoin = globalData.find(c => c.symbol === 'eth');
+            
+            let btcPriceBase = btcCoin ? btcCoin.current_price : 64000;
+            let ethPriceBase = ethCoin ? ethCoin.current_price : 1700; // Calibré à l'ETH d'aujourd'hui
+            
+            let btcPrice = btcPriceBase + (Math.random() - 0.5) * (btcPriceBase * 0.005);
+            let ethPrice = ethPriceBase + (Math.random() - 0.5) * (ethPriceBase * 0.005);
+            
             let selectedPrice = targetAsset === "BTC" ? btcPrice : ethPrice;
             const isLongLiq = Math.random() > 0.46;
             const volumeUSD = Math.random() > 0.9 ? (Math.random() * 2e6 + 5e5) : (Math.random() * 8e4 + 1e4);
@@ -1009,6 +1020,8 @@
 
         res.innerHTML = `
             <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; text-align: left;">
+                
+                <!-- Totaux 24H Globalisés -->
                 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px;">
                     <div style="background: rgba(0,0,0,0.4); padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(0,255,163,0.15); text-align: center;">
                         <div style="font-size: 0.55rem; color: var(--up); font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 3px;">Total Longs 24h</div>
@@ -1059,48 +1072,7 @@
         }, 800);
     }
 
-    // SÉLECTEURS DE DIRECTION & ACTIF CIBLE
-    window.selectedTradeDirection = 'long';
-    window.selectedAssetTarget = 'BTC';
-
-    window.setTradeDirection = function(dir) {
-        window.selectedTradeDirection = dir;
-        const parent = document.querySelector('#liquidation .glass-picker');
-        if (parent) {
-            parent.querySelectorAll('.picker-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.toLowerCase() === dir) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-        if (wsConnected) runLiquidationSimulation();
-    }
-
-    window.setAssetTarget = function(asset) {
-        window.selectedAssetTarget = asset;
-        const btcBtn = document.getElementById('btnAssetBTC');
-        const ethBtn = document.getElementById('btnAssetETH');
-        
-        if (btcBtn && ethBtn) {
-            if (asset === 'BTC') {
-                btcBtn.classList.add('active');
-                btcBtn.classList.add('asset-btn');
-                ethBtn.classList.remove('active');
-                ethBtn.classList.remove('asset-btn');
-            } else {
-                btcBtn.classList.remove('active');
-                btcBtn.classList.remove('asset-btn');
-                ethBtn.classList.add('active');
-                ethBtn.classList.add('asset-btn');
-            }
-        }
-        if (wsConnected) runLiquidationSimulation();
-    }
-</script>
-
-<script>
-    // --- SCRIPT D'INITIALISATION DU CANVAS ET DU RENDU DES PARTICULES ---
+    // --- CODES COMPORTEMENT PARTICULES ---
     const canvasObj = document.getElementById('bg-canvas');
     const drawCtx = canvasObj.getContext('2d');
     let points = [];
@@ -1174,20 +1146,16 @@
         buildPoints();
     });
 
-    // Initialisation
-    adjustSize();
-    buildPoints();
-    drawFrame();
-</script>
-
-<script>
     // --- CHARGEMENT DU SYSTÈME PIX ---
-    window.onload = () => {
-        fetchData();
-        setInterval(fetchData, 30000);
+    window.addEventListener('load', () => {
+        adjustSize();
+        buildPoints();
+        drawFrame();
+        window.fetchData();
+        setInterval(window.fetchData, 30000);
         updateHalving();
         setInterval(updateHalving, 1000);
-    };
+    });
 </script>
 
 </body>

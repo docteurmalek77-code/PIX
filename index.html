@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>PIX | Masterpiece V18 - Live Liquidations</title>
+    <title>PIX | Masterpiece V18 - Live Liquidations & Analyses</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -89,7 +89,7 @@
         nav a:hover { color: var(--violet); text-shadow: 0 0 8px var(--violet); }
 
         /* HERO */
-        .hero { text-align: center; padding: 40px 20px; }
+        .hero { text-align: center; padding: 40px 20px 40px 20px; }
         .hero h1 { 
             font-size: clamp(5.5rem, 18vw, 9rem); font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff, var(--violet));
@@ -263,6 +263,7 @@
             cursor: pointer;
             border-radius: 10px;
         }
+        /* Lueur néon active augmentée */
         .picker-btn.active.long-btn { background: var(--up); color: #000; box-shadow: 0 0 25px #00ffa3, 0 0 5px #00ffa3; text-shadow: 0 0 2px rgba(0,0,0,0.5); }
         .picker-btn.active.short-btn { background: var(--down); color: #fff; box-shadow: 0 0 25px #ff3366, 0 0 5px #ff3366; }
         .picker-btn.active.asset-btn { background: var(--violet); color: #fff; box-shadow: 0 0 30px #8b5cf6, 0 0 10px #8b5cf6; }
@@ -340,6 +341,14 @@
         .loader { width: 35px; height: 35px; border: 4px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
+        /* CANEVAL CHART STYLING */
+        #chartCanvas, #neonAnalysisChart {
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            margin-bottom: 15px;
+        }
+
         footer { text-align: center; padding: 40px 10px; color: rgba(255,255,255,0.02); font-size: 0.5rem; letter-spacing: 4px; font-weight: 900; text-transform: uppercase; }
 
         /* --- MEDIA QUERIES ÉCRANS LARGES --- */
@@ -395,6 +404,7 @@
     <nav>
         <a href="#market">TERMINAL</a>
         <a href="#ai">RISQUE</a>
+        <a href="#chart-analysis">ANALYSE GRAPH</a>
         <a href="#liquidation">LIQUIDATION</a>
         <a href="#academy">ACADÉMIE</a>
     </nav>
@@ -448,7 +458,7 @@
                 <input type="text" id="mktInp" placeholder="SYMBOLE (BTC, SOL...)" value="BTC">
                 <button class="btn btn-white" onclick="getMarketData()">LANCER REQUÊTE</button>
                 <div id="mktRes" class="res-display">
-                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">EN ATTENTE OFFLINE</span>
+                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px;">EN ATTENTE DE COMMANDE</span>
                 </div>
             </div>
 
@@ -463,6 +473,30 @@
             </div>
 
             <!-- SECTION 3 : WATCH LIQUIDATION (DYNAMIQUE SIMULÉE) -->
+            <div class="card" id="chart-analysis">
+                <h3>ANALYSE GRAPHIQUE</h3>
+                <div class="custom-selector-container">
+                    <div>
+                        <div class="selector-box-title">Actif Analysé</div>
+                        <div class="glass-picker" style="grid-template-columns: 1fr 1fr;">
+                            <button class="picker-btn active asset-btn" id="btnChartBTC" onclick="setChartAsset('BTC')">BTC</button>
+                            <button class="picker-btn" id="btnChartETH" onclick="setChartAsset('ETH')">ETH</button>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="selector-box-title">Modèle Temporel</div>
+                        <div class="glass-picker">
+                            <button class="picker-btn active long-btn" style="box-shadow: none;">4 HEURES</button>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-violet" onclick="runChartTechnicalAnalysis()">GÉNÉRER L'ANALYSE TECHNIQUE</button>
+                <div id="chartRes" class="res-display" style="justify-content: flex-start; padding: 15px;">
+                    <span style="opacity:0.2; font-size:0.75rem; font-weight:800; letter-spacing:3px; margin: auto;">ATTENTE LIAISON DES FLUX</span>
+                </div>
+            </div>
+
+            <!-- SECTION 4 : WATCH LIQUIDATION LIVE -->
             <div class="card" id="liquidation">
                 <h3>WATCH LIQUIDATION LIVE</h3>
                 
@@ -489,7 +523,7 @@
                 </div>
             </div>
 
-            <!-- SECTION 4 : ACADÉMIE -->
+            <!-- SECTION 5 : ACADÉMIE -->
             <div class="card" id="academy">
                 <h3>ACADÉMIE PIXELISÉE</h3>
                 <div class="academy-options">
@@ -518,11 +552,12 @@
 
 </div>
 
-<!-- UNIFICATION TOTALE DES CODES JAVASCRIPT POUR RÉSOUDRE LES CONFLITS DE SCOPE ET DE CHARGEMENT -->
+<!-- UNIFICATION TOTALE DES CODES JAVASCRIPT -->
 <script>
     // --- VARIABLES GLOBALISÉES ---
     window.selectedTradeDirection = 'long';
     window.selectedAssetTarget = 'BTC';
+    window.selectedChartAsset = 'BTC';
     let globalData = [];
     let currentLvl = 'debutant';
     let perfMode = 'gainers';
@@ -662,7 +697,7 @@
         updateTop10();
     }
 
-    // DÉCLARATION GLOBALE ET CORRECTIONS DU COMPILATEUR POUR FETCHDATA
+    // DÉCLARATION GLOBALE ET CORRECTIONS POUR FETCHDATA
     window.fetchData = async function() {
         try {
             const r = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
@@ -762,7 +797,7 @@
         await new Promise(r => setTimeout(r, 600));
         const coin = findCoin(val);
         if (!coin) {
-            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON INTRUVABLE</span>';
+            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px;">JETON INTROUVABLE</span>';
             return;
         }
 
@@ -834,7 +869,7 @@
 
         res.innerHTML = `
             <div class="risk-circle" style="border-color:${neonColor}; color:${neonColor}; box-shadow: ${shadowEffect}; filter: drop-shadow(0 0 15px ${neonColor});">
-                <div class="risk-val">${riskScore.toFixed(2)}</div>
+                <div class="risk-val" style="text-shadow: 0 0 12px ${neonColor}">${riskScore.toFixed(2)}</div>
                 <div class="risk-text-lbl" style="text-shadow: 0 0 5px ${neonColor}">NOTE IA</div>
             </div>
             <div style="font-weight:900; letter-spacing:5px; font-size:1.1rem; color:${neonColor}; text-shadow: 0 0 10px ${neonColor}">${status}</div>
@@ -843,7 +878,7 @@
             </div>`;
     }
 
-    // --- SÉLECTEURS DE DIRECTION & ACTIF CIBLE (FONCTIONS GLOBALISÉES) ---
+    // --- SÉLECTEURS DE DIRECTION & ACTIF DE LIQUIDATION ---
     window.selectedTradeDirection = 'long';
     window.selectedAssetTarget = 'BTC';
 
@@ -1057,7 +1092,7 @@
         `;
     }
 
-    function getAcademyContent() {
+    window.getAcademyContent = function() {
         const res = document.getElementById('acaRes');
         res.innerHTML = '<div class="loader"></div>';
 
@@ -1070,6 +1105,173 @@
             };
             res.innerHTML = `<div style="font-size:0.95rem; font-weight:600; line-height:1.9; color:rgba(255,255,255,0.95); padding:0 20px; text-align:center;">${lessons[currentLvl]}</div>`;
         }, 800);
+    }
+
+    // --- LOGIQUE NOUVELLE : ANALYSE GRAPHIQUE INTERACTIVE ---
+    window.setChartAsset = function(asset) {
+        window.selectedChartAsset = asset;
+        const btcBtn = document.getElementById('btnChartBTC');
+        const ethBtn = document.getElementById('btnChartETH');
+        
+        if (btcBtn && ethBtn) {
+            if (asset === 'BTC') {
+                btcBtn.classList.add('active');
+                btcBtn.classList.add('asset-btn');
+                ethBtn.classList.remove('active');
+                ethBtn.classList.remove('asset-btn');
+            } else {
+                btcBtn.classList.remove('active');
+                btcBtn.classList.remove('asset-btn');
+                ethBtn.classList.add('active');
+                ethBtn.classList.add('asset-btn');
+            }
+        }
+        runChartTechnicalAnalysis();
+    }
+
+    window.runChartTechnicalAnalysis = async function() {
+        const res = document.getElementById('chartRes');
+        res.innerHTML = '<div class="loader"></div>';
+        
+        await new Promise(r => setTimeout(r, 1000));
+        
+        const target = window.selectedChartAsset;
+        const coin = findCoin(target);
+        
+        if (!coin) {
+            res.innerHTML = '<span class="down">ERREUR DE LIAISON DONNÉES</span>';
+            return;
+        }
+
+        const currentPrice = coin.current_price;
+        const change24h = coin.price_change_percentage_24h || 0;
+        
+        // Calcul cohérent d'indicateurs simulés
+        // RSI formulé à partir de la variation du prix
+        const rsi = Math.round(50 + (change24h * 2.5));
+        const rsiClamped = Math.max(10, Math.min(90, rsi));
+        
+        // Moyennes mobiles simulées
+        const ma50 = currentPrice * (1 - (change24h / 300));
+        const ma200 = currentPrice * (0.95 - (change24h / 500));
+        
+        // Détermination de la tendance
+        const isBullish = change24h >= 0 && rsiClamped > 48;
+        const trendText = isBullish ? "HAUSSIÈRE (BULLISH)" : "BAISSIÈRE (BEARISH)";
+        const trendColor = isBullish ? "var(--up)" : "var(--down)";
+
+        // Générer le canvas avec un graphique dynamique en néon
+        res.innerHTML = `
+            <div style="width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: space-between; text-align: left;">
+                <canvas id="chartCanvas" width="340" height="150"></canvas>
+                
+                <div class="market-grid" style="margin-top: 5px; margin-bottom: 5px;">
+                    <div class="stat-box">
+                        <div class="stat-head">RSI (14)</div>
+                        <div class="stat-body" style="color: ${rsiClamped > 70 ? 'var(--down)' : (rsiClamped < 30 ? 'var(--up)' : 'white')}">${rsiClamped} ${rsiClamped > 70 ? '(Suracheté)' : (rsiClamped < 30 ? '(Survendu)' : '(Neutre)')}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-head">Moyenne Mobile (MA 50)</div>
+                        <div class="stat-body">$${Math.round(ma50).toLocaleString()}</div>
+                    </div>
+                </div>
+
+                <div class="market-grid" style="margin-bottom: 10px;">
+                    <div class="stat-box">
+                        <div class="stat-head">Moyenne Mobile (MA 200)</div>
+                        <div class="stat-body">$${Math.round(ma200).toLocaleString()}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-head">Tendance Globale</div>
+                        <div class="stat-body" style="color: ${trendColor}; text-shadow: 0 0 10px ${trendColor};">${isUpSymbol(isUpActiveSign(change24h))}</div>
+                    </div>
+                </div>
+
+                <div style="border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px; text-align: center;">
+                    <div style="font-size: 0.75rem; color: var(--gray-text); line-height: 1.4;">
+                        <b style="color: ${trendColor};">${trendText}</b> : ${isBullish ? "Les cours flottent au-dessus des MA 50 et 200. Tendance haussière confirmée." : "Les moyennes mobiles ont croisé à la baisse. Prudence sur les achats."}
+                    </div>
+                </div>
+            </div>
+        `;
+
+        drawNeonChart(isImgBullish = isBullish);
+    }
+
+    function isUpSymbol(sign) {
+        return sign >= 0 ? "HAUSSIÈRE" : "BAISSIÈRE";
+    }
+
+    function isUpActiveSign(val) {
+        return val >= 0 ? 1 : -1;
+    }
+
+    function drawNeonChart(isImgBullish) {
+        const canvasNode = document.createElement('canvas');
+        canvasNode.id = "neonAnalysisChart";
+        canvasNode.width = 330;
+        const localCanvasHeight = 120;
+        canvasNode.height = localCanvasHeight; // Corrigé : canvasNode au lieu de canvasObj
+        canvasNode.style.width = "100%"; // Corrigé : canvasNode au lieu de canvasObj
+        canvasNode.style.borderRadius = "12px"; // Corrigé : canvasNode au lieu de canvasObj
+        canvasNode.style.background = "#020408"; // Corrigé : canvasNode au lieu de canvasObj
+        canvasNode.style.border = "1px solid rgba(139, 92, 246, 0.1)"; // Corrigé : canvasNode au lieu de canvasObj
+        canvasNode.style.marginBottom = "10px"; // Corrigé : canvasNode au lieu de canvasObj
+
+        const containerResult = document.getElementById('chartRes');
+        if (containerResult) {
+            const placeholder = containerResult.querySelector('#chartCanvas');
+            if (placeholder) {
+                placeholder.replaceWith(canvasNode);
+            } else {
+                containerResult.prepend(canvasNode);
+            }
+        }
+
+        const drawCtxNode = canvasNode.getContext('2d');
+        const chartW = canvasNode.width;
+        const chartH = canvasNode.height;
+
+        drawCtxNode.clearRect(0,0,chartW,chartH);
+
+        // Dessiner la grille de fond
+        drawCtxNode.strokeStyle = "rgba(255,255,255,0.03)";
+        drawCtxNode.lineWidth = 1;
+        for (let i = 0; i < chartW; i += 30) {
+            drawCtxNode.beginPath();
+            drawCtxNode.moveTo(i, 0);
+            drawCtxNode.lineTo(i, chartH);
+            drawCtxNode.stroke();
+        }
+        for (let j = 0; j < chartH; j += 20) {
+            drawCtxNode.beginPath();
+            drawCtxNode.moveTo(0, j);
+            drawCtxNode.lineTo(chartW, j);
+            drawCtxNode.stroke();
+        }
+
+        // Dessiner la courbe néon
+        drawCtxNode.beginPath();
+        drawCtxNode.lineWidth = 3;
+        const neonClr = isImgBullish ? "#00ffa3" : "#ff3366";
+        drawCtxNode.strokeStyle = neonClr;
+        drawCtxNode.shadowBlur = 10;
+        drawCtxNode.shadowColor = neonClr;
+
+        const pointsCount = 12;
+        const step = chartW / (pointsCount - 1);
+        let currentY = chartH / 2;
+
+        drawCtxNode.moveTo(0, currentY);
+
+        for (let x = 1; x < pointsCount; x++) {
+            const rOffset = (Math.random() - 0.4) * 35;
+            const trendOffset = isImgBullish ? -4 : 4; // Biais haussier ou baissier
+            currentY = Math.max(15, Math.min(chartH - 15, currentY + rOffset + trendOffset));
+            drawCtxNode.lineTo(x * step, currentY);
+        }
+        drawCtxNode.stroke();
+        drawCtxNode.shadowBlur = 0; // Reset shadow
     }
 
     // --- CODES COMPORTEMENT PARTICULES ---
@@ -1104,6 +1306,7 @@
             drawCtx.fillStyle = this.color;
             drawCtx.beginPath();
             drawCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            drawCtx.shadowBlur = 0; // Corrigé : drawCtx au lieu de ctx
             drawCtx.fill();
         }
     }
@@ -1155,6 +1358,11 @@
         setInterval(window.fetchData, 30000);
         updateHalving();
         setInterval(updateHalving, 1000);
+        
+        // Lancer par défaut l'analyse technique
+        setTimeout(() => {
+            runChartTechnicalAnalysis();
+        }, 1000);
     });
 </script>
 

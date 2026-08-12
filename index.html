@@ -23,7 +23,7 @@
             --neon-red: #ff3366;
         }
 
-        * { box-sizing: border-box; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
+        * { box-sizing: border-box; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
         
         html { background-color: var(--bg-deep) !important; scroll-behavior: smooth; }
         
@@ -35,7 +35,7 @@
             width: 100%;
         }
 
-        /* CANEVAS DE FOND INTERACTIF SANS OBSTRUCTION DE CLIC */
+        /* CANEVAS DE FOND PARTICULES INTERACTIF */
         #bg-canvas {
             position: fixed !important;
             top: 0 !important; left: 0 !important;
@@ -140,7 +140,7 @@
             min-height: 48px; display: inline-flex; align-items: center; justify-content: center;
         }
         .btn-white { background: #fff; color: #000; }
-        .btn-white:hover { box-shadow: 0 0 20px rgba(255,255,255,0.5); transform: translateY(-2px); }
+        .btn-white:hover { box-shadow: 0 0 20px rgba(255,255,255,0.6); transform: translateY(-2px); }
         .btn-white:active { transform: scale(0.98); }
         
         .btn-violet { background: var(--violet); color: #fff; box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3); }
@@ -410,7 +410,7 @@
             <div class="section-title">5. FLUX DÉRIVÉS, FUTURES & DATA ON-CHAIN ⛓️</div>
             <div class="grid-2">
                 <div class="card">
-                    <h3>WATCH LIQUIDATIONS FUTURES</h3>
+                    <h3>WATCH LIQUIDATIONS FUTURES (BINANCE LIVE)</h3>
                     <div class="custom-selector-container">
                         <div>
                             <div class="selector-box-title">Direction</div>
@@ -427,7 +427,7 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-violet" onclick="toggleLiquidationLive()">CONNECTER AUX FUTURES</button>
+                    <button class="btn btn-violet" onclick="toggleLiquidationLive()">CONNECTER AUX FUTURES BINANCE</button>
                     <div id="liqRes" class="res-display" style="justify-content: flex-start; padding: 12px; overflow-y: auto;">
                         <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; margin:auto; text-align:center;">FLUX EN ATTENTE DE CONNEXION</span>
                     </div>
@@ -466,7 +466,7 @@
                 </div>
 
                 <div id="backtestStats" style="display:flex; justify-content:space-around; background:rgba(0,0,0,0.5); padding:12px; border-radius:14px; border:1px solid var(--border); margin-bottom:12px; flex-wrap:wrap; gap:10px; text-align:center;">
-                    <div><div style="font-size:0.6com; color:var(--gray-text);">PRÉDICTIONS</div><div id="statTotalPred" style="font-size:1.1rem; font-weight:900;">0</div></div>
+                    <div><div style="font-size:0.6rem; color:var(--gray-text);">PRÉDICTIONS</div><div id="statTotalPred" style="font-size:1.1rem; font-weight:900;">0</div></div>
                     <div><div style="font-size:0.6rem; color:var(--gray-text);">SUCCÈS</div><div id="statSuccessPred" class="up" style="font-size:1.1rem; font-weight:900;">0</div></div>
                     <div><div style="font-size:0.6rem; color:var(--gray-text);">ÉCHECS</div><div id="statFailPred" class="down" style="font-size:1.1rem; font-weight:900;">0</div></div>
                     <div><div style="font-size:0.6rem; color:var(--gray-text);">HIT RATE %</div><div id="statHitRate" style="font-size:1.1rem; font-weight:900; color:var(--violet);">En attente</div></div>
@@ -528,15 +528,15 @@
 
 </div>
 
-<!-- UNIFICATION COMPLÈTE DU SCRIPT SANS VARIABLES INDÉFINIES -->
+<!-- SCRIPT UNIQUE UNIFIÉ PIX IA -->
 <script>
-    const apiKey = ""; // La clé runtime Gemini est fournie dynamiquement par l'environnement
+    const apiKey = ""; // Fournie au runtime par l'environnement
     
-    // --- 1. COUCHE DATA PROVIDER (COINGECKO & ALTERNATIVE.ME) ---
+    // --- 1. COUCHE PROVIDER & CACHE ---
     class PixDataProvider {
         constructor() {
             this.cache = new Map();
-            this.cacheTTL = 60000; // Cache de 60 secondes
+            this.cacheTTL = 60000;
         }
 
         async fetchMarketData() {
@@ -562,7 +562,7 @@
         async fetchHistoricalData(coinId, days) {
             const cacheKey = `history_${coinId}_${days}`;
             const cached = this.cache.get(cacheKey);
-            if (cached && (Date.now() - cached.timestamp < 120000)) { // Cache de 2 min
+            if (cached && (Date.now() - cached.timestamp < 120000)) {
                 return { data: cached.data, isCached: true, error: false };
             }
 
@@ -636,7 +636,38 @@
         if (tickBox) tickBox.innerHTML = tContent + tContent;
     }
 
-    // --- 2. RADAR PERFORMANCE TOP 10 ---
+    // --- 2. COMPTE À REBOURS BITCOIN HALVING DYNAMIQUE FIXÉ ---
+    const HALVING_TARGET_TIMESTAMP = new Date("2028-04-17T00:00:00Z").getTime();
+
+    function updateHalving() {
+        const now = Date.now();
+        const diff = HALVING_TARGET_TIMESTAMP - now;
+        
+        const daysEl = document.getElementById("h-days");
+        const hoursEl = document.getElementById("h-hours");
+        const minsEl = document.getElementById("h-mins");
+        const secsEl = document.getElementById("h-secs");
+
+        if (diff <= 0) {
+            if (daysEl) daysEl.innerText = "0";
+            if (hoursEl) hoursEl.innerText = "00";
+            if (minsEl) minsEl.innerText = "00";
+            if (secsEl) secsEl.innerText = "00";
+            return;
+        }
+
+        const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+        const s = Math.floor((diff % (1000 * 60)) / 1000);
+        
+        if (daysEl) daysEl.innerText = d;
+        if (hoursEl) hoursEl.innerText = h.toString().padStart(2, '0');
+        if (minsEl) minsEl.innerText = m.toString().padStart(2, '0');
+        if (secsEl) secsEl.innerText = s.toString().padStart(2, '0');
+    }
+
+    // --- 3. RADAR PERFORMANCE TOP 10 ---
     let perfMode = 'gainers';
     window.setPerfMode = function(mode) {
         perfMode = mode;
@@ -691,7 +722,7 @@
         return globalData.find(c => c.symbol.toLowerCase() === q || c.id.toLowerCase() === q || c.name.toLowerCase() === q);
     }
 
-    // --- 3. TERMINAL DE SIGNAL ---
+    // --- 4. TERMINAL DE SIGNAL ---
     window.getMarketData = async function() {
         const val = document.getElementById('mktInp').value;
         const res = document.getElementById('mktRes');
@@ -722,7 +753,7 @@
         `;
     }
 
-    // --- 4. MOTEUR PIX IA SCORE 🧠 ---
+    // --- 5. MOTEUR PIX IA SCORE ---
     window.calculatePIXCoreScore = async function() {
         const inputSymbol = document.getElementById('pixCoreInput').value.trim();
         const resBox = document.getElementById('pixCoreRes');
@@ -743,7 +774,6 @@
         const mcap = coin.market_cap || 1e7;
         const rank = coin.market_cap_rank || 50;
 
-        // Calcul dynamique dérivé des données directes de l'API
         const rsi = Math.max(10, Math.min(90, Math.round(50 + (change24 * 2.2))));
         let momentumScore = rsi >= 45 && rsi <= 68 ? 85 : (rsi > 70 ? 40 : 60);
         const volMcapRatio = vol / mcap;
@@ -783,7 +813,7 @@
         `;
     }
 
-    // --- 5. SCORE DE RISQUE PIX IA ---
+    // --- 6. SCORE DE RISQUE PIX IA ---
     window.getRiskAnalyse = async function() {
         const val = document.getElementById('riskAssetInput').value;
         const res = document.getElementById('aiRes');
@@ -827,7 +857,7 @@
             </div>`;
     }
 
-    // --- 6. PIX CHAT CRYPTO 🤖 ---
+    // --- 7. PIX CHAT CRYPTO 🤖 ---
     window.sendChatMessage = async function() {
         const input = document.getElementById('chatInput');
         const history = document.getElementById('chatHistory');
@@ -884,7 +914,7 @@
         history.scrollTop = history.scrollHeight;
     }
 
-    // --- 7. ANALYSE TECHNIQUE REELLE ET HISTORIQUE MULTI-TIMEFRAME ---
+    // --- 8. ANALYSE TECHNIQUE DYNAMIQUE AVEC DONNÉES HISTORIQUES DÉDIÉES ---
     window.selectedChartAsset = 'BTC';
     window.selectedChartTimeframe = '4h';
 
@@ -912,7 +942,6 @@
         runChartTechnicalAnalysis();
     };
 
-    // CALCUL DU RSI REALISTE DEPUIS UN TABLEAU DE PRIX HISTORIQUES
     function calculateRealRSI(pricesArray, period = 14) {
         if (!pricesArray || pricesArray.length <= period) return null;
         let gains = 0, losses = 0;
@@ -941,7 +970,6 @@
         return Math.round(100 - (100 / (1 + rs)));
     }
 
-    // CALCUL MOYENNE MOBILE REELLE
     function calculateRealMA(pricesArray, period) {
         if (!pricesArray || pricesArray.length < period) return null;
         const slice = pricesArray.slice(-period);
@@ -959,7 +987,6 @@
         
         const coinId = target === 'BTC' ? 'bitcoin' : 'ethereum';
         
-        // Jours CoinGecko selon Timeframe
         let daysParam = 1;
         if (tf === '12h') daysParam = 3;
         else if (tf === '24h') daysParam = 7;
@@ -972,7 +999,7 @@
             return;
         }
 
-        const pricesArr = histResult.data.prices; // [[timestamp, price], ...]
+        const pricesArr = histResult.data.prices;
         const latestPrice = pricesArr[pricesArr.length - 1][1];
         const firstPrice = pricesArr[0][1];
         const tfChangePct = ((latestPrice - firstPrice) / firstPrice) * 100;
@@ -984,31 +1011,38 @@
         const isBullish = latestPrice >= realMA20 && realRSI >= 48;
         const trendColor = isBullish ? "var(--up)" : "var(--down)";
 
+        // Style RSI Néon
+        let rsiColor = "var(--neon-yellow)";
+        let rsiState = "(Neutre)";
+        if (realRSI >= 70) { rsiColor = "var(--down)"; rsiState = "(Suracheté - Risque)"; }
+        else if (realRSI <= 30) { rsiColor = "var(--up)"; rsiState = "(Survendu - Opportunité)"; }
+        else if (realRSI >= 55) { rsiColor = "var(--up)"; rsiState = "(Achat)"; }
+
         res.innerHTML = `
             <div style="width: 100%;">
                 <canvas id="neonAnalysisChart" width="330" height="120"></canvas>
                 <div class="market-grid" style="margin-bottom:8px;">
                     <div class="stat-box">
                         <div class="stat-head">RSI REEL (14) - ${tf.toUpperCase()}</div>
-                        <div class="stat-body" style="color:${realRSI > 70 ? 'var(--down)' : (realRSI < 30 ? 'var(--up)' : 'white')}">${realRSI} ${realRSI > 70 ? '(Suracheté)' : (realRSI < 30 ? '(Survendu)' : '')}</div>
+                        <div class="stat-body" style="color:${rsiColor}; text-shadow: 0 0 10px ${rsiColor};">${realRSI} <span style="font-size:0.6rem; opacity:0.8;">${rsiState}</span></div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-head">MA 20 (${tf.toUpperCase()})</div>
-                        <div class="stat-body">$${Math.round(realMA20).toLocaleString()}</div>
+                        <div class="stat-body" style="color:var(--violet-bright);">$${Math.round(realMA20).toLocaleString()}</div>
                     </div>
                 </div>
                 <div class="market-grid" style="margin-bottom:8px;">
                     <div class="stat-box">
                         <div class="stat-head">MA 50 (${tf.toUpperCase()})</div>
-                        <div class="stat-body">$${Math.round(realMA50).toLocaleString()}</div>
+                        <div class="stat-body" style="color:var(--primary);">$${Math.round(realMA50).toLocaleString()}</div>
                     </div>
                     <div class="stat-box">
                         <div class="stat-head">TENDANCE ${tf.toUpperCase()}</div>
-                        <div class="stat-body" style="color: ${trendColor}">${isBullish ? "HAUSSIÈRE" : "BAISSIÈRE"}</div>
+                        <div class="stat-body" style="color: ${trendColor}; text-shadow: 0 0 10px ${trendColor};">${isBullish ? "HAUSSIÈRE ▲" : "BAISSIÈRE ▼"}</div>
                     </div>
                 </div>
-                <div style="font-size: 0.65rem; color: var(--gray-text); text-align: center;">
-                    Actif : <b>${target}</b> | Prix : <b>$${Math.round(latestPrice).toLocaleString()}</b> | Var. Timeframe : <span class="${tfChangePct >= 0 ? 'up' : 'down'}">${tfChangePct >= 0 ? '+' : ''}${tfChangePct.toFixed(2)}%</span>
+                <div style="font-size: 0.65rem; color: var(--gray-text); text-align: center; margin-top:4px;">
+                    Actif : <b>${target}</b> | Prix : <b>$${Math.round(latestPrice).toLocaleString()}</b> | Var. Period : <span class="${tfChangePct >= 0 ? 'up' : 'down'}">${tfChangePct >= 0 ? '+' : ''}${tfChangePct.toFixed(2)}%</span>
                 </div>
                 <div class="api-badge live" style="margin-top:6px;">DONNÉES HISTORIQUES COINGECKO LIVE</div>
             </div>
@@ -1056,12 +1090,14 @@
         ctxNode.shadowBlur = 0;
     }
 
-    // --- 8. WATCH LIQUIDATION FUTURES ---
+    // --- 9. WATCH LIQUIDATIONS (WEBSOCKET BINANCE FUTURES EN DIRECT) ---
     window.selectedTradeDirection = 'long';
     window.selectedAssetTarget = 'BTC';
+    let binanceWs = null;
     let wsConnected = false;
-    let simulationTimer = null;
-    let liquidationsHistory = [];
+    let liveLiqOrders = [];
+    let totalLongLiqUsd = 0;
+    let totalShortLiqUsd = 0;
 
     window.setTradeDirection = function(dir) {
         window.selectedTradeDirection = dir;
@@ -1071,7 +1107,7 @@
             btnL.classList.remove('active'); btnS.classList.remove('active');
             if (dir === 'long') btnL.classList.add('active'); else btnS.classList.add('active');
         }
-        if (wsConnected) runLiquidationSimulation();
+        renderLiveLiquidationUI();
     };
 
     window.setAssetTarget = function(asset) {
@@ -1082,7 +1118,7 @@
             btnB.classList.remove('active'); btnE.classList.remove('active');
             if (asset === 'BTC') btnB.classList.add('active'); else btnE.classList.add('active');
         }
-        if (wsConnected) runLiquidationSimulation();
+        renderLiveLiquidationUI();
     };
 
     window.toggleLiquidationLive = function() {
@@ -1090,54 +1126,164 @@
         const btn = document.querySelector('#liquidation .btn');
         
         if (wsConnected) {
-            wsConnected = false;
-            if (simulationTimer) clearInterval(simulationTimer);
-            if (btn) { btn.innerText = "CONNECTER AUX FUTURES"; btn.classList.replace('btn-white', 'btn-violet'); }
-            if (res) res.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto;">FLUX DÉCONNECTÉ</span>';
+            stopBinanceLiquidationWs();
+            if (btn) { btn.innerText = "CONNECTER AUX FUTURES BINANCE"; btn.classList.replace('btn-white', 'btn-violet'); }
+            if (res) res.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto; text-align:center;">FLUX DÉCONNECTÉ</span>';
             return;
         }
 
-        wsConnected = true;
-        if (btn) { btn.innerText = "DÉCONNECTER"; btn.classList.replace('btn-violet', 'btn-white'); }
-        if (res) res.innerHTML = '<div class="up" style="font-weight:900; margin:auto;">● FLUX FUTURES CONNECTÉ</div>';
-        runLiquidationSimulation();
+        startBinanceLiquidationWs();
     };
 
-    function runLiquidationSimulation() {
-        if (simulationTimer) clearInterval(simulationTimer);
+    function startBinanceLiquidationWs() {
+        const res = document.getElementById('liqRes');
+        const btn = document.querySelector('#liquidation .btn');
         
-        const generateOrder = () => {
-            if (!wsConnected) return;
+        if (res) res.innerHTML = '<div class="loader"></div><span style="font-size: 0.65rem; margin-top:10px; text-transform:uppercase; letter-spacing:1px; color:var(--violet);">Connexion au Flux Binance Futures...</span>';
 
-            const targetAsset = window.selectedAssetTarget;
-            const btcCoin = findCoin('btc');
-            const ethCoin = findCoin('eth');
+        try {
+            // Flux public des ordres forcé de Binance Futures
+            binanceWs = new WebSocket('wss://fstream.binance.com/ws/!forceOrder@arr');
             
-            let baseP = targetAsset === 'BTC' ? (btcCoin ? btcCoin.current_price : 64000) : (ethCoin ? ethCoin.current_price : 1700);
-            let simPrice = baseP + (Math.random() - 0.5) * (baseP * 0.004);
-            const isLong = Math.random() > 0.48;
-            const amount = Math.random() * 500000 + 10000;
+            binanceWs.onopen = () => {
+                wsConnected = true;
+                if (btn) { btn.innerText = "DÉCONNECTER BINANCE"; btn.classList.replace('btn-violet', 'btn-white'); }
+                renderLiveLiquidationUI();
+            };
 
-            liquidationsHistory.unshift({ symbol: targetAsset, side: isLong ? "LONG" : "SHORT", amount, price: simPrice });
-            if (liquidationsHistory.length > 3) liquidationsHistory.pop();
+            binanceWs.onmessage = (event) => {
+                try {
+                    const msg = JSON.parse(event.data);
+                    if (msg && msg.e === "forceOrder" && msg.o) {
+                        const o = msg.o;
+                        const symbol = o.s; // ex: "BTCUSDT", "ETHUSDT"
+                        
+                        // Filtrer uniquement BTC et ETH ou l'actif sélectionné
+                        if (symbol === "BTCUSDT" || symbol === "ETHUSDT") {
+                            const side = o.S === "SELL" ? "LONG" : "SHORT"; // SELL = Long forcé de fermer
+                            const price = parseFloat(o.ap || o.p || 0);
+                            const qty = parseFloat(o.q || 0);
+                            const usdAmount = price * qty;
+                            const assetName = symbol === "BTCUSDT" ? "BTC" : "ETH";
+                            
+                            const dateObj = new Date(o.T || Date.now());
+                            const timeStr = dateObj.getHours().toString().padStart(2,'0') + ':' + 
+                                            dateObj.getMinutes().toString().padStart(2,'0') + ':' + 
+                                            dateObj.getSeconds().toString().padStart(2,'0');
 
-            const res = document.getElementById('liqRes');
-            if (res) {
-                res.innerHTML = liquidationsHistory.map(l => `
-                    <div class="liq-row" style="border-left-color: ${l.side === 'LONG' ? 'var(--down)' : 'var(--up)'}">
-                        <span class="${l.side === 'LONG' ? 'down' : 'up'}"><b>${l.side} LIQ</b></span>
-                        <span>$${formatVal(l.amount)}</span>
-                        <span style="opacity:0.5;">@ $${Math.round(l.price).toLocaleString()}</span>
-                    </div>
-                `).join('');
-            }
-        };
+                            if (side === "LONG") totalLongLiqUsd += usdAmount;
+                            else totalShortLiqUsd += usdAmount;
 
-        generateOrder();
-        simulationTimer = setInterval(generateOrder, 2500);
+                            liveLiqOrders.unshift({
+                                symbol: assetName,
+                                side: side,
+                                amountUsd: usdAmount,
+                                price: price,
+                                time: timeStr
+                            });
+
+                            if (liveLiqOrders.length > 8) liveLiqOrders.pop();
+                            renderLiveLiquidationUI();
+                        }
+                    }
+                } catch(e){}
+            };
+
+            binanceWs.onerror = () => {
+                wsConnected = false;
+                if (res) res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">CONNEXION IMPOSSIBLE (RÉSEAU / BINANCE FUTURES BLOQUÉ)</span>';
+            };
+
+            binanceWs.onclose = () => {
+                if (wsConnected) {
+                    wsConnected = false;
+                    if (res) res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">FLUX DÉCONNECTÉ DE BINANCE</span>';
+                }
+            };
+        } catch(e) {
+            wsConnected = false;
+            if (res) res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">CONNEXION INDISPONIBLE</span>';
+        }
     }
 
-    // --- 9. MACRO & ON-CHAIN REEL ---
+    function stopBinanceLiquidationWs() {
+        wsConnected = false;
+        if (binanceWs) {
+            binanceWs.close();
+            binanceWs = null;
+        }
+    }
+
+    function renderLiveLiquidationUI() {
+        const res = document.getElementById('liqRes');
+        if (!res) return;
+
+        if (!wsConnected && liveLiqOrders.length === 0) {
+            res.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto; text-align:center;">FLUX BINANCE FUTURES EN ATTENTE DE DÉMARRAGE</span>';
+            return;
+        }
+
+        const targetAsset = window.selectedAssetTarget;
+        const targetDirection = window.selectedTradeDirection;
+
+        const filtered = liveLiqOrders.filter(l => l.symbol === targetAsset);
+
+        let longVol = totalLongLiqUsd || 1;
+        let shortVol = totalShortLiqUsd || 1;
+        let totalVol = longVol + shortVol;
+        let longRatio = Math.round((longVol / totalVol) * 100);
+        let shortRatio = 100 - longRatio;
+
+        // Score de Risque Long/Short tiré des données réelles
+        let riskScoreLong = (longRatio / 10).toFixed(1);
+        let riskScoreShort = (shortRatio / 10).toFixed(1);
+
+        let listHTML = filtered.slice(0, 4).map(l => `
+            <div class="liq-row" style="border-left-color: ${l.side === 'LONG' ? 'var(--neon-green)' : 'var(--neon-red)'}">
+                <span class="${l.side === 'LONG' ? 'up' : 'down'}"><b>${l.side} LIQ (${l.symbol})</b></span>
+                <span>$${formatVal(l.amountUsd)}</span>
+                <span style="opacity:0.6;">@ $${Math.round(l.price).toLocaleString()} <small style="opacity:0.4;">(${l.time})</small></span>
+            </div>
+        `).join('');
+
+        if (filtered.length === 0) {
+            listHTML = `<div style="font-size:0.68rem; opacity:0.5; text-align:center; padding:15px 0;">Écoute du flux Binance en direct pour ${targetAsset}... (Attente du prochain ordre forcé)</div>`;
+        }
+
+        res.innerHTML = `
+            <div style="width: 100%;">
+                <!-- TOTAUX CUMULÉS EN DIRECT -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+                    <div style="background: rgba(0,255,163,0.08); padding: 8px 10px; border-radius: 12px; border: 1px solid var(--up); text-align: center;">
+                        <div style="font-size: 0.55rem; color: var(--up); font-weight: 800; letter-spacing: 1px;">RISQUE LONG: ${riskScoreLong}/10</div>
+                        <div class="up" style="font-size: 0.85rem; font-weight: 900;">$${formatVal(totalLongLiqUsd)}</div>
+                    </div>
+                    <div style="background: rgba(255,51,102,0.08); padding: 8px 10px; border-radius: 12px; border: 1px solid var(--down); text-align: center;">
+                        <div style="font-size: 0.55rem; color: var(--down); font-weight: 800; letter-spacing: 1px;">RISQUE SHORT: ${riskScoreShort}/10</div>
+                        <div class="down" style="font-size: 0.85rem; font-weight: 900;">$${formatVal(totalShortLiqUsd)}</div>
+                    </div>
+                </div>
+
+                <!-- RATIO BAR -->
+                <div style="margin-bottom: 10px;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.62rem; font-weight: 800; margin-bottom: 4px;">
+                        <span class="up">RATIO LONGS: ${longRatio}%</span>
+                        <span class="down">RATIO SHORTS: ${shortRatio}%</span>
+                    </div>
+                    <div style="width: 100%; height: 5px; background: var(--down); border-radius: 3px; display: flex; overflow: hidden;">
+                        <div style="width: ${longRatio}%; background: var(--up); height: 100%;"></div>
+                    </div>
+                </div>
+
+                <!-- LISTE DERNIERS ORDRES -->
+                ${listHTML}
+
+                <div class="api-badge live" style="margin-top:8px;">BINANCE FUTURES WEBSOCKET LIVE</div>
+            </div>
+        `;
+    }
+
+    // --- 10. MACRO & ON-CHAIN REEL ---
     window.loadMacroSentimentData = async function() {
         const box = document.getElementById('macroSentimentRes');
         if (!box) return;
@@ -1189,7 +1335,7 @@
         `;
     };
 
-    // --- 10. BACKTESTING & PORTFOLIO ENGINES ---
+    // --- 11. BACKTESTING & PORTFOLIO ENGINES ---
     let predictions = JSON.parse(localStorage.getItem('pix_predictions') || '[]');
     let portfolio = JSON.parse(localStorage.getItem('pix_portfolio') || '[]');
 
@@ -1328,7 +1474,7 @@
         renderPortfolio();
     };
 
-    // --- 11. ACADÉMIE ---
+    // --- 12. ACADÉMIE ---
     function setLvl(el, lvl) {
         document.querySelectorAll('#academy .picker-btn').forEach(b => b.classList.remove('active'));
         if (el) el.classList.add('active');
@@ -1351,7 +1497,7 @@
         }, 500);
     }
 
-    // --- 12. ANIMATION DE PARTICULES EN CANEVAS ET REDIMENSIONNEMENT ---
+    // --- 13. ANIMATION PARTICULES DE FOND ---
     const canvasObj = document.getElementById('bg-canvas');
     const drawCtx = canvasObj.getContext('2d');
     let points = [];
@@ -1378,8 +1524,7 @@
         }
         draw() {
             drawCtx.globalAlpha = this.alpha; drawCtx.fillStyle = this.color;
-            drawCtx.beginPath(); drawCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-            drawCtx.fill();
+            drawCtx.beginPath(); drawCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2); drawCtx.fill();
         }
     }
 
@@ -1407,13 +1552,14 @@
 
     window.addEventListener('resize', () => { adjustSize(); buildPoints(); });
 
-    // --- INITIALISATION DES SERVICES ---
+    // --- INITIALISATION DES SERVICES ET ÉCOUTEURS ---
     window.addEventListener('load', async () => {
         adjustSize();
         buildPoints();
         drawFrame();
         
         await window.fetchData();
+        
         updateHalving();
         setInterval(updateHalving, 1000);
         setInterval(window.fetchData, 60000);

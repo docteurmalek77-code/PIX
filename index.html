@@ -15,7 +15,7 @@
             --down: #ff3366;
             --border: rgba(139, 92, 246, 0.25);
             --card-bg: rgba(8, 6, 15, 0.95);
-            --gray-text: rgba(255, 255, 255, 0.45);
+            --gray-text: rgba(255, 255, 255, 0.5);
             
             --neon-green: #00ffa3;
             --neon-yellow: #facc15;
@@ -23,7 +23,7 @@
             --neon-red: #ff3366;
         }
 
-        * { box-sizing: border-box; transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); }
+        * { box-sizing: border-box; transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1); }
         
         html { background-color: var(--bg-deep) !important; scroll-behavior: smooth; }
         
@@ -32,6 +32,7 @@
             background: transparent !important;
             color: white; margin: 0; min-height: 100vh;
             overflow-x: hidden; position: relative;
+            width: 100%;
         }
 
         /* CANEVAS DE FOND INTERACTIF SANS OBSTRUCTION DE CLIC */
@@ -49,9 +50,9 @@
             width: 100%; min-height: 100vh;
         }
 
-        /* BANDEAU PRIX TICKER EN DIRECT */
+        /* BANDEAU PRIX TICKER EN DIRECT FIXÉ EN HAUT */
         .tickers-header {
-            position: fixed; top: 0; width: 100%; z-index: 1000;
+            position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
             background: rgba(3, 2, 8, 0.95); backdrop-filter: blur(25px);
             border-bottom: 1px solid var(--border);
             height: 60px; display: flex; align-items: center;
@@ -59,98 +60,109 @@
         .ticker-row { display: flex; overflow: hidden; width: 100%; }
         .ticker-move { 
             display: flex; animation: slide 50s linear infinite;
-            gap: 50px; white-space: nowrap; padding-right: 50px;
+            gap: 40px; white-space: nowrap; padding-right: 40px;
         }
-        .t-item { font-size: 0.8rem; font-weight: 800; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; }
-        .t-item span { color: var(--violet); opacity: 0.8; }
+        .t-item { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
+        .t-item span { color: var(--violet); opacity: 0.9; }
         
         @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
-        /* BARRE DE NAVIGATION RESPONSIVE */
+        /* BARRE DE NAVIGATION RESPONSIVE STICKY */
         nav { 
-            margin-top: 60px; display: flex; justify-content: center; gap: 10px; 
-            flex-wrap: wrap; padding: 12px 15px; background: rgba(10, 8, 20, 0.7);
+            margin-top: 60px; display: flex; justify-content: center; gap: 8px; 
+            padding: 10px 15px; background: rgba(10, 8, 20, 0.85);
             backdrop-filter: blur(20px); border-bottom: 1px solid var(--border);
-            position: sticky; top: 60px; z-index: 900;
+            position: sticky; top: 60px; z-index: 990;
+            overflow-x: auto; white-space: nowrap;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
         }
+        nav::-webkit-scrollbar { display: none; }
+        
         nav a { 
-            text-decoration: none; color: rgba(255,255,255,0.45); font-size: 0.65rem; 
-            letter-spacing: 2px; font-weight: 900; text-transform: uppercase; padding: 8px 14px;
-            border-radius: 10px; border: 1px solid transparent;
+            text-decoration: none; color: rgba(255,255,255,0.5); font-size: 0.65rem; 
+            letter-spacing: 1px; font-weight: 800; text-transform: uppercase; padding: 8px 14px;
+            border-radius: 10px; border: 1px solid transparent; flex-shrink: 0;
         }
         nav a:hover, nav a.active { color: #fff; background: rgba(139, 92, 246, 0.2); border-color: var(--border); text-shadow: 0 0 8px var(--violet); }
 
         /* EN-TÊTE PRINCIPAL (HERO) */
-        .hero { text-align: center; padding: 40px 20px 20px 20px; }
+        .hero { text-align: center; padding: 30px 20px 10px 20px; }
         .hero h1 { 
-            font-size: clamp(4.5rem, 16vw, 8.5rem); font-weight: 900; margin: 0;
+            font-size: clamp(3.5rem, 12vw, 7.5rem); font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff, var(--violet));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 0.85; letter-spacing: -6px;
+            line-height: 0.9; letter-spacing: -2px;
             filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.4));
         }
-        .tagline { color: var(--violet); letter-spacing: 6px; font-weight: 900; text-transform: uppercase; margin-top: 25px; font-size: 0.85rem; }
+        .tagline { color: var(--violet); letter-spacing: 3px; font-weight: 900; text-transform: uppercase; margin-top: 15px; font-size: 0.85rem; }
         .creator-mention {
             font-size: 0.75rem; color: var(--gray-text); font-weight: 600;
-            letter-spacing: 4px; text-transform: uppercase; margin-top: 12px; display: block;
+            letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; display: block;
         }
 
-        /* GRILLES ET CARTES */
-        .container { max-width: 1280px; margin: auto; padding: 0 15px 40px 15px; }
+        /* SECTIONS & COMPOSANTS */
+        .container { max-width: 1240px; margin: auto; padding: 0 15px 40px 15px; }
         
+        .section-block { scroll-margin-top: 135px; }
+
         .section-title {
-            font-size: 1.05rem; font-weight: 900; letter-spacing: 4px; text-transform: uppercase;
-            color: #fff; margin: 40px 0 20px 0; display: flex; align-items: center; gap: 12px;
+            font-size: clamp(0.9rem, 2.5vw, 1.1rem); font-weight: 900; letter-spacing: 2px; text-transform: uppercase;
+            color: #fff; margin: 35px 0 18px 0; display: flex; align-items: center; gap: 12px;
         }
         .section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-        .grid-1 { display: grid; grid-template-columns: 1fr; gap: 24px; }
-        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; }
+        .grid-1 { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 20px; }
 
         .card {
             background: var(--card-bg); border: 1px solid var(--border);
-            border-radius: 28px; padding: 32px 24px; text-align: center;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5); display: flex; flex-direction: column;
-            justify-content: space-between; backdrop-filter: blur(15px); min-height: 480px;
+            border-radius: 24px; padding: 26px 20px; text-align: center;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5); display: flex; flex-direction: column;
+            justify-content: space-between; backdrop-filter: blur(15px); min-height: 440px;
+            width: 100%; max-width: 100%;
         }
-        h3 { text-transform: uppercase; letter-spacing: 3px; font-size: 0.85rem; margin-bottom: 20px; font-weight: 900; color: rgba(255,255,255,0.9); }
+        h3 { text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; margin: 0 0 18px 0; font-weight: 900; color: rgba(255,255,255,0.9); }
 
-        /* ÉLÉMENTS DE FORMULAIRE */
+        /* ÉLÉMENTS DE FORMULAIRE ET BOUTONS */
         input, select, textarea {
             width: 100%; background: #000; border: 1px solid var(--border);
-            padding: 16px; border-radius: 14px; color: white; font-family: inherit;
-            font-size: 0.9rem; outline: none; font-weight: 700; margin-bottom: 12px;
+            padding: 14px; border-radius: 12px; color: white; font-family: inherit;
+            font-size: 0.88rem; outline: none; font-weight: 700; margin-bottom: 12px;
             text-align: center;
         }
-        input:focus, select:focus, textarea:focus { border-color: var(--violet); box-shadow: 0 0 15px rgba(139, 92, 246, 0.35); }
+        input:focus, select:focus, textarea:focus { border-color: var(--violet); box-shadow: 0 0 12px rgba(139, 92, 246, 0.35); }
 
         .btn {
-            width: 100%; padding: 18px; border-radius: 15px; border: none;
+            width: 100%; padding: 16px; border-radius: 14px; border: none;
             font-weight: 900; font-size: 0.75rem; cursor: pointer;
-            text-transform: uppercase; letter-spacing: 2px; margin-bottom: 15px;
-            min-height: 52px; display: inline-flex; align-items: center; justify-content: center;
+            text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 12px;
+            min-height: 48px; display: inline-flex; align-items: center; justify-content: center;
         }
         .btn-white { background: #fff; color: #000; }
-        .btn-white:hover { box-shadow: 0 0 25px rgba(255,255,255,0.6); transform: translateY(-2px); }
-        .btn-white:active { transform: scale(0.97); }
+        .btn-white:hover { box-shadow: 0 0 20px rgba(255,255,255,0.5); transform: translateY(-2px); }
+        .btn-white:active { transform: scale(0.98); }
         
-        .btn-violet { background: var(--violet); color: #fff; box-shadow: 0 10px 20px rgba(139, 92, 246, 0.3); }
-        .btn-violet:hover { background: #9d7cff; box-shadow: 0 0 35px rgba(139,92,246,0.6); transform: translateY(-2px); }
-        .btn-violet:active { transform: scale(0.97); }
+        .btn-violet { background: var(--violet); color: #fff; box-shadow: 0 8px 16px rgba(139, 92, 246, 0.3); }
+        .btn-violet:hover { background: #9d7cff; box-shadow: 0 0 25px rgba(139,92,246,0.6); transform: translateY(-2px); }
+        .btn-violet:active { transform: scale(0.98); }
 
-        .glass-picker { display: flex; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 14px; padding: 4px; gap: 4px; }
+        .glass-picker { display: flex; background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 12px; padding: 4px; gap: 4px; width: 100%; }
         .picker-btn {
-            flex: 1; padding: 12px 6px; border: none; background: transparent;
+            flex: 1; padding: 10px 4px; border: none; background: transparent;
             color: var(--gray-text); font-size: 0.65rem; font-weight: 900;
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 10px;
-            min-height: 40px;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; border-radius: 8px;
+            min-height: 38px;
         }
-        .picker-btn.active { background: var(--violet); color: #fff; box-shadow: 0 0 20px var(--violet); }
-        .picker-btn.active.gainers { background: var(--up); color: #000; box-shadow: 0 0 20px var(--up); }
-        .picker-btn.active.losers { background: var(--down); color: #fff; box-shadow: 0 0 20px var(--down); }
+        .picker-btn.active { background: var(--violet); color: #fff; box-shadow: 0 0 15px var(--violet); }
+        .picker-btn.active.gainers { background: var(--up); color: #000; box-shadow: 0 0 15px var(--up); }
+        .picker-btn.active.losers { background: var(--down); color: #fff; box-shadow: 0 0 15px var(--down); }
+
+        .custom-selector-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 10px; margin-bottom: 12px; width: 100%; }
+        .selector-box-title { font-size: 0.6rem; color: var(--gray-text); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; text-align: left; font-weight: 800; }
 
         .res-display {
-            background: rgba(0,0,0,0.6); border-radius: 20px; padding: 22px 16px;
+            background: rgba(0,0,0,0.6); border-radius: 16px; padding: 18px 14px;
             flex-grow: 1; display: flex; flex-direction: column;
             justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.03);
             overflow: hidden; text-align: left; width: 100%;
@@ -158,29 +170,29 @@
 
         /* SCORE PIX IA */
         .pix-score-ring {
-            width: 120px; height: 110px; border-radius: 50%; border: 6px solid;
+            width: 110px; height: 100px; border-radius: 50%; border: 5px solid;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            margin: 10px auto 15px auto; background: rgba(0,0,0,0.4);
-            box-shadow: 0 0 25px currentColor, inset 0 0 15px currentColor;
-            filter: drop-shadow(0 0 10px currentColor);
+            margin: 8px auto 12px auto; background: rgba(0,0,0,0.4);
+            box-shadow: 0 0 20px currentColor, inset 0 0 10px currentColor;
+            filter: drop-shadow(0 0 8px currentColor);
         }
-        .pix-score-val { font-size: 2.4rem; font-weight: 900; line-height: 1; }
-        .pix-score-lbl { font-size: 0.55rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; }
+        .pix-score-val { font-size: 2.2rem; font-weight: 900; line-height: 1; }
+        .pix-score-lbl { font-size: 0.55rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
 
-        .factor-breakdown { width: 100%; display: flex; flex-direction: column; gap: 10px; margin-top: 12px; }
-        .factor-row { display: flex; justify-content: space-between; font-size: 0.7rem; font-weight: 700; }
-        .factor-bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+        .factor-breakdown { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
+        .factor-row { display: flex; justify-content: space-between; font-size: 0.68rem; font-weight: 700; }
+        .factor-bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-top: 3px; }
         .factor-bar-fill { height: 100%; border-radius: 3px; }
 
         /* CHAT CRYPTO */
         .chat-box {
-            width: 100%; height: 320px; overflow-y: auto; display: flex;
-            flex-direction: column; gap: 12px; padding: 14px; background: rgba(0,0,0,0.4);
+            width: 100%; height: 300px; overflow-y: auto; display: flex;
+            flex-direction: column; gap: 10px; padding: 12px; background: rgba(0,0,0,0.4);
             border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 12px;
         }
         .chat-msg {
-            max-width: 88%; padding: 12px 16px; border-radius: 16px; font-size: 0.78rem;
-            line-height: 1.5; font-weight: 500; word-break: break-word;
+            max-width: 90%; padding: 10px 14px; border-radius: 14px; font-size: 0.78rem;
+            line-height: 1.45; font-weight: 500; word-break: break-word;
         }
         .chat-msg.user { align-self: flex-end; background: var(--violet); color: #fff; border-bottom-right-radius: 2px; }
         .chat-msg.pix { align-self: flex-start; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: #e2e8f0; border-bottom-left-radius: 2px; }
@@ -188,82 +200,83 @@
         /* TIMER HALVING */
         .halving-card {
             background: var(--card-bg); border: 1px solid var(--primary);
-            border-radius: 30px; padding: 25px; backdrop-filter: blur(20px);
-            display: flex; flex-direction: column; gap: 20px; align-items: center;
-            box-shadow: 0 0 30px rgba(247, 147, 26, 0.1); text-align: center; margin-bottom: 30px;
+            border-radius: 24px; padding: 22px 16px; backdrop-filter: blur(20px);
+            display: flex; flex-direction: column; gap: 18px; align-items: center;
+            box-shadow: 0 0 25px rgba(247, 147, 26, 0.1); text-align: center; margin-bottom: 25px;
         }
         .h-status {
             display: inline-block; background: var(--primary); color: #000;
-            font-weight: 900; font-size: 0.7rem; letter-spacing: 2px;
-            padding: 10px 20px; border-radius: 12px; text-transform: uppercase;
-            box-shadow: 0 0 20px var(--primary); text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            font-weight: 900; font-size: 0.68rem; letter-spacing: 1.5px;
+            padding: 8px 16px; border-radius: 10px; text-transform: uppercase;
+            box-shadow: 0 0 15px var(--primary); text-shadow: 0 0 2px rgba(0,0,0,0.5);
             animation: neon-pulse-primary 2s infinite;
         }
         .timer-container { display: flex; gap: 6px; justify-content: center; width: 100%; max-width: 360px; margin: 0 auto; flex-wrap: nowrap; }
-        .timer-unit { background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.2); padding: 10px 4px; border-radius: 12px; flex: 1; min-width: 0; text-align: center; }
-        .timer-val { font-size: clamp(1.2rem, 5vw, 1.6rem); font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
-        .timer-label { font-size: clamp(0.35rem, 2vw, 0.45rem); text-transform: uppercase; letter-spacing: 1px; color: var(--gray-text); margin-top: 3px; }
+        .timer-unit { background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.2); padding: 8px 4px; border-radius: 12px; flex: 1; min-width: 0; text-align: center; }
+        .timer-val { font-size: clamp(1.1rem, 4.5vw, 1.5rem); font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
+        .timer-label { font-size: clamp(0.35rem, 2vw, 0.45rem); text-transform: uppercase; letter-spacing: 1px; color: var(--gray-text); margin-top: 2px; }
 
         /* RADAR TOP 10 */
-        .top10-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 30px; padding: 30px; backdrop-filter: blur(20px); margin-bottom: 30px; }
-        .top10-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 15px; }
-        .perf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; }
-        .perf-item { background: rgba(255,255,255,0.03); border-radius: 16px; padding: 12px 15px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.02); position: relative; overflow: hidden; }
-        .perf-rank { position: absolute; left: 8px; top: 4px; font-size: 0.5rem; font-weight: 900; opacity: 0.5; }
-        .perf-name { font-weight: 900; font-size: 0.9rem; }
-        .perf-price { font-size: 0.68rem; color: var(--gray-text); margin-top: 2px; }
-        .perf-pct { font-weight: 900; font-size: 0.95rem; }
+        .top10-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 24px 18px; backdrop-filter: blur(20px); margin-bottom: 25px; }
+        .top10-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
+        .perf-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px; }
+        .perf-item { background: rgba(255,255,255,0.03); border-radius: 14px; padding: 10px 12px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(255,255,255,0.02); position: relative; overflow: hidden; }
+        .perf-rank { position: absolute; left: 6px; top: 3px; font-size: 0.48rem; font-weight: 900; opacity: 0.5; }
+        .perf-name { font-weight: 900; font-size: 0.85rem; }
+        .perf-price { font-size: 0.65rem; color: var(--gray-text); margin-top: 2px; }
+        .perf-pct { font-weight: 900; font-size: 0.9rem; }
 
         .up { color: var(--up); text-shadow: 0 0 5px rgba(0, 255, 163, 0.4); }
         .down { color: var(--down); text-shadow: 0 0 5px rgba(255, 51, 102, 0.4); }
-        .loader { width: 30px; height: 30px; border: 3px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
+        .loader { width: 26px; height: 26px; border: 3px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* GRAPHIQUE DYNAMIQUE CANEVAS */
+        /* CANEVAS CHART STYLING */
         #neonAnalysisChart {
             width: 100%; height: 120px; background: #020408;
-            border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.15); margin-bottom: 12px;
+            border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.15); margin-bottom: 10px;
         }
 
-        /* BADGES ET NOTIFICATIONS D'ERREURS API */
+        /* BADGES API */
         .api-badge {
-            font-size: 0.6rem; font-weight: 800; padding: 4px 8px; border-radius: 6px;
+            font-size: 0.58rem; font-weight: 800; padding: 4px 8px; border-radius: 6px;
             letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; display: inline-block;
         }
         .api-badge.live { background: rgba(0, 255, 163, 0.15); color: var(--up); border: 1px solid var(--up); }
         .api-badge.cached { background: rgba(250, 204, 21, 0.15); color: var(--neon-yellow); border: 1px solid var(--neon-yellow); }
         .api-badge.error { background: rgba(255, 51, 102, 0.15); color: var(--down); border: 1px solid var(--down); }
 
-        .creator-tag { text-align: center; margin-top: 40px; font-weight: 900; font-size: 0.75rem; letter-spacing: 4px; color: #fff; text-transform: uppercase; }
-        .disclaimer-box { max-width: 900px; margin: 20px auto 0; padding: 25px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
-        .disclaimer-text { font-size: 0.55rem; color: rgba(255,255,255,0.2); text-transform: uppercase; font-weight: 700; line-height: 1.6; letter-spacing: 1px; }
+        .creator-tag { text-align: center; margin-top: 35px; font-weight: 900; font-size: 0.75rem; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
+        .disclaimer-box { max-width: 900px; margin: 20px auto 0; padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
+        .disclaimer-text { font-size: 0.55rem; color: rgba(255,255,255,0.25); text-transform: uppercase; font-weight: 700; line-height: 1.5; letter-spacing: 0.5px; }
 
-        footer { text-align: center; padding: 40px; color: rgba(255,255,255,0.03); font-size: 0.5rem; letter-spacing: 5px; font-weight: 900; text-transform: uppercase; }
+        footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.03); font-size: 0.5rem; letter-spacing: 3px; font-weight: 900; text-transform: uppercase; }
 
         @media (max-width: 767px) {
             .grid-2 { grid-template-columns: 1fr; }
             .perf-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-            .card { padding: 25px 16px; min-height: 420px; }
-            .custom-selector-container { grid-template-columns: 1fr; gap: 12px; }
+            .card { padding: 22px 14px; min-height: 400px; }
+            .custom-selector-container { grid-template-columns: 1fr; gap: 10px; }
+            .hero h1 { font-size: clamp(3.2rem, 14vw, 5.5rem); letter-spacing: -2px; }
         }
     </style>
 </head>
 <body>
 
+<!-- CANEVAS DE FOND PARTICULES -->
 <canvas id="bg-canvas"></canvas>
 
+<!-- APP WRAPPER CONTENEUR PRINCIPAL -->
 <div id="app-wrapper">
 
-    <!-- BANDEAU TICKER REEL -->
     <div class="tickers-header">
         <div class="ticker-row">
             <div class="ticker-move" id="tick1">
-                <span style="padding-left:100px; font-weight:900; opacity:0.3; letter-spacing:4px;">CONNECTIVITÉ API COINGECKO EN COURS...</span>
+                <span style="padding-left:100px; font-weight:900; opacity:0.3; letter-spacing:3px;">CONNEXION EN DIRECT COINGECKO API...</span>
             </div>
         </div>
     </div>
 
-    <!-- NAVIGATION BAR -->
     <nav>
         <a href="#core" class="active">PIX IA 🧠</a>
         <a href="#chat">CHAT 🤖</a>
@@ -274,7 +287,6 @@
         <a href="#academy">ACADÉMIE 🎓</a>
     </nav>
 
-    <!-- HERO HEADER -->
     <div class="hero">
         <h1>PIX IA</h1>
         <div class="tagline">INTELLIGENCE ARTIFICIELLE CRYPTO</div>
@@ -285,11 +297,11 @@
     <div class="halving-section">
         <div class="halving-card">
             <div>
-                <div style="color: var(--primary); font-weight: 900; font-size: 0.85rem; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 8px;">PROTOCOLE HALVING BITCOIN (2028)</div>
+                <div style="color: var(--primary); font-weight: 900; font-size: 0.85rem; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px;">PROTOCOLE HALVING BITCOIN (2028)</div>
                 <div style="font-size: 0.75rem; color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto;">
                     En 2028, l'émission de Bitcoin passera de 3,125 à 1,5625 BTC par bloc.
                 </div>
-                <div class="h-status" style="margin-top:15px;">ACCUMULATION CONSEILLÉE</div>
+                <div class="h-status" style="margin-top:12px;">ACCUMULATION CONSEILLÉE</div>
             </div>
             <div class="timer-container">
                 <div class="timer-unit"><div class="timer-val" id="h-days">--</div><div class="timer-label">Jours</div></div>
@@ -303,39 +315,42 @@
     <div class="container">
 
         <!-- 1. MODULE PIX IA SCORE CENTRAL 🧠 -->
-        <div class="section-title" id="core">1. MOTEUR D'ANALYSE DÉCISIONNEL — PIX IA 🧠</div>
-        <div class="grid-2">
-            <div class="card">
-                <h3>SCORE GLOBAL DE MARCHÉ PIX IA</h3>
-                <input type="text" id="pixCoreInput" placeholder="SYMBOLE (BTC, ETH, SOL...)" value="BTC" onkeypress="if(event.key==='Enter') calculatePIXCoreScore()">
-                <button class="btn btn-violet" onclick="calculatePIXCoreScore()">CALCULER LE SCORE PIX IA</button>
-                <div id="pixCoreRes" class="res-display">
-                    <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px;">ANALYSE MULTI-FACTEURS EN ATTENTE</span>
+        <div class="section-block" id="core">
+            <div class="section-title">1. MOTEUR D'ANALYSE DÉCISIONNEL — PIX IA 🧠</div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>SCORE GLOBAL DE MARCHÉ PIX IA</h3>
+                    <input type="text" id="pixCoreInput" placeholder="SYMBOLE (BTC, ETH, SOL...)" value="BTC" onkeypress="if(event.key==='Enter') calculatePIXCoreScore()">
+                    <button class="btn btn-violet" onclick="calculatePIXCoreScore()">CALCULER LE SCORE PIX IA</button>
+                    <div id="pixCoreRes" class="res-display">
+                        <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; text-align:center;">ANALYSE MULTI-FACTEURS EN ATTENTE</span>
+                    </div>
                 </div>
-            </div>
 
-            <!-- FEAR & GREED + MACRO CONTEXT REEL -->
-            <div class="card">
-                <h3>SENTIMENT ET MACRO CONTEXTE</h3>
-                <div id="macroSentimentRes" class="res-display">
-                    <div class="loader"></div>
+                <div class="card">
+                    <h3>SENTIMENT ET MACRO CONTEXTE</h3>
+                    <div id="macroSentimentRes" class="res-display">
+                        <div class="loader"></div>
+                    </div>
+                    <button class="btn btn-white" onclick="loadMacroSentimentData()" style="margin-top:12px;">ACTUALISER FEAR & GREED API</button>
                 </div>
-                <button class="btn btn-white" onclick="loadMacroSentimentData()" style="margin-top:15px;">ACTUALISER FEAR & GREED API</button>
             </div>
         </div>
 
         <!-- 2. MODULE PIX CHAT CRYPTO 🤖 -->
-        <div class="section-title" id="chat">2. PIX CHAT CRYPTO — ASSISTANT IA 🤖</div>
-        <div class="card" style="min-height: auto;">
-            <h3>ASSISTANT CRYPTO EXPERT (GEMINI 2.5 FLASH)</h3>
-            <div class="chat-box" id="chatHistory">
-                <div class="chat-msg pix">
-                    <b>🛸 PIX IA :</b> Salut frérot ! Je suis PIX IA. Pose-moi n'importe quelle question sur un token, une tendance de prix, la DeFi, les liquidations ou l'analyse technique.
+        <div class="section-block" id="chat">
+            <div class="section-title">2. PIX CHAT CRYPTO — ASSISTANT IA 🤖</div>
+            <div class="card" style="min-height: auto;">
+                <h3>ASSISTANT CRYPTO EXPERT (GEMINI 2.5 FLASH)</h3>
+                <div class="chat-box" id="chatHistory">
+                    <div class="chat-msg pix">
+                        <b>🛸 PIX IA :</b> Salut frérot ! Je suis PIX IA. Pose-moi n'importe quelle question sur un token, une tendance de prix, la DeFi, les liquidations ou l'analyse technique.
+                    </div>
                 </div>
-            </div>
-            <div style="display:flex; gap:10px;">
-                <input type="text" id="chatInput" placeholder="Pose ta question (ex: Analyse le momentum du BTC, C'est quoi un Short Squeeze ?)..." style="margin-bottom:0; text-align:left;" onkeypress="if(event.key==='Enter') sendChatMessage()">
-                <button class="btn btn-violet" onclick="sendChatMessage()" style="width:120px; margin-bottom:0; min-height:48px;">ENVOYER</button>
+                <div style="display:flex; gap:8px;">
+                    <input type="text" id="chatInput" placeholder="Pose ta question (ex: Analyse le momentum du BTC, C'est quoi un Short Squeeze ?)..." style="margin-bottom:0; text-align:left;" onkeypress="if(event.key==='Enter') sendChatMessage()">
+                    <button class="btn btn-violet" onclick="sendChatMessage()" style="width:110px; margin-bottom:0; min-height:48px;">ENVOYER</button>
+                </div>
             </div>
         </div>
 
@@ -343,8 +358,8 @@
         <div class="section-title">3. RADAR DE PERFORMANCE EN DIRECT (24H)</div>
         <div class="top10-card">
             <div class="top10-header">
-                <div style="font-weight: 900; font-size: 0.9rem; letter-spacing: 3px;">TOP ACTIFS DU MARCHÉ</div>
-                <div class="glass-picker" style="width:200px;">
+                <div style="font-weight: 900; font-size: 0.88rem; letter-spacing: 2px;">TOP ACTIFS DU MARCHÉ</div>
+                <div class="glass-picker" style="width:180px;">
                     <button class="picker-btn active gainers" id="btnGainers" onclick="setPerfMode('gainers')">GAINERS</button>
                     <button class="picker-btn" id="btnLosers" onclick="setPerfMode('losers')">LOSERS</button>
                 </div>
@@ -353,143 +368,153 @@
         </div>
 
         <!-- 4. ANALYSE TECHNIQUE & RISK -->
-        <div class="section-title" id="chart-analysis">4. ANALYSE TECHNIQUE MULTI-TIMEFRAME & RISK 📊</div>
-        <div class="grid-2">
-            <div class="card">
-                <h3>ANALYSE TECHNIQUE & GRAPH NÉON</h3>
-                <div class="glass-picker" style="margin-bottom:12px;">
-                    <button class="picker-btn active" id="btnTime4h" onclick="setChartTimeframe('4h')">4H</button>
-                    <button class="picker-btn" id="btnTime12h" onclick="setChartTimeframe('12h')">12H</button>
-                    <button class="picker-btn" id="btnTime24h" onclick="setChartTimeframe('24h')">24H</button>
-                    <button class="picker-btn" id="btnTime7j" onclick="setChartTimeframe('7j')">7J</button>
-                </div>
-                <div class="custom-selector-container">
-                    <div>
-                        <div class="selector-box-title">Actif Cible</div>
-                        <div class="glass-picker">
-                            <button class="picker-btn active" id="btnChartBTC" onclick="setChartAsset('BTC')">BTC</button>
-                            <button class="picker-btn" id="btnChartETH" onclick="setChartAsset('ETH')">ETH</button>
+        <div class="section-block" id="chart-analysis">
+            <div class="section-title">4. ANALYSE TECHNIQUE MULTI-TIMEFRAME & RISK 📊</div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>ANALYSE TECHNIQUE & GRAPH NÉON</h3>
+                    <div class="glass-picker" style="margin-bottom:12px;">
+                        <button class="picker-btn active" id="btnTime4h" onclick="setChartTimeframe('4h')">4H</button>
+                        <button class="picker-btn" id="btnTime12h" onclick="setChartTimeframe('12h')">12H</button>
+                        <button class="picker-btn" id="btnTime24h" onclick="setChartTimeframe('24h')">24H</button>
+                        <button class="picker-btn" id="btnTime7j" onclick="setChartTimeframe('7j')">7J</button>
+                    </div>
+                    <div class="custom-selector-container">
+                        <div>
+                            <div class="selector-box-title">Actif Cible</div>
+                            <div class="glass-picker">
+                                <button class="picker-btn active" id="btnChartBTC" onclick="setChartAsset('BTC')">BTC</button>
+                                <button class="picker-btn" id="btnChartETH" onclick="setChartAsset('ETH')">ETH</button>
+                            </div>
                         </div>
                     </div>
+                    <button class="btn btn-violet" onclick="runChartTechnicalAnalysis()" style="margin-top:6px;">GÉNÉRER L'ANALYSE TECHNIQUE</button>
+                    <div id="chartRes" class="res-display">
+                        <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; text-align:center;">EN ATTENTE D'ANALYSE</span>
+                    </div>
                 </div>
-                <button class="btn btn-violet" onclick="runChartTechnicalAnalysis()" style="margin-top:10px;">GÉNÉRER L'ANALYSE TECHNIQUE</button>
-                <div id="chartRes" class="res-display">
-                    <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px;">EN ATTENTE D'ANALYSE</span>
-                </div>
-            </div>
 
-            <div class="card" id="ai">
-                <h3>SCORE DE RISQUE PIX IA</h3>
-                <input type="text" id="riskAssetInput" placeholder="SYMBOLE (SOL, DOT...)" value="SOL" onkeypress="if(event.key==='Enter') getRiskAnalyse()">
-                <button class="btn btn-white" onclick="getRiskAnalyse()">ÉVALUER LE RISQUE MULTI-FACTEURS</button>
-                <div id="aiRes" class="res-display">
-                    <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px;">ÉVALUATION MULTI-CRITÈRES PRÊTE</span>
+                <div class="card" id="ai">
+                    <h3>SCORE DE RISQUE PIX IA</h3>
+                    <input type="text" id="riskAssetInput" placeholder="SYMBOLE (SOL, DOT...)" value="SOL" onkeypress="if(event.key==='Enter') getRiskAnalyse()">
+                    <button class="btn btn-white" onclick="getRiskAnalyse()">ÉVALUER LE RISQUE MULTI-FACTEURS</button>
+                    <div id="aiRes" class="res-display">
+                        <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; text-align:center;">ÉVALUATION MULTI-CRITÈRES PRÊTE</span>
+                    </div>
                 </div>
             </div>
         </div>
 
         <!-- 5. DERIVATIVES & LIQUIDATION + ON-CHAIN -->
-        <div class="section-title">5. FLUX DÉRIVÉS, FUTURES & DATA ON-CHAIN ⛓️</div>
-        <div class="grid-2">
-            <div class="card" id="liquidation">
-                <h3>WATCH LIQUIDATIONS FUTURES</h3>
-                <div class="custom-selector-container">
-                    <div>
-                        <div class="selector-box-title">Direction</div>
-                        <div class="glass-picker">
-                            <button class="picker-btn active" id="btnDirLong" onclick="setTradeDirection('long')">LONG</button>
-                            <button class="picker-btn" id="btnDirShort" onclick="setTradeDirection('short')">SHORT</button>
+        <div class="section-block" id="liquidation">
+            <div class="section-title">5. FLUX DÉRIVÉS, FUTURES & DATA ON-CHAIN ⛓️</div>
+            <div class="grid-2">
+                <div class="card">
+                    <h3>WATCH LIQUIDATIONS FUTURES</h3>
+                    <div class="custom-selector-container">
+                        <div>
+                            <div class="selector-box-title">Direction</div>
+                            <div class="glass-picker">
+                                <button class="picker-btn active" id="btnDirLong" onclick="setTradeDirection('long')">LONG</button>
+                                <button class="picker-btn" id="btnDirShort" onclick="setTradeDirection('short')">SHORT</button>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="selector-box-title">Actif</div>
+                            <div class="glass-picker">
+                                <button class="picker-btn active" id="btnAssetBTC" onclick="setAssetTarget('BTC')">BTC</button>
+                                <button class="picker-btn" id="btnAssetETH" onclick="setAssetTarget('ETH')">ETH</button>
+                            </div>
                         </div>
                     </div>
-                    <div>
-                        <div class="selector-box-title">Actif</div>
-                        <div class="glass-picker">
-                            <button class="picker-btn active" id="btnAssetBTC" onclick="setAssetTarget('BTC')">BTC</button>
-                            <button class="picker-btn" id="btnAssetETH" onclick="setAssetTarget('ETH')">ETH</button>
-                        </div>
+                    <button class="btn btn-violet" onclick="toggleLiquidationLive()">CONNECTER AUX FUTURES</button>
+                    <div id="liqRes" class="res-display" style="justify-content: flex-start; padding: 12px; overflow-y: auto;">
+                        <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; margin:auto; text-align:center;">FLUX EN ATTENTE DE CONNEXION</span>
                     </div>
                 </div>
-                <button class="btn btn-violet" onclick="toggleLiquidationLive()">CONNECTER AUX FUTURES</button>
-                <div id="liqRes" class="res-display" style="justify-content: flex-start; padding: 15px; overflow-y: auto;">
-                    <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; margin:auto;">FLUX EN ATTENTE DE CONNEXION</span>
-                </div>
-            </div>
 
-            <div class="card">
-                <h3>PROTOCOLES DEFI & TVL ON-CHAIN</h3>
-                <div id="onchainRes" class="res-display">
-                    <div class="loader"></div>
+                <div class="card">
+                    <h3>PROTOCOLES DEFI & TVL ON-CHAIN</h3>
+                    <div id="onchainRes" class="res-display">
+                        <div class="loader"></div>
+                    </div>
+                    <button class="btn btn-white" onclick="loadOnChainData()" style="margin-top:12px;">CHARGER DEFIL LAMA API</button>
                 </div>
-                <button class="btn btn-white" onclick="loadOnChainData()" style="margin-top:15px;">CHARGER DEFIL LAMA API</button>
             </div>
         </div>
 
         <!-- 6. PIX BACKTESTING 🔬 -->
-        <div class="section-title" id="backtest">6. VÉRIFICATEUR DE PRÉDICTIONS — BACKTESTING 🔬</div>
-        <div class="card" style="min-height:auto;">
-            <h3>ENREGISTREUR D'HYPOTHÈSES DE TRADING</h3>
-            <div class="grid-2" style="margin-bottom:15px;">
-                <div>
-                    <input type="text" id="backtestAsset" placeholder="SYMBOLE (BTC, ETH...)" value="BTC">
-                    <select id="backtestDir">
-                        <option value="BULLISH">Tendance : HAUSSIÈRE (Bullish)</option>
-                        <option value="BEARISH">Tendance : BAISSIÈRE (Bearish)</option>
-                    </select>
+        <div class="section-block" id="backtest">
+            <div class="section-title">6. VÉRIFICATEUR DE PRÉDICTIONS — BACKTESTING 🔬</div>
+            <div class="card" style="min-height:auto;">
+                <h3>ENREGISTREUR D'HYPOTHÈSES DE TRADING</h3>
+                <div class="grid-2" style="margin-bottom:12px;">
+                    <div>
+                        <input type="text" id="backtestAsset" placeholder="SYMBOLE (BTC, ETH...)" value="BTC">
+                        <select id="backtestDir">
+                            <option value="BULLISH">Tendance : HAUSSIÈRE (Bullish)</option>
+                            <option value="BEARISH">Tendance : BAISSIÈRE (Bearish)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <select id="backtestTimeframe">
+                            <option value="24H">Horizon : 24 Heures (+3%)</option>
+                            <option value="7D">Horizon : 7 Jours (+7%)</option>
+                        </select>
+                        <button class="btn btn-violet" onclick="recordPrediction()" style="margin-bottom:0;">ENREGISTRER PRÉDICTION</button>
+                    </div>
                 </div>
-                <div>
-                    <select id="backtestTimeframe">
-                        <option value="24H">Horizon : 24 Heures (+3%)</option>
-                        <option value="7D">Horizon : 7 Jours (+7%)</option>
-                    </select>
-                    <button class="btn btn-violet" onclick="recordPrediction()" style="margin-bottom:0;">ENREGISTRER PRÉDICTION</button>
+
+                <div id="backtestStats" style="display:flex; justify-content:space-around; background:rgba(0,0,0,0.5); padding:12px; border-radius:14px; border:1px solid var(--border); margin-bottom:12px; flex-wrap:wrap; gap:10px; text-align:center;">
+                    <div><div style="font-size:0.6com; color:var(--gray-text);">PRÉDICTIONS</div><div id="statTotalPred" style="font-size:1.1rem; font-weight:900;">0</div></div>
+                    <div><div style="font-size:0.6rem; color:var(--gray-text);">SUCCÈS</div><div id="statSuccessPred" class="up" style="font-size:1.1rem; font-weight:900;">0</div></div>
+                    <div><div style="font-size:0.6rem; color:var(--gray-text);">ÉCHECS</div><div id="statFailPred" class="down" style="font-size:1.1rem; font-weight:900;">0</div></div>
+                    <div><div style="font-size:0.6rem; color:var(--gray-text);">HIT RATE %</div><div id="statHitRate" style="font-size:1.1rem; font-weight:900; color:var(--violet);">En attente</div></div>
                 </div>
-            </div>
 
-            <div id="backtestStats" style="display:flex; justify-content:space-around; background:rgba(0,0,0,0.5); padding:15px; border-radius:16px; border:1px solid var(--border); margin-bottom:15px; flex-wrap:wrap; gap:10px;">
-                <div><div style="font-size:0.6rem; color:var(--gray-text);">PRÉDICTIONS</div><div id="statTotalPred" style="font-size:1.2rem; font-weight:900;">0</div></div>
-                <div><div style="font-size:0.6rem; color:var(--gray-text);">SUCCÈS</div><div id="statSuccessPred" class="up" style="font-size:1.2rem; font-weight:900;">0</div></div>
-                <div><div style="font-size:0.6rem; color:var(--gray-text);">ÉCHECS</div><div id="statFailPred" class="down" style="font-size:1.2rem; font-weight:900;">0</div></div>
-                <div><div style="font-size:0.6rem; color:var(--gray-text);">HIT RATE %</div><div id="statHitRate" style="font-size:1.2rem; font-weight:900; color:var(--violet);">0%</div></div>
+                <div id="predictionLogs" class="res-display" style="max-height:180px; overflow-y:auto; justify-content:flex-start;">
+                    <span style="opacity:0.3; font-size:0.7rem; margin:auto;">AUCUNE PRÉDICTION ENREGISTRÉE</span>
+                </div>
+                <button class="btn btn-white" onclick="evaluatePredictions()" style="margin-top:12px;">ÉVALUER PRÉDICTIONS SUR COURS REELS</button>
             </div>
-
-            <div id="predictionLogs" class="res-display" style="max-height:200px; overflow-y:auto; justify-content:flex-start;">
-                <span style="opacity:0.3; font-size:0.7rem; margin:auto;">AUCUNE PRÉDICTION ENREGISTRÉE</span>
-            </div>
-            <button class="btn btn-white" onclick="evaluatePredictions()" style="margin-top:12px;">ÉVALUER PRÉDICTIONS SUR COURS REELS</button>
         </div>
 
         <!-- 7. PIX PORTFOLIO 👤 -->
-        <div class="section-title" id="portfolio">7. PORTEFEUILLE ET SUIVI DE CAPITAL 👤</div>
-        <div class="card" style="min-height:auto;">
-            <h3>SUIVI DE CAPITAL & SUIVI P&L</h3>
-            <div style="display:grid; grid-template-columns: 1fr 1fr 1fr; gap:10px; margin-bottom:12px;">
-                <input type="text" id="portSymbol" placeholder="JETON (SOL...)" value="SOL" style="margin-bottom:0;">
-                <input type="number" id="portAmount" placeholder="QUANTITÉ" value="10" style="margin-bottom:0;">
-                <input type="number" id="portBuyPrice" placeholder="PRIX ACHAT ($)" value="120" style="margin-bottom:0;">
-            </div>
-            <button class="btn btn-violet" onclick="addPortfolioAsset()">AJOUTER AU PORTEFEUILLE</button>
-            <div id="portfolioDisplay" class="res-display" style="justify-content:flex-start; padding:15px; min-height:180px;">
-                <span style="opacity:0.3; font-size:0.7rem; margin:auto;">PORTEFEUILLE VIDE</span>
+        <div class="section-block" id="portfolio">
+            <div class="section-title">7. PORTEFEUILLE ET SUIVI DE CAPITAL 👤</div>
+            <div class="card" style="min-height:auto;">
+                <h3>SUIVI DE CAPITAL & SUIVI P&L</h3>
+                <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap:8px; margin-bottom:12px;">
+                    <input type="text" id="portSymbol" placeholder="JETON (SOL...)" value="SOL" style="margin-bottom:0;">
+                    <input type="number" id="portAmount" placeholder="QUANTITÉ" value="10" style="margin-bottom:0;">
+                    <input type="number" id="portBuyPrice" placeholder="PRIX ACHAT ($)" value="120" style="margin-bottom:0;">
+                </div>
+                <button class="btn btn-violet" onclick="addPortfolioAsset()">AJOUTER AU PORTEFEUILLE</button>
+                <div id="portfolioDisplay" class="res-display" style="justify-content:flex-start; padding:12px; min-height:160px;">
+                    <span style="opacity:0.3; font-size:0.7rem; margin:auto;">PORTEFEUILLE VIDE</span>
+                </div>
             </div>
         </div>
 
         <!-- 8. PIX ACADEMY 🎓 -->
-        <div class="section-title" id="academy">8. ACADÉMIE PIXELISÉE 🎓</div>
-        <div class="card">
-            <h3>MODULES D'APPRENTISSAGE & QUIZ INTERACTIF</h3>
-            <div class="glass-picker" style="margin-bottom:15px;">
-                <button class="picker-btn active" id="btnDebutant" onclick="setLvl(this, 'debutant')">Débutant</button>
-                <button class="picker-btn" id="btnAmateur" onclick="setLvl(this, 'amateur')">Amateur</button>
-                <button class="picker-btn" id="btnInter" onclick="setLvl(this, 'intermediaire')">Intermédiaire</button>
-                <button class="picker-btn" id="btnExpert" onclick="setLvl(this, 'expert')">Expert</button>
-            </div>
-            <button class="btn btn-white" onclick="getAcademyContent()">CHARGER LE MODULE</button>
-            <div id="acaRes" class="res-display">
-                <span style="opacity:0.3; font-size:0.75rem; font-weight:800; letter-spacing:2px;">SÉLECTIONNEZ UN NIVEAU</span>
+        <div class="section-block" id="academy">
+            <div class="section-title">8. ACADÉMIE PIXELISÉE 🎓</div>
+            <div class="card">
+                <h3>MODULES D'APPRENTISSAGE & QUIZ INTERACTIF</h3>
+                <div class="glass-picker" style="margin-bottom:12px;">
+                    <button class="picker-btn active" id="btnDebutant" onclick="setLvl(this, 'debutant')">Débutant</button>
+                    <button class="picker-btn" id="btnAmateur" onclick="setLvl(this, 'amateur')">Amateur</button>
+                    <button class="picker-btn" id="btnInter" onclick="setLvl(this, 'intermediaire')">Intermédiaire</button>
+                    <button class="picker-btn" id="btnExpert" onclick="setLvl(this, 'expert')">Expert</button>
+                </div>
+                <button class="btn btn-white" onclick="getAcademyContent()">CHARGER LE MODULE</button>
+                <div id="acaRes" class="res-display">
+                    <span style="opacity:0.3; font-size:0.75rem; font-weight:800; letter-spacing:2px; text-align:center;">SÉLECTIONNEZ UN NIVEAU</span>
+                </div>
             </div>
         </div>
 
-        <div class="creator-tag" style="margin-top:40px; text-align:center; font-weight:900; letter-spacing:4px;">IA CRÉÉE PAR CRYPTOMAN — PIX IA PLATFORM</div>
+        <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN — PIX IA PLATFORM</div>
 
         <div class="disclaimer-box">
             <div class="disclaimer-text">
@@ -503,15 +528,15 @@
 
 </div>
 
-<!-- UNIFICATION COMPLÈTE SANS CONFLITS DE SCRIPT -->
+<!-- UNIFICATION COMPLÈTE DU SCRIPT SANS VARIABLES INDÉFINIES -->
 <script>
     const apiKey = ""; // La clé runtime Gemini est fournie dynamiquement par l'environnement
     
-    // --- 1. COUCHE PIX DATA PROVIDER (GESTION CACHE & SÉCURITÉ RATE-LIMIT) ---
+    // --- 1. COUCHE DATA PROVIDER (COINGECKO & ALTERNATIVE.ME) ---
     class PixDataProvider {
         constructor() {
             this.cache = new Map();
-            this.cacheTTL = 60000; // Cache de 60s
+            this.cacheTTL = 60000; // Cache de 60 secondes
         }
 
         async fetchMarketData() {
@@ -523,13 +548,34 @@
 
             try {
                 const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
-                if (!res.ok) throw new Error("Erreur HTTP CoinGecko " + res.status);
+                if (!res.ok) throw new Error("Statut HTTP " + res.status);
                 const data = await res.json();
                 this.cache.set(cacheKey, { timestamp: Date.now(), data: data });
                 return { data: data, isCached: false };
             } catch (e) {
-                console.warn("CoinGecko API inaccessible, tentative de lecture du cache local.");
+                console.warn("CoinGecko API Limit/Offline:", e.message);
                 if (cached) return { data: cached.data, isCached: true, error: true };
+                return { data: null, error: true, message: e.message };
+            }
+        }
+
+        async fetchHistoricalData(coinId, days) {
+            const cacheKey = `history_${coinId}_${days}`;
+            const cached = this.cache.get(cacheKey);
+            if (cached && (Date.now() - cached.timestamp < 120000)) { // Cache de 2 min
+                return { data: cached.data, isCached: true, error: false };
+            }
+
+            try {
+                const res = await fetch(`https://api.coingecko.com/api/v3/coins/${coinId}/market_chart?vs_currency=usd&days=${days}`);
+                if (!res.ok) throw new Error("HTTP Error " + res.status);
+                const data = await res.json();
+                if (!data.prices || data.prices.length === 0) throw new Error("Données historiques indisponibles");
+                this.cache.set(cacheKey, { timestamp: Date.now(), data: data });
+                return { data: data, isCached: false, error: false };
+            } catch(e) {
+                console.warn("Erreur chargement historique CoinGecko:", e.message);
+                if (cached) return { data: cached.data, isCached: true, error: false };
                 return { data: null, error: true, message: e.message };
             }
         }
@@ -568,7 +614,7 @@
             updateTop10();
         } else {
             const tickBox = document.getElementById('tick1');
-            if (tickBox) tickBox.innerHTML = `<span class="down" style="font-weight:900;">ERREUR CONNEXION API COINGECKO : ${result.message || 'Limitation de requêtes'}</span>`;
+            if (tickBox) tickBox.innerHTML = `<span class="down" style="font-weight:900;">ERREUR CONNEXION COINGECKO API : ${result.message || 'Limite de requêtes atteinte'}</span>`;
         }
     };
 
@@ -656,7 +702,7 @@
         const coin = findCoin(val);
 
         if (!coin) {
-            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:2px; margin:auto;">JETON INTROUVABLE DANS LE TOP 100</span>';
+            res.innerHTML = '<span class="down" style="font-weight:900; letter-spacing:1px; margin:auto; text-align:center;">JETON INTROUVABLE DANS LE TOP 100</span>';
             return;
         }
 
@@ -664,8 +710,8 @@
         const change = coin.price_change_percentage_24h || 0;
 
         res.innerHTML = `
-            <div style="font-size:0.65rem; color:var(--violet); font-weight:900; letter-spacing:3px;">DONNÉES EN DIRECT : ${coin.name.toUpperCase()}</div>
-            <div style="font-size:2.8rem; font-weight:900; letter-spacing:-2px; margin:5px 0;">$${price}</div>
+            <div style="font-size:0.65rem; color:var(--violet); font-weight:900; letter-spacing:2px;">DONNÉES EN DIRECT : ${coin.name.toUpperCase()}</div>
+            <div style="font-size:2.5rem; font-weight:900; letter-spacing:-1px; margin:5px 0;">$${price}</div>
             <div class="market-grid">
                 <div class="stat-box"><div class="stat-head">Market Cap</div><div class="stat-body">$${formatVal(coin.market_cap)}</div></div>
                 <div class="stat-box"><div class="stat-head">Volume 24h</div><div class="stat-body">$${formatVal(coin.total_volume)}</div></div>
@@ -687,7 +733,7 @@
         const coin = findCoin(inputSymbol);
 
         if (!coin) {
-            resBox.innerHTML = '<span class="down" style="font-weight:900; margin:auto;">JETON INTROUVABLE SUR COINGECKO</span>';
+            resBox.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">JETON INTROUVABLE SUR COINGECKO</span>';
             return;
         }
 
@@ -697,6 +743,7 @@
         const mcap = coin.market_cap || 1e7;
         const rank = coin.market_cap_rank || 50;
 
+        // Calcul dynamique dérivé des données directes de l'API
         const rsi = Math.max(10, Math.min(90, Math.round(50 + (change24 * 2.2))));
         let momentumScore = rsi >= 45 && rsi <= 68 ? 85 : (rsi > 70 ? 40 : 60);
         const volMcapRatio = vol / mcap;
@@ -714,7 +761,7 @@
                 <div class="pix-score-val">${finalScore}</div>
                 <div class="pix-score-lbl">SCORE PIX IA</div>
             </div>
-            <div style="font-weight:900; font-size:0.9rem; color:${scoreColor}; margin-bottom:10px; text-align:center;">${signalText}</div>
+            <div style="font-weight:900; font-size:0.85rem; color:${scoreColor}; margin-bottom:10px; text-align:center;">${signalText}</div>
             
             <div class="factor-breakdown">
                 <div>
@@ -730,7 +777,7 @@
                     <div class="factor-bar-bg"><div class="factor-bar-fill" style="width:${rankScore}%; background:${scoreColor}"></div></div>
                 </div>
             </div>
-            <div style="font-size:0.65rem; color:var(--gray-text); margin-top:12px; text-align:center;">
+            <div style="font-size:0.62rem; color:var(--gray-text); margin-top:12px; text-align:center;">
                 Prix réel : $${price.toLocaleString()} (${change24 >= 0 ? '+' : ''}${change24.toFixed(2)}% / 24h).
             </div>
         `;
@@ -747,7 +794,7 @@
         const coin = findCoin(val);
         
         if (!coin) {
-            res.innerHTML = '<span class="down" style="font-weight:900; margin:auto;">CIBLE INCONNUE</span>';
+            res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">CIBLE INCONNUE EN DIRECT</span>';
             return;
         }
 
@@ -770,12 +817,12 @@
         let status = riskScore <= 3.5 ? 'FAIBLE RISQUE' : (riskScore <= 6.5 ? 'RISQUE MODÉRÉ' : 'HAUT RISQUE');
 
         res.innerHTML = `
-            <div class="risk-circle" style="border-color:${neonColor}; color:${neonColor}; filter: drop-shadow(0 0 12px ${neonColor});">
+            <div class="risk-circle" style="border-color:${neonColor}; color:${neonColor}; filter: drop-shadow(0 0 10px ${neonColor});">
                 <div class="risk-val">${riskScore.toFixed(1)}</div>
                 <div class="risk-text-lbl">NOTE RISQUE</div>
             </div>
-            <div style="font-weight:900; letter-spacing:4px; font-size:1rem; color:${neonColor}">${status}</div>
-            <div style="font-size:0.68rem; opacity:0.8; margin-top:15px; font-weight:600; line-height:1.6; text-align:center;">
+            <div style="font-weight:900; letter-spacing:2px; font-size:0.95rem; color:${neonColor}">${status}</div>
+            <div style="font-size:0.68rem; opacity:0.8; margin-top:12px; font-weight:600; line-height:1.5; text-align:center;">
                 <b style="color:${neonColor}">NOTE PIX IA :</b> Rang #${rank}. Volatilité 24h: ${change.toFixed(2)}%. Ratio de liquidité: ${(vol/mcap*100).toFixed(1)}%.
             </div>`;
     }
@@ -837,7 +884,7 @@
         history.scrollTop = history.scrollHeight;
     }
 
-    // --- 7. ANALYSE GRAPHIQUE MULTI-TIMEFRAME ---
+    // --- 7. ANALYSE TECHNIQUE REELLE ET HISTORIQUE MULTI-TIMEFRAME ---
     window.selectedChartAsset = 'BTC';
     window.selectedChartTimeframe = '4h';
 
@@ -865,74 +912,148 @@
         runChartTechnicalAnalysis();
     };
 
+    // CALCUL DU RSI REALISTE DEPUIS UN TABLEAU DE PRIX HISTORIQUES
+    function calculateRealRSI(pricesArray, period = 14) {
+        if (!pricesArray || pricesArray.length <= period) return null;
+        let gains = 0, losses = 0;
+        
+        for (let i = 1; i <= period; i++) {
+            const diff = pricesArray[i][1] - pricesArray[i-1][1];
+            if (diff >= 0) gains += diff;
+            else losses += Math.abs(diff);
+        }
+        let avgGain = gains / period;
+        let avgLoss = losses / period;
+
+        for (let i = period + 1; i < pricesArray.length; i++) {
+            const diff = pricesArray[i][1] - pricesArray[i-1][1];
+            if (diff >= 0) {
+                avgGain = (avgGain * (period - 1) + diff) / period;
+                avgLoss = (avgLoss * (period - 1)) / period;
+            } else {
+                avgGain = (avgGain * (period - 1)) / period;
+                avgLoss = (avgLoss * (period - 1) + Math.abs(diff)) / period;
+            }
+        }
+
+        if (avgLoss === 0) return 100;
+        const rs = avgGain / avgLoss;
+        return Math.round(100 - (100 / (1 + rs)));
+    }
+
+    // CALCUL MOYENNE MOBILE REELLE
+    function calculateRealMA(pricesArray, period) {
+        if (!pricesArray || pricesArray.length < period) return null;
+        const slice = pricesArray.slice(-period);
+        const sum = slice.reduce((acc, curr) => acc + curr[1], 0);
+        return sum / period;
+    }
+
     window.runChartTechnicalAnalysis = async function() {
         const res = document.getElementById('chartRes');
         if (!res) return;
         res.innerHTML = '<div class="loader"></div>';
         
-        if (globalData.length === 0) await window.fetchData();
-        const target = window.selectedChartAsset;
-        const tf = window.selectedChartTimeframe;
-        const coin = findCoin(target);
+        const target = window.selectedChartAsset; // BTC ou ETH
+        const tf = window.selectedChartTimeframe; // 4h, 12h, 24h, 7j
         
-        if (!coin) {
-            res.innerHTML = '<span class="down">ERREUR DE LIAISON DONNÉES</span>';
+        const coinId = target === 'BTC' ? 'bitcoin' : 'ethereum';
+        
+        // Jours CoinGecko selon Timeframe
+        let daysParam = 1;
+        if (tf === '12h') daysParam = 3;
+        else if (tf === '24h') daysParam = 7;
+        else if (tf === '7j') daysParam = 30;
+
+        const histResult = await dataProvider.fetchHistoricalData(coinId, daysParam);
+        
+        if (histResult.error || !histResult.data || !histResult.data.prices) {
+            res.innerHTML = `<span class="down" style="font-size:0.75rem; text-align:center;">DONNÉES HISTORIQUES ABSENTES (${histResult.message || 'Limite API'})</span>`;
             return;
         }
 
-        const currentPrice = coin.current_price;
-        const change24h = coin.price_change_percentage_24h || 0;
-        const rsi = Math.max(15, Math.min(85, Math.round(50 + (change24h * 2.2))));
-        const isBullish = change24h >= 0 && rsi > 45;
+        const pricesArr = histResult.data.prices; // [[timestamp, price], ...]
+        const latestPrice = pricesArr[pricesArr.length - 1][1];
+        const firstPrice = pricesArr[0][1];
+        const tfChangePct = ((latestPrice - firstPrice) / firstPrice) * 100;
+
+        const realRSI = calculateRealRSI(pricesArr, 14) || 50;
+        const realMA20 = calculateRealMA(pricesArr, 20) || latestPrice;
+        const realMA50 = calculateRealMA(pricesArr, 50) || latestPrice;
+
+        const isBullish = latestPrice >= realMA20 && realRSI >= 48;
         const trendColor = isBullish ? "var(--up)" : "var(--down)";
 
         res.innerHTML = `
             <div style="width: 100%;">
                 <canvas id="neonAnalysisChart" width="330" height="120"></canvas>
-                <div class="market-grid" style="margin-bottom:10px;">
+                <div class="market-grid" style="margin-bottom:8px;">
                     <div class="stat-box">
-                        <div class="stat-head">RSI (14) - ${tf.toUpperCase()}</div>
-                        <div class="stat-body" style="color:${rsi > 70 ? 'var(--down)' : (rsi < 30 ? 'var(--up)' : 'white')}">${rsi}</div>
+                        <div class="stat-head">RSI REEL (14) - ${tf.toUpperCase()}</div>
+                        <div class="stat-body" style="color:${realRSI > 70 ? 'var(--down)' : (realRSI < 30 ? 'var(--up)' : 'white')}">${realRSI} ${realRSI > 70 ? '(Suracheté)' : (realRSI < 30 ? '(Survendu)' : '')}</div>
                     </div>
                     <div class="stat-box">
-                        <div class="stat-head">Tendance PIX IA</div>
+                        <div class="stat-head">MA 20 (${tf.toUpperCase()})</div>
+                        <div class="stat-body">$${Math.round(realMA20).toLocaleString()}</div>
+                    </div>
+                </div>
+                <div class="market-grid" style="margin-bottom:8px;">
+                    <div class="stat-box">
+                        <div class="stat-head">MA 50 (${tf.toUpperCase()})</div>
+                        <div class="stat-body">$${Math.round(realMA50).toLocaleString()}</div>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-head">TENDANCE ${tf.toUpperCase()}</div>
                         <div class="stat-body" style="color: ${trendColor}">${isBullish ? "HAUSSIÈRE" : "BAISSIÈRE"}</div>
                     </div>
                 </div>
-                <div style="font-size: 0.7rem; color: var(--gray-text); text-align: center;">
-                    Prix : $${currentPrice.toLocaleString()} | Var 24h : ${change24h.toFixed(2)}%
+                <div style="font-size: 0.65rem; color: var(--gray-text); text-align: center;">
+                    Actif : <b>${target}</b> | Prix : <b>$${Math.round(latestPrice).toLocaleString()}</b> | Var. Timeframe : <span class="${tfChangePct >= 0 ? 'up' : 'down'}">${tfChangePct >= 0 ? '+' : ''}${tfChangePct.toFixed(2)}%</span>
                 </div>
+                <div class="api-badge live" style="margin-top:6px;">DONNÉES HISTORIQUES COINGECKO LIVE</div>
             </div>
         `;
 
-        drawNeonChart(isBullish);
+        drawNeonChartFromData(pricesArr, isBullish);
     };
 
-    function drawNeonChart(isBullish) {
+    function drawNeonChartFromData(pricesArray, isBullish) {
         const canvasNode = document.getElementById('neonAnalysisChart');
         if (!canvasNode) return;
         const ctxNode = canvasNode.getContext('2d');
         const wNode = canvasNode.width = canvasNode.parentElement.clientWidth || 300;
         const hNode = canvasNode.height = 120;
 
-        ctxNode.clearRect(0,0,wNode,hNode);
+        ctxNode.clearRect(0, 0, wNode, hNode);
         ctxNode.strokeStyle = "rgba(255,255,255,0.04)";
+        ctxNode.lineWidth = 1;
         for (let i = 0; i < wNode; i += 30) { ctxNode.beginPath(); ctxNode.moveTo(i, 0); ctxNode.lineTo(i, hNode); ctxNode.stroke(); }
+        for (let j = 0; j < hNode; j += 20) { ctxNode.beginPath(); ctxNode.moveTo(0, j); ctxNode.lineTo(wNode, j); ctxNode.stroke(); }
 
-        ctxNode.beginPath(); ctxNode.lineWidth = 3;
+        if (!pricesArray || pricesArray.length < 2) return;
+
+        const values = pricesArray.map(p => p[1]);
+        const minVal = Math.min(...values);
+        const maxVal = Math.max(...values);
+        const range = (maxVal - minVal) || 1;
+
+        ctxNode.beginPath();
+        ctxNode.lineWidth = 2.5;
         const color = isBullish ? "#00ffa3" : "#ff3366";
         ctxNode.strokeStyle = color;
+        ctxNode.shadowBlur = 8;
+        ctxNode.shadowColor = color;
 
-        const pts = 12; const step = wNode / (pts - 1);
-        let currY = hNode / 2;
-        ctxNode.moveTo(0, currY);
-
-        for (let x = 1; x < pts; x++) {
-            const noise = (Math.random() - 0.45) * 25;
-            currY = Math.max(15, Math.min(hNode - 15, currY + noise + (isBullish ? -3 : 3)));
-            ctxNode.lineTo(x * step, currY);
-        }
+        const step = wNode / (pricesArray.length - 1);
+        pricesArray.forEach((p, idx) => {
+            const x = idx * step;
+            const normalizedY = (p[1] - minVal) / range;
+            const y = hNode - 15 - (normalizedY * (hNode - 30));
+            if (idx === 0) ctxNode.moveTo(x, y);
+            else ctxNode.lineTo(x, y);
+        });
         ctxNode.stroke();
+        ctxNode.shadowBlur = 0;
     }
 
     // --- 8. WATCH LIQUIDATION FUTURES ---
@@ -972,7 +1093,7 @@
             wsConnected = false;
             if (simulationTimer) clearInterval(simulationTimer);
             if (btn) { btn.innerText = "CONNECTER AUX FUTURES"; btn.classList.replace('btn-white', 'btn-violet'); }
-            if (res) res.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto;">FLUX DECONNECTÉ</span>';
+            if (res) res.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto;">FLUX DÉCONNECTÉ</span>';
             return;
         }
 
@@ -1024,7 +1145,7 @@
 
         const fngRes = await dataProvider.fetchFearAndGreed();
         if (fngRes.error || !fngRes.data) {
-            box.innerHTML = '<span class="down" style="font-weight:900; margin:auto;">ERREUR CHARGEMENT FEAR & GREED API</span>';
+            box.innerHTML = '<span class="down" style="font-weight:900; margin:auto;">SERVICE FEAR & GREED INDISPONIBLE</span>';
             return;
         }
 
@@ -1033,10 +1154,10 @@
         let color = fngVal >= 60 ? "var(--up)" : (fngVal <= 40 ? "var(--down)" : "var(--neon-yellow)");
 
         box.innerHTML = `
-            <div class="pix-score-ring" style="border-color:${color}; color:${color}; width:100px; height:100px;">
-                <div class="pix-score-val" style="font-size:2.2rem;">${fngVal}</div>
+            <div class="pix-score-ring" style="border-color:${color}; color:${color}; width:95px; height:90px;">
+                <div class="pix-score-val" style="font-size:2rem;">${fngVal}</div>
             </div>
-            <div style="font-weight:900; font-size:0.9rem; color:${color}; text-transform:uppercase;">${fng.value_classification}</div>
+            <div style="font-weight:900; font-size:0.85rem; color:${color}; text-transform:uppercase; text-align:center;">${fng.value_classification}</div>
             <div class="api-badge live" style="margin-top:10px;">ALTERNATIVE.ME API LIVE</div>
         `;
     };
@@ -1125,12 +1246,13 @@
         let total = predictions.length;
         let success = predictions.filter(p => p.status === "SUCCES").length;
         let fail = predictions.filter(p => p.status === "ECHEC").length;
-        let hitRate = (success + fail) > 0 ? Math.round((success / (success + fail)) * 100) : 0;
+        let evaluated = success + fail;
+        let hitRateText = evaluated > 0 ? Math.round((success / evaluated) * 100) + "%" : "En attente";
 
         document.getElementById('statTotalPred').innerText = total;
         document.getElementById('statSuccessPred').innerText = success;
         document.getElementById('statFailPred').innerText = fail;
-        document.getElementById('statHitRate').innerText = hitRate + "%";
+        document.getElementById('statHitRate').innerText = hitRateText;
 
         if (total === 0) {
             logBox.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto;">AUCUNE PRÉDICTION ENREGISTRÉE</span>';
@@ -1193,7 +1315,7 @@
         const totalPnlPct = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0;
 
         display.innerHTML = `
-            <div style="width:100%; margin-bottom:12px; font-weight:900; font-size:0.85rem;">
+            <div style="width:100%; margin-bottom:10px; font-weight:900; font-size:0.8rem; text-align:center;">
                 VALEUR: <span style="color:var(--violet);">$${Math.round(totalVal).toLocaleString()}</span> | P&L: <span class="${totalPnl >= 0 ? 'up' : 'down'}">${totalPnl >= 0 ? '+' : ''}$${Math.round(totalPnl)} (${totalPnlPct.toFixed(1)}%)</span>
             </div>
             ${rows}
@@ -1206,9 +1328,9 @@
         renderPortfolio();
     };
 
-    // --- 11. ACADÉMIE ET QUIZ ---
+    // --- 11. ACADÉMIE ---
     function setLvl(el, lvl) {
-        document.querySelectorAll('.lvl-btn, .picker-btn').forEach(b => b.classList.remove('active'));
+        document.querySelectorAll('#academy .picker-btn').forEach(b => b.classList.remove('active'));
         if (el) el.classList.add('active');
         currentLvl = lvl;
     }
@@ -1225,11 +1347,11 @@
                 intermediaire: "MODULE INTERMÉDIAIRE : La gestion du risque est la clé de la survie. Ne risquez jamais plus de 1% à 2% de votre capital total sur une seule transaction.",
                 expert: "MODULE EXPERT : Les liquidations sur les marchés de dérivés créent des mouvements en cascade (Long/Short Squeeze). Apprenez à repérer ces zones de liquidité."
             };
-            res.innerHTML = `<div style="font-size:0.85rem; font-weight:600; line-height:1.8; color:rgba(255,255,255,0.95); text-align:center;">${lessons[currentLvl]}</div>`;
-        }, 600);
+            res.innerHTML = `<div style="font-size:0.82rem; font-weight:600; line-height:1.7; color:rgba(255,255,255,0.95); text-align:center;">${lessons[currentLvl]}</div>`;
+        }, 500);
     }
 
-    // --- 12. ANIMATION DE PARTICULES EN CANEVAS ---
+    // --- 12. ANIMATION DE PARTICULES EN CANEVAS ET REDIMENSIONNEMENT ---
     const canvasObj = document.getElementById('bg-canvas');
     const drawCtx = canvasObj.getContext('2d');
     let points = [];
@@ -1256,7 +1378,8 @@
         }
         draw() {
             drawCtx.globalAlpha = this.alpha; drawCtx.fillStyle = this.color;
-            drawCtx.beginPath(); drawCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2); drawCtx.fill();
+            drawCtx.beginPath(); drawCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            drawCtx.fill();
         }
     }
 
@@ -1284,7 +1407,7 @@
 
     window.addEventListener('resize', () => { adjustSize(); buildPoints(); });
 
-    // --- INITIALISATION PROPRE SANS ÉCRASEMENT DE LOAD ---
+    // --- INITIALISATION DES SERVICES ---
     window.addEventListener('load', async () => {
         adjustSize();
         buildPoints();
@@ -1303,7 +1426,7 @@
         setTimeout(() => {
             calculatePIXCoreScore();
             runChartTechnicalAnalysis();
-        }, 800);
+        }, 600);
     });
 </script>
 

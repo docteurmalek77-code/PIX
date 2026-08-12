@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>PIX IA | Intelligence Artificielle Crypto</title>
+    <title>PIX | Platforme d'Intelligence Crypto</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -86,19 +86,20 @@
         }
         nav a:hover, nav a.active { color: #fff; background: rgba(139, 92, 246, 0.2); border-color: var(--border); text-shadow: 0 0 8px var(--violet); }
 
-        /* EN-TÊTE PRINCIPAL (HERO) */
-        .hero { text-align: center; padding: 30px 20px 10px 20px; }
+        /* EN-TÊTE PRINCIPAL (HERO) - PIX CENTRÉ & ÉQUILIBRÉ */
+        .hero { text-align: center; padding: 35px 20px 10px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
         .hero h1 { 
-            font-size: clamp(3.5rem, 12vw, 7.5rem); font-weight: 900; margin: 0;
+            font-size: clamp(4rem, 15vw, 8rem); font-weight: 900; margin: 0;
             background: linear-gradient(to bottom, #fff, var(--violet));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 0.9; letter-spacing: -2px;
+            line-height: 0.85; letter-spacing: -3px;
             filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.4));
+            text-align: center;
         }
-        .tagline { color: var(--violet); letter-spacing: 3px; font-weight: 900; text-transform: uppercase; margin-top: 15px; font-size: 0.85rem; }
+        .tagline { color: var(--violet); letter-spacing: 3px; font-weight: 900; text-transform: uppercase; margin-top: 15px; font-size: 0.85rem; text-align: center; }
         .creator-mention {
             font-size: 0.75rem; color: var(--gray-text); font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; display: block;
+            letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; display: block; text-align: center;
         }
 
         /* SECTIONS & COMPOSANTS */
@@ -168,16 +169,21 @@
             overflow: hidden; text-align: left; width: 100%;
         }
 
-        /* SCORE PIX IA */
+        /* SCORE RISQUE PIX NEON FINTECH STYLE */
         .pix-score-ring {
-            width: 110px; height: 100px; border-radius: 50%; border: 5px solid;
+            width: 120px; height: 120px; border-radius: 50%; border: 6px solid;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
-            margin: 8px auto 12px auto; background: rgba(0,0,0,0.4);
-            box-shadow: 0 0 20px currentColor, inset 0 0 10px currentColor;
-            filter: drop-shadow(0 0 8px currentColor);
+            margin: 10px auto 15px auto; background: rgba(0,0,0,0.5);
+            box-shadow: 0 0 30px currentColor, inset 0 0 15px currentColor;
+            filter: drop-shadow(0 0 12px currentColor);
+            animation: pulseGlow 3s infinite ease-in-out;
         }
-        .pix-score-val { font-size: 2.2rem; font-weight: 900; line-height: 1; }
-        .pix-score-lbl { font-size: 0.55rem; font-weight: 900; letter-spacing: 1.5px; text-transform: uppercase; margin-top: 4px; }
+        @keyframes pulseGlow {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+        }
+        .pix-score-val { font-size: 2.5rem; font-weight: 900; line-height: 1; text-shadow: 0 0 12px currentColor; }
+        .pix-score-lbl { font-size: 0.55rem; font-weight: 900; letter-spacing: 2px; text-transform: uppercase; margin-top: 4px; opacity: 0.9; }
 
         .factor-breakdown { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 10px; }
         .factor-row { display: flex; justify-content: space-between; font-size: 0.68rem; font-weight: 700; }
@@ -197,23 +203,23 @@
         .chat-msg.user { align-self: flex-end; background: var(--violet); color: #fff; border-bottom-right-radius: 2px; }
         .chat-msg.pix { align-self: flex-start; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: #e2e8f0; border-bottom-left-radius: 2px; }
 
-        /* TIMER HALVING */
+        /* TIMER HALVING BITCOIN */
         .halving-card {
             background: var(--card-bg); border: 1px solid var(--primary);
             border-radius: 24px; padding: 22px 16px; backdrop-filter: blur(20px);
             display: flex; flex-direction: column; gap: 18px; align-items: center;
-            box-shadow: 0 0 25px rgba(247, 147, 26, 0.1); text-align: center; margin-bottom: 25px;
+            box-shadow: 0 0 25px rgba(247, 147, 26, 0.15); text-align: center; margin-bottom: 25px;
         }
         .h-status {
             display: inline-block; background: var(--primary); color: #000;
             font-weight: 900; font-size: 0.68rem; letter-spacing: 1.5px;
             padding: 8px 16px; border-radius: 10px; text-transform: uppercase;
-            box-shadow: 0 0 15px var(--primary); text-shadow: 0 0 2px rgba(0,0,0,0.5);
+            box-shadow: 0 0 20px var(--primary); text-shadow: 0 0 2px rgba(0,0,0,0.5);
             animation: neon-pulse-primary 2s infinite;
         }
         .timer-container { display: flex; gap: 6px; justify-content: center; width: 100%; max-width: 360px; margin: 0 auto; flex-wrap: nowrap; }
-        .timer-unit { background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.2); padding: 8px 4px; border-radius: 12px; flex: 1; min-width: 0; text-align: center; }
-        .timer-val { font-size: clamp(1.1rem, 4.5vw, 1.5rem); font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.4); }
+        .timer-unit { background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.25); padding: 8px 4px; border-radius: 12px; flex: 1; min-width: 0; text-align: center; }
+        .timer-val { font-size: clamp(1.1rem, 4.5vw, 1.5rem); font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.5); }
         .timer-label { font-size: clamp(0.35rem, 2vw, 0.45rem); text-transform: uppercase; letter-spacing: 1px; color: var(--gray-text); margin-top: 2px; }
 
         /* RADAR TOP 10 */
@@ -237,13 +243,12 @@
             border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.15); margin-bottom: 10px;
         }
 
-        /* BADGES API */
+        /* BADGES API EN DIRECT */
         .api-badge {
             font-size: 0.58rem; font-weight: 800; padding: 4px 8px; border-radius: 6px;
             letter-spacing: 1px; text-transform: uppercase; margin-top: 6px; display: inline-block;
         }
-        .api-badge.live { background: rgba(0, 255, 163, 0.15); color: var(--up); border: 1px solid var(--up); }
-        .api-badge.cached { background: rgba(250, 204, 21, 0.15); color: var(--neon-yellow); border: 1px solid var(--neon-yellow); }
+        .api-badge.live { background: rgba(0, 255, 163, 0.15); color: var(--up); border: 1px solid var(--up); box-shadow: 0 0 8px rgba(0,255,163,0.2); }
         .api-badge.error { background: rgba(255, 51, 102, 0.15); color: var(--down); border: 1px solid var(--down); }
 
         .creator-tag { text-align: center; margin-top: 35px; font-weight: 900; font-size: 0.75rem; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
@@ -269,6 +274,7 @@
 <!-- APP WRAPPER CONTENEUR PRINCIPAL -->
 <div id="app-wrapper">
 
+    <!-- TICKER DE PRIX EN DIRECT -->
     <div class="tickers-header">
         <div class="ticker-row">
             <div class="ticker-move" id="tick1">
@@ -277,8 +283,9 @@
         </div>
     </div>
 
+    <!-- BARRE DE NAVIGATION PRINCIPALE -->
     <nav>
-        <a href="#core" class="active">PIX IA 🧠</a>
+        <a href="#core" class="active">PIX 🧠</a>
         <a href="#chat">CHAT 🤖</a>
         <a href="#chart-analysis">ANALYSE GRAPH 📊</a>
         <a href="#liquidation">LIQUIDATIONS 💥</a>
@@ -287,8 +294,9 @@
         <a href="#academy">ACADÉMIE 🎓</a>
     </nav>
 
+    <!-- HEADER / HERO -->
     <div class="hero">
-        <h1>PIX IA</h1>
+        <h1>PIX</h1>
         <div class="tagline">INTELLIGENCE ARTIFICIELLE CRYPTO</div>
         <span class="creator-mention">IA créée par CryptoMan</span>
     </div>
@@ -314,14 +322,14 @@
 
     <div class="container">
 
-        <!-- 1. MODULE PIX IA SCORE CENTRAL 🧠 -->
+        <!-- 1. MODULE PIX SCORE CENTRAL 🧠 -->
         <div class="section-block" id="core">
-            <div class="section-title">1. MOTEUR D'ANALYSE DÉCISIONNEL — PIX IA 🧠</div>
+            <div class="section-title">1. MOTEUR D'ANALYSE DÉCISIONNEL — PIX 🧠</div>
             <div class="grid-2">
                 <div class="card">
-                    <h3>SCORE GLOBAL DE MARCHÉ PIX IA</h3>
+                    <h3>SCORE GLOBAL DE MARCHÉ PIX</h3>
                     <input type="text" id="pixCoreInput" placeholder="SYMBOLE (BTC, ETH, SOL...)" value="BTC" onkeypress="if(event.key==='Enter') calculatePIXCoreScore()">
-                    <button class="btn btn-violet" onclick="calculatePIXCoreScore()">CALCULER LE SCORE PIX IA</button>
+                    <button class="btn btn-violet" onclick="calculatePIXCoreScore()">CALCULER LE SCORE PIX</button>
                     <div id="pixCoreRes" class="res-display">
                         <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; text-align:center;">ANALYSE MULTI-FACTEURS EN ATTENTE</span>
                     </div>
@@ -344,7 +352,7 @@
                 <h3>ASSISTANT CRYPTO EXPERT (GEMINI 2.5 FLASH)</h3>
                 <div class="chat-box" id="chatHistory">
                     <div class="chat-msg pix">
-                        <b>🛸 PIX IA :</b> Salut frérot ! Je suis PIX IA. Pose-moi n'importe quelle question sur un token, une tendance de prix, la DeFi, les liquidations ou l'analyse technique.
+                        <b>🛸 PIX :</b> Salut frérot ! Je suis PIX. Pose-moi n'importe quelle question sur un token, une tendance de prix, la DeFi, les liquidations ou l'analyse technique.
                     </div>
                 </div>
                 <div style="display:flex; gap:8px;">
@@ -395,7 +403,7 @@
                 </div>
 
                 <div class="card" id="ai">
-                    <h3>SCORE DE RISQUE PIX IA</h3>
+                    <h3>SCORE DE RISQUE PIX</h3>
                     <input type="text" id="riskAssetInput" placeholder="SYMBOLE (SOL, DOT...)" value="SOL" onkeypress="if(event.key==='Enter') getRiskAnalyse()">
                     <button class="btn btn-white" onclick="getRiskAnalyse()">ÉVALUER LE RISQUE MULTI-FACTEURS</button>
                     <div id="aiRes" class="res-display">
@@ -405,22 +413,22 @@
             </div>
         </div>
 
-        <!-- 5. DERIVATIVES & LIQUIDATION + ON-CHAIN -->
+        <!-- 5. DERIVATIVES & LIQUIDATIONS FUTURES BINANCE (WEBSOCKET EN DIRECT) -->
         <div class="section-block" id="liquidation">
-            <div class="section-title">5. FLUX DÉRIVÉS, FUTURES & DATA ON-CHAIN ⛓️</div>
+            <div class="section-title">5. FLUX DÉRIVÉS, FUTURES BINANCE & DATA ON-CHAIN 🚨</div>
             <div class="grid-2">
                 <div class="card">
                     <h3>WATCH LIQUIDATIONS FUTURES (BINANCE LIVE)</h3>
                     <div class="custom-selector-container">
                         <div>
-                            <div class="selector-box-title">Direction</div>
+                            <div class="selector-box-title">Direction Cible</div>
                             <div class="glass-picker">
                                 <button class="picker-btn active" id="btnDirLong" onclick="setTradeDirection('long')">LONG</button>
                                 <button class="picker-btn" id="btnDirShort" onclick="setTradeDirection('short')">SHORT</button>
                             </div>
                         </div>
                         <div>
-                            <div class="selector-box-title">Actif</div>
+                            <div class="selector-box-title">Actif Filtré</div>
                             <div class="glass-picker">
                                 <button class="picker-btn active" id="btnAssetBTC" onclick="setAssetTarget('BTC')">BTC</button>
                                 <button class="picker-btn" id="btnAssetETH" onclick="setAssetTarget('ETH')">ETH</button>
@@ -429,7 +437,7 @@
                     </div>
                     <button class="btn btn-violet" onclick="toggleLiquidationLive()">CONNECTER AUX FUTURES BINANCE</button>
                     <div id="liqRes" class="res-display" style="justify-content: flex-start; padding: 12px; overflow-y: auto;">
-                        <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; margin:auto; text-align:center;">FLUX EN ATTENTE DE CONNEXION</span>
+                        <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; margin:auto; text-align:center;">CLIQUE SUR "CONNECTER" POUR ACTIVER LE FLUX EN DIRECT</span>
                     </div>
                 </div>
 
@@ -514,25 +522,25 @@
             </div>
         </div>
 
-        <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN — PIX IA PLATFORM</div>
+        <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN — PIX PLATFORM</div>
 
         <div class="disclaimer-box">
             <div class="disclaimer-text">
-                PIX IA EST UN LOGICIEL D'ANALYSE PROBABILISTE ET D'INFORMATIONS CRYPTO. TOUTE INFORMATION AFFICHÉE NE DOIT PAS ÊTRE CONSIDÉRÉE COMME UN CONSEIL FINANCIER. LE TRADING DE CRYPTO-MONNAIES COMPORTE DES RISQUES ÉLEVÉS DE PERTE EN CAPITAL. FAITES TOUJOURS VOS PROPRES RECHERCHES (DYOR).
+                PIX EST UN LOGICIEL D'ANALYSE PROBABILISTE ET D'INFORMATIONS CRYPTO. TOUTE INFORMATION AFFICHÉE NE DOIT PAS ÊTRE CONSIDÉRÉE COMME UN CONSEIL FINANCIER. LE TRADING DE CRYPTO-MONNAIES COMPORTE DES RISQUES ÉLEVÉS DE PERTE EN CAPITAL. FAITES TOUJOURS VOS PROPRES RECHERCHES (DYOR).
             </div>
         </div>
 
     </div>
 
-    <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX IA © 2026</footer>
+    <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX © 2026</footer>
 
 </div>
 
-<!-- SCRIPT UNIQUE UNIFIÉ PIX IA -->
+<!-- SCRIPT UNIFIÉ STABLE PIX -->
 <script>
-    const apiKey = ""; // Fournie au runtime par l'environnement
+    const apiKey = ""; // Runtime Gemini API Key (fournie au runtime)
     
-    // --- 1. COUCHE PROVIDER & CACHE ---
+    // --- 1. PROVIDER DATA COINGECKO & ALTERNATIVE.ME ---
     class PixDataProvider {
         constructor() {
             this.cache = new Map();
@@ -548,12 +556,12 @@
 
             try {
                 const res = await fetch('https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=100&page=1&sparkline=false');
-                if (!res.ok) throw new Error("Statut HTTP " + res.status);
+                if (!res.ok) throw new Error("HTTP Status " + res.status);
                 const data = await res.json();
                 this.cache.set(cacheKey, { timestamp: Date.now(), data: data });
                 return { data: data, isCached: false };
             } catch (e) {
-                console.warn("CoinGecko API Limit/Offline:", e.message);
+                console.warn("CoinGecko API Offline:", e.message);
                 if (cached) return { data: cached.data, isCached: true, error: true };
                 return { data: null, error: true, message: e.message };
             }
@@ -574,7 +582,7 @@
                 this.cache.set(cacheKey, { timestamp: Date.now(), data: data });
                 return { data: data, isCached: false, error: false };
             } catch(e) {
-                console.warn("Erreur chargement historique CoinGecko:", e.message);
+                console.warn("Erreur historique CoinGecko:", e.message);
                 if (cached) return { data: cached.data, isCached: true, error: false };
                 return { data: null, error: true, message: e.message };
             }
@@ -614,7 +622,7 @@
             updateTop10();
         } else {
             const tickBox = document.getElementById('tick1');
-            if (tickBox) tickBox.innerHTML = `<span class="down" style="font-weight:900;">ERREUR CONNEXION COINGECKO API : ${result.message || 'Limite de requêtes atteinte'}</span>`;
+            if (tickBox) tickBox.innerHTML = `<span class="down" style="font-weight:900;">ERREUR COINGECKO API : ${result.message || 'Limite de requêtes atteinte'}</span>`;
         }
     };
 
@@ -636,7 +644,7 @@
         if (tickBox) tickBox.innerHTML = tContent + tContent;
     }
 
-    // --- 2. COMPTE À REBOURS BITCOIN HALVING DYNAMIQUE FIXÉ ---
+    // --- 2. COMPTE À REBOURS BITCOIN HALVING (2028) ---
     const HALVING_TARGET_TIMESTAMP = new Date("2028-04-17T00:00:00Z").getTime();
 
     function updateHalving() {
@@ -753,7 +761,7 @@
         `;
     }
 
-    // --- 5. MOTEUR PIX IA SCORE ---
+    // --- 5. MOTEUR PIX SCORE ---
     window.calculatePIXCoreScore = async function() {
         const inputSymbol = document.getElementById('pixCoreInput').value.trim();
         const resBox = document.getElementById('pixCoreRes');
@@ -784,12 +792,12 @@
         const finalScore = Math.round((momentumScore * 0.3) + (liquidityScore * 0.25) + (rankScore * 0.20) + (paScore * 0.25));
 
         let scoreColor = finalScore >= 75 ? "var(--up)" : (finalScore >= 50 ? "var(--neon-yellow)" : "var(--down)");
-        let signalText = finalScore >= 75 ? "SIGNAL PIX IA : ACHAT FORT" : (finalScore >= 50 ? "SIGNAL PIX IA : NEUTRE / ACCUMULATION" : "SIGNAL PIX IA : PRUDENCE / VENTE");
+        let signalText = finalScore >= 75 ? "SIGNAL PIX : ACHAT FORT" : (finalScore >= 50 ? "SIGNAL PIX : NEUTRE / ACCUMULATION" : "SIGNAL PIX : PRUDENCE / VENTE");
 
         resBox.innerHTML = `
             <div class="pix-score-ring" style="border-color:${scoreColor}; color:${scoreColor};">
                 <div class="pix-score-val">${finalScore}</div>
-                <div class="pix-score-lbl">SCORE PIX IA</div>
+                <div class="pix-score-lbl">SCORE PIX</div>
             </div>
             <div style="font-weight:900; font-size:0.85rem; color:${scoreColor}; margin-bottom:10px; text-align:center;">${signalText}</div>
             
@@ -813,7 +821,7 @@
         `;
     }
 
-    // --- 6. SCORE DE RISQUE PIX IA ---
+    // --- 6. SCORE DE RISQUE PIX (NEON PREMIUM STYLING) ---
     window.getRiskAnalyse = async function() {
         const val = document.getElementById('riskAssetInput').value;
         const res = document.getElementById('aiRes');
@@ -847,13 +855,13 @@
         let status = riskScore <= 3.5 ? 'FAIBLE RISQUE' : (riskScore <= 6.5 ? 'RISQUE MODÉRÉ' : 'HAUT RISQUE');
 
         res.innerHTML = `
-            <div class="risk-circle" style="border-color:${neonColor}; color:${neonColor}; filter: drop-shadow(0 0 10px ${neonColor});">
-                <div class="risk-val">${riskScore.toFixed(1)}</div>
-                <div class="risk-text-lbl">NOTE RISQUE</div>
+            <div class="pix-score-ring" style="border-color:${neonColor}; color:${neonColor};">
+                <div class="pix-score-val">${riskScore.toFixed(1)}</div>
+                <div class="pix-score-lbl">NOTE RISQUE</div>
             </div>
-            <div style="font-weight:900; letter-spacing:2px; font-size:0.95rem; color:${neonColor}">${status}</div>
+            <div style="font-weight:900; letter-spacing:2px; font-size:0.95rem; color:${neonColor}; text-shadow:0 0 10px ${neonColor};">${status}</div>
             <div style="font-size:0.68rem; opacity:0.8; margin-top:12px; font-weight:600; line-height:1.5; text-align:center;">
-                <b style="color:${neonColor}">NOTE PIX IA :</b> Rang #${rank}. Volatilité 24h: ${change.toFixed(2)}%. Ratio de liquidité: ${(vol/mcap*100).toFixed(1)}%.
+                <b style="color:${neonColor}">NOTE PIX :</b> Rang #${rank}. Volatilité 24h: ${change.toFixed(2)}%. Ratio de liquidité: ${(vol/mcap*100).toFixed(1)}%.
             </div>`;
     }
 
@@ -869,11 +877,11 @@
         history.scrollTop = history.scrollHeight;
 
         const loadingId = 'loading_' + Date.now();
-        history.innerHTML += `<div class="chat-msg pix" id="${loadingId}"><b>🛸 PIX IA :</b> <span class="loader" style="display:inline-block; width:12px; height:12px;"></span> Réflexion...</div>`;
+        history.innerHTML += `<div class="chat-msg pix" id="${loadingId}"><b>🛸 PIX :</b> <span class="loader" style="display:inline-block; width:12px; height:12px;"></span> Réflexion...</div>`;
         history.scrollTop = history.scrollHeight;
 
         const activeSymbol = document.getElementById('pixCoreInput').value || "BTC";
-        const systemPrompt = `Tu es PIX IA, l'assistant d'intelligence artificielle crypto officiel créé par CryptoMan.
+        const systemPrompt = `Tu es PIX, l'assistant d'intelligence artificielle crypto officiel créé par CryptoMan.
         Tu réponds de façon synthétique, dynamique et experte en Français.
         Contexte d'analyse : Token consulté = ${activeSymbol.toUpperCase()}.`;
 
@@ -904,12 +912,12 @@
         }
 
         if (!success) {
-            responseText = "Le service d'intelligence PIX IA est momentanément surchargé. Réessaie dans quelques secondes !";
+            responseText = "Le service d'intelligence PIX est momentanément surchargé. Réessaie dans quelques secondes !";
         }
 
         const loaderNode = document.getElementById(loadingId);
         if (loaderNode) {
-            loaderNode.innerHTML = `<b>🛸 PIX IA :</b> ${responseText.replace(/\n/g, '<br>')}`;
+            loaderNode.innerHTML = `<b>🛸 PIX :</b> ${responseText.replace(/\n/g, '<br>')}`;
         }
         history.scrollTop = history.scrollHeight;
     }
@@ -1014,7 +1022,7 @@
         // Style RSI Néon
         let rsiColor = "var(--neon-yellow)";
         let rsiState = "(Neutre)";
-        if (realRSI >= 70) { rsiColor = "var(--down)"; rsiState = "(Suracheté - Risque)"; }
+        if (realRSI >= 70) { rsiColor = "var(--down)"; rsiState = "(Suracheté - Alerte)"; }
         else if (realRSI <= 30) { rsiColor = "var(--up)"; rsiState = "(Survendu - Opportunité)"; }
         else if (realRSI >= 55) { rsiColor = "var(--up)"; rsiState = "(Achat)"; }
 
@@ -1090,11 +1098,12 @@
         ctxNode.shadowBlur = 0;
     }
 
-    // --- 9. WATCH LIQUIDATIONS (WEBSOCKET BINANCE FUTURES EN DIRECT) ---
+    // --- 9. WATCH LIQUIDATIONS FUTURES BINANCE (WEBSOCKET EN DIRECT DÉDIÉ) ---
     window.selectedTradeDirection = 'long';
     window.selectedAssetTarget = 'BTC';
     let binanceWs = null;
     let wsConnected = false;
+    let reconnectTimer = null;
     let liveLiqOrders = [];
     let totalLongLiqUsd = 0;
     let totalShortLiqUsd = 0;
@@ -1122,27 +1131,34 @@
     };
 
     window.toggleLiquidationLive = function() {
-        const res = document.getElementById('liqRes');
         const btn = document.querySelector('#liquidation .btn');
-        
         if (wsConnected) {
             stopBinanceLiquidationWs();
             if (btn) { btn.innerText = "CONNECTER AUX FUTURES BINANCE"; btn.classList.replace('btn-white', 'btn-violet'); }
-            if (res) res.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto; text-align:center;">FLUX DÉCONNECTÉ</span>';
-            return;
+            renderLiveLiquidationUI();
+        } else {
+            startBinanceLiquidationWs();
         }
-
-        startBinanceLiquidationWs();
     };
 
     function startBinanceLiquidationWs() {
         const res = document.getElementById('liqRes');
         const btn = document.querySelector('#liquidation .btn');
         
-        if (res) res.innerHTML = '<div class="loader"></div><span style="font-size: 0.65rem; margin-top:10px; text-transform:uppercase; letter-spacing:1px; color:var(--violet);">Connexion au Flux Binance Futures...</span>';
+        // Sécurité : Fermer l'ancien socket s'il existe
+        if (binanceWs) {
+            binanceWs.onclose = null;
+            binanceWs.onerror = null;
+            binanceWs.close();
+            binanceWs = null;
+        }
+
+        if (reconnectTimer) clearTimeout(reconnectTimer);
+
+        if (res) res.innerHTML = '<div class="loader"></div><span style="font-size: 0.65rem; margin-top:10px; text-transform:uppercase; letter-spacing:1px; color:var(--violet);">Connexion wss://fstream.binance.com...</span>';
 
         try {
-            // Flux public des ordres forcé de Binance Futures
+            // Stream officiel Binance Futures USDⓈ-M public !forceOrder@arr
             binanceWs = new WebSocket('wss://fstream.binance.com/ws/!forceOrder@arr');
             
             binanceWs.onopen = () => {
@@ -1153,16 +1169,15 @@
 
             binanceWs.onmessage = (event) => {
                 try {
-                    const msg = JSON.parse(event.data);
-                    if (msg && msg.e === "forceOrder" && msg.o) {
-                        const o = msg.o;
-                        const symbol = o.s; // ex: "BTCUSDT", "ETHUSDT"
-                        
-                        // Filtrer uniquement BTC et ETH ou l'actif sélectionné
+                    const rawData = JSON.parse(event.data);
+                    const o = rawData.o || (rawData.data && rawData.data.o);
+                    
+                    if (o && o.s) {
+                        const symbol = o.s; // e.g., "BTCUSDT", "ETHUSDT"
                         if (symbol === "BTCUSDT" || symbol === "ETHUSDT") {
-                            const side = o.S === "SELL" ? "LONG" : "SHORT"; // SELL = Long forcé de fermer
+                            const side = o.S === "SELL" ? "LONG" : "SHORT"; // SELL = Long liquidé
                             const price = parseFloat(o.ap || o.p || 0);
-                            const qty = parseFloat(o.q || 0);
+                            const qty = parseFloat(o.z || o.q || 0);
                             const usdAmount = price * qty;
                             const assetName = symbol === "BTCUSDT" ? "BTC" : "ETH";
                             
@@ -1191,24 +1206,34 @@
 
             binanceWs.onerror = () => {
                 wsConnected = false;
-                if (res) res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">CONNEXION IMPOSSIBLE (RÉSEAU / BINANCE FUTURES BLOQUÉ)</span>';
+                renderLiveLiquidationUI();
             };
 
             binanceWs.onclose = () => {
-                if (wsConnected) {
-                    wsConnected = false;
-                    if (res) res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">FLUX DÉCONNECTÉ DE BINANCE</span>';
+                const wasConn = wsConnected;
+                wsConnected = false;
+                if (wasConn) {
+                    // Reconnexion automatique raisonnable
+                    reconnectTimer = setTimeout(() => {
+                        if (document.querySelector('#liquidation .btn')?.innerText.includes("DÉCONNECTER")) {
+                            startBinanceLiquidationWs();
+                        }
+                    }, 3000);
                 }
+                renderLiveLiquidationUI();
             };
         } catch(e) {
             wsConnected = false;
-            if (res) res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">CONNEXION INDISPONIBLE</span>';
+            renderLiveLiquidationUI();
         }
     }
 
     function stopBinanceLiquidationWs() {
         wsConnected = false;
+        if (reconnectTimer) clearTimeout(reconnectTimer);
         if (binanceWs) {
+            binanceWs.onclose = null;
+            binanceWs.onerror = null;
             binanceWs.close();
             binanceWs = null;
         }
@@ -1218,53 +1243,79 @@
         const res = document.getElementById('liqRes');
         if (!res) return;
 
-        if (!wsConnected && liveLiqOrders.length === 0) {
-            res.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto; text-align:center;">FLUX BINANCE FUTURES EN ATTENTE DE DÉMARRAGE</span>';
-            return;
-        }
-
         const targetAsset = window.selectedAssetTarget;
         const targetDirection = window.selectedTradeDirection;
 
+        let statusHeader = wsConnected ? 
+            `<div style="color:var(--up); font-weight:900; font-size:0.7rem; margin-bottom:8px;">🟢 BINANCE FUTURES CONNECTÉ</div>` : 
+            `<div style="color:var(--down); font-weight:900; font-size:0.7rem; margin-bottom:8px;">🔴 BINANCE FUTURES DÉCONNECTÉ</div>`;
+
         const filtered = liveLiqOrders.filter(l => l.symbol === targetAsset);
 
-        let longVol = totalLongLiqUsd || 1;
-        let shortVol = totalShortLiqUsd || 1;
+        let longVol = totalLongLiqUsd;
+        let shortVol = totalShortLiqUsd;
         let totalVol = longVol + shortVol;
-        let longRatio = Math.round((longVol / totalVol) * 100);
-        let shortRatio = 100 - longRatio;
 
-        // Score de Risque Long/Short tiré des données réelles
-        let riskScoreLong = (longRatio / 10).toFixed(1);
-        let riskScoreShort = (shortRatio / 10).toFixed(1);
+        let longRatio = totalVol > 0 ? Math.round((longVol / totalVol) * 100) : 50;
+        let shortRatio = totalVol > 0 ? (100 - longRatio) : 50;
 
-        let listHTML = filtered.slice(0, 4).map(l => `
-            <div class="liq-row" style="border-left-color: ${l.side === 'LONG' ? 'var(--neon-green)' : 'var(--neon-red)'}">
-                <span class="${l.side === 'LONG' ? 'up' : 'down'}"><b>${l.side} LIQ (${l.symbol})</b></span>
-                <span>$${formatVal(l.amountUsd)}</span>
-                <span style="opacity:0.6;">@ $${Math.round(l.price).toLocaleString()} <small style="opacity:0.4;">(${l.time})</small></span>
-            </div>
-        `).join('');
+        // CALCUL DU TRADE RISK (1 - 10) BASÉ SUR LES DONNÉES DE FLUX
+        let tradeRiskScore = 5.0;
+        let riskColor = "var(--neon-yellow)";
+        let riskText = "ÉQUILIBRE NEUTRE";
 
-        if (filtered.length === 0) {
-            listHTML = `<div style="font-size:0.68rem; opacity:0.5; text-align:center; padding:15px 0;">Écoute du flux Binance en direct pour ${targetAsset}... (Attente du prochain ordre forcé)</div>`;
+        if (totalVol > 0) {
+            if (targetDirection === "long") {
+                tradeRiskScore = (2.0 + (longRatio / 10)).toFixed(1);
+                if (longRatio > 55) {
+                    riskColor = "var(--neon-red)";
+                    riskText = "🚨 RISQUE ÉLEVÉ (Pression Vendeuse / Long Squeeze)";
+                } else {
+                    riskColor = "var(--neon-green)";
+                    riskText = "🟢 RISQUE MODÉRÉ / ACCUMULATION (Ordres Longs Préservés)";
+                }
+            } else {
+                tradeRiskScore = (2.0 + (shortRatio / 10)).toFixed(1);
+                if (shortRatio > 55) {
+                    riskColor = "var(--neon-red)";
+                    riskText = "🚨 RISQUE ÉLEVÉ (Pression Acheteuse / Short Squeeze)";
+                } else {
+                    riskColor = "var(--neon-green)";
+                    riskText = "🟢 RISQUE MODÉRÉ / PRESSION SHORTS FAIBLE";
+                }
+            }
+        }
+
+        let listHTML = "";
+        if (filtered.length > 0) {
+            listHTML = filtered.slice(0, 4).map(l => `
+                <div class="liq-row" style="border-left-color: ${l.side === 'LONG' ? 'var(--neon-green)' : 'var(--neon-red)'}">
+                    <span class="${l.side === 'LONG' ? 'up' : 'down'}"><b>${l.side === 'LONG' ? '🔥 LONG LIQUIDÉ' : '⚡ SHORT LIQUIDÉ'} (${l.symbol})</b></span>
+                    <span>$${formatVal(l.amountUsd)}</span>
+                    <span style="opacity:0.6;">@ $${Math.round(l.price).toLocaleString()} <small style="opacity:0.4;">(${l.time})</small></span>
+                </div>
+            `).join('');
+        } else {
+            listHTML = `<div style="font-size:0.68rem; opacity:0.5; text-align:center; padding:12px 0;">Aucune liquidation détectée récemment pour ${targetAsset}... (Attente du flux)</div>`;
         }
 
         res.innerHTML = `
             <div style="width: 100%;">
-                <!-- TOTAUX CUMULÉS EN DIRECT -->
-                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px;">
+                ${statusHeader}
+
+                <!-- TOTAUX CUMULÉS LIVE -->
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
                     <div style="background: rgba(0,255,163,0.08); padding: 8px 10px; border-radius: 12px; border: 1px solid var(--up); text-align: center;">
-                        <div style="font-size: 0.55rem; color: var(--up); font-weight: 800; letter-spacing: 1px;">RISQUE LONG: ${riskScoreLong}/10</div>
+                        <div style="font-size: 0.55rem; color: var(--up); font-weight: 800; letter-spacing: 1px;">TOTAL LONGS</div>
                         <div class="up" style="font-size: 0.85rem; font-weight: 900;">$${formatVal(totalLongLiqUsd)}</div>
                     </div>
                     <div style="background: rgba(255,51,102,0.08); padding: 8px 10px; border-radius: 12px; border: 1px solid var(--down); text-align: center;">
-                        <div style="font-size: 0.55rem; color: var(--down); font-weight: 800; letter-spacing: 1px;">RISQUE SHORT: ${riskScoreShort}/10</div>
+                        <div style="font-size: 0.55rem; color: var(--down); font-weight: 800; letter-spacing: 1px;">TOTAL SHORTS</div>
                         <div class="down" style="font-size: 0.85rem; font-weight: 900;">$${formatVal(totalShortLiqUsd)}</div>
                     </div>
                 </div>
 
-                <!-- RATIO BAR -->
+                <!-- BARRE DE RATIO -->
                 <div style="margin-bottom: 10px;">
                     <div style="display: flex; justify-content: space-between; font-size: 0.62rem; font-weight: 800; margin-bottom: 4px;">
                         <span class="up">RATIO LONGS: ${longRatio}%</span>
@@ -1275,10 +1326,20 @@
                     </div>
                 </div>
 
-                <!-- LISTE DERNIERS ORDRES -->
+                <!-- DERNIERS ÉVÉNEMENTS -->
                 ${listHTML}
 
-                <div class="api-badge live" style="margin-top:8px;">BINANCE FUTURES WEBSOCKET LIVE</div>
+                <!-- SECTION TRADE RISK DANS LIQUIDATIONS -->
+                <div style="border-top: 1px solid var(--border); margin-top: 10px; padding-top: 10px; text-align: center;">
+                    <div style="font-size: 0.75rem; font-weight: 900; color: #fff;">
+                        TRADE RISK : <span style="color: ${riskColor}; text-shadow: 0 0 10px ${riskColor}">${tradeRiskScore} / 10</span>
+                    </div>
+                    <div style="font-size: 0.62rem; color: ${riskColor}; font-weight: 800; margin-top: 3px;">
+                        ${riskText}
+                    </div>
+                </div>
+
+                <div class="api-badge live" style="margin-top:8px;">BINANCE FUTURES WSS REAL-TIME</div>
             </div>
         `;
     }
@@ -1393,7 +1454,7 @@
         let success = predictions.filter(p => p.status === "SUCCES").length;
         let fail = predictions.filter(p => p.status === "ECHEC").length;
         let evaluated = success + fail;
-        let hitRateText = evaluated > 0 ? Math.round((success / evaluated) * 100) + "%" : "En attente";
+        let hitRateText = evaluated > 0 ? Math.round((success / evaluated) * 100) + "%" : "En attente d'évaluation";
 
         document.getElementById('statTotalPred').innerText = total;
         document.getElementById('statSuccessPred').innerText = success;
@@ -1497,7 +1558,7 @@
         }, 500);
     }
 
-    // --- 13. ANIMATION PARTICULES DE FOND ---
+    // --- 13. ANIMATION DE PARTICULES EN CANEVAS ---
     const canvasObj = document.getElementById('bg-canvas');
     const drawCtx = canvasObj.getContext('2d');
     let points = [];
@@ -1552,14 +1613,13 @@
 
     window.addEventListener('resize', () => { adjustSize(); buildPoints(); });
 
-    // --- INITIALISATION DES SERVICES ET ÉCOUTEURS ---
+    // --- INITIALISATION PROPRE DES SERVICES ---
     window.addEventListener('load', async () => {
         adjustSize();
         buildPoints();
         drawFrame();
         
         await window.fetchData();
-        
         updateHalving();
         setInterval(updateHalving, 1000);
         setInterval(window.fetchData, 60000);

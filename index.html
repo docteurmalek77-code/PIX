@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>PIX | Platforme d'Intelligence Crypto</title>
+    <title>PIX | Crypto Intelligence Platform</title>
     <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -86,20 +86,57 @@
         }
         nav a:hover, nav a.active { color: #fff; background: rgba(139, 92, 246, 0.2); border-color: var(--border); text-shadow: 0 0 8px var(--violet); }
 
-        /* EN-TÊTE PRINCIPAL (HERO) - PIX CENTRÉ & ÉQUILIBRÉ */
-        .hero { text-align: center; padding: 35px 20px 10px 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        /* HERO HEADER - NOUTEAU DESIGN PREMIUM ET ÉQUILIBRÉ */
+        .hero { 
+            text-align: center; 
+            padding: 45px 20px 25px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
         .hero h1 { 
-            font-size: clamp(4rem, 15vw, 8rem); font-weight: 900; margin: 0;
-            background: linear-gradient(to bottom, #fff, var(--violet));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            line-height: 0.85; letter-spacing: -3px;
-            filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.4));
+            font-size: clamp(4.5rem, 16vw, 8.5rem); 
+            font-weight: 900; 
+            margin: 0 0 12px 0;
+            background: linear-gradient(to bottom, #ffffff, var(--violet));
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent;
+            line-height: 0.85; 
+            letter-spacing: -3px;
+            filter: drop-shadow(0 0 35px rgba(139, 92, 246, 0.45));
             text-align: center;
         }
-        .tagline { color: var(--violet); letter-spacing: 3px; font-weight: 900; text-transform: uppercase; margin-top: 15px; font-size: 0.85rem; text-align: center; }
-        .creator-mention {
-            font-size: 0.75rem; color: var(--gray-text); font-weight: 600;
-            letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; display: block; text-align: center;
+        .hero-title { 
+            color: var(--violet); 
+            letter-spacing: 5px; 
+            font-weight: 900; 
+            text-transform: uppercase; 
+            margin-top: 10px; 
+            font-size: clamp(0.95rem, 2.5vw, 1.35rem); 
+            text-align: center;
+            text-shadow: 0 0 15px rgba(139, 92, 246, 0.5);
+        }
+        .hero-pillars {
+            color: rgba(255, 255, 255, 0.75);
+            font-size: clamp(0.7rem, 1.8vw, 0.88rem);
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-top: 12px;
+            text-align: center;
+            opacity: 0.9;
+        }
+        .hero-description {
+            color: var(--gray-text);
+            font-size: clamp(0.75rem, 2vw, 0.92rem);
+            font-weight: 600;
+            line-height: 1.6;
+            margin: 14px auto 0 auto;
+            max-width: 620px;
+            text-align: center;
         }
 
         /* SECTIONS & COMPOSANTS */
@@ -251,7 +288,7 @@
         .api-badge.live { background: rgba(0, 255, 163, 0.15); color: var(--up); border: 1px solid var(--up); box-shadow: 0 0 8px rgba(0,255,163,0.2); }
         .api-badge.error { background: rgba(255, 51, 102, 0.15); color: var(--down); border: 1px solid var(--down); }
 
-        .creator-tag { text-align: center; margin-top: 35px; font-weight: 900; font-size: 0.75rem; letter-spacing: 3px; color: #fff; text-transform: uppercase; }
+        .creator-tag { text-align: center; margin-top: 35px; font-weight: 800; font-size: 0.72rem; letter-spacing: 3px; color: var(--gray-text); text-transform: uppercase; }
         .disclaimer-box { max-width: 900px; margin: 20px auto 0; padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
         .disclaimer-text { font-size: 0.55rem; color: rgba(255,255,255,0.25); text-transform: uppercase; font-weight: 700; line-height: 1.5; letter-spacing: 0.5px; }
 
@@ -262,6 +299,7 @@
             .perf-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
             .card { padding: 22px 14px; min-height: 400px; }
             .custom-selector-container { grid-template-columns: 1fr; gap: 10px; }
+            .hero { padding: 35px 15px 20px 15px; }
             .hero h1 { font-size: clamp(3.2rem, 14vw, 5.5rem); letter-spacing: -2px; }
         }
     </style>
@@ -294,11 +332,12 @@
         <a href="#academy">ACADÉMIE 🎓</a>
     </nav>
 
-    <!-- HEADER / HERO -->
+    <!-- HEADER / HERO REDESIGN PRO & HOMOGÈNE -->
     <div class="hero">
         <h1>PIX</h1>
-        <div class="tagline">INTELLIGENCE ARTIFICIELLE CRYPTO</div>
-        <span class="creator-mention">IA créée par CryptoMan</span>
+        <div class="hero-title">CRYPTO INTELLIGENCE PLATFORM</div>
+        <div class="hero-pillars">Market Data • Analytics • Risk • AI</div>
+        <p class="hero-description">Analysez les marchés crypto. Détectez les risques. Prenez de meilleures décisions.</p>
     </div>
 
     <!-- SECTION HALVING BITCOIN -->
@@ -477,7 +516,7 @@
                     <div><div style="font-size:0.6rem; color:var(--gray-text);">PRÉDICTIONS</div><div id="statTotalPred" style="font-size:1.1rem; font-weight:900;">0</div></div>
                     <div><div style="font-size:0.6rem; color:var(--gray-text);">SUCCÈS</div><div id="statSuccessPred" class="up" style="font-size:1.1rem; font-weight:900;">0</div></div>
                     <div><div style="font-size:0.6rem; color:var(--gray-text);">ÉCHECS</div><div id="statFailPred" class="down" style="font-size:1.1rem; font-weight:900;">0</div></div>
-                    <div><div style="font-size:0.6rem; color:var(--gray-text);">HIT RATE %</div><div id="statHitRate" style="font-size:1.1rem; font-weight:900; color:var(--violet);">En attente</div></div>
+                    <div><div style="font-size:0.6rem; color:var(--gray-text);">HIT RATE %</div><div id="statHitRate" style="font-size:1.1rem; font-weight:900; color:var(--violet);">En attente d'évaluation</div></div>
                 </div>
 
                 <div id="predictionLogs" class="res-display" style="max-height:180px; overflow-y:auto; justify-content:flex-start;">
@@ -522,7 +561,7 @@
             </div>
         </div>
 
-        <div class="creator-tag">IA CRÉÉE PAR CRYPTOMAN — PIX PLATFORM</div>
+        <div class="creator-tag">Built by CryptoMan • 2026</div>
 
         <div class="disclaimer-box">
             <div class="disclaimer-text">
@@ -538,7 +577,7 @@
 
 <!-- SCRIPT UNIFIÉ STABLE PIX -->
 <script>
-    const apiKey = ""; // Runtime Gemini API Key (fournie au runtime)
+    const apiKey = ""; // Runtime Gemini API Key
     
     // --- 1. PROVIDER DATA COINGECKO & ALTERNATIVE.ME ---
     class PixDataProvider {
@@ -1098,7 +1137,7 @@
         ctxNode.shadowBlur = 0;
     }
 
-    // --- 9. WATCH LIQUIDATIONS FUTURES BINANCE (WEBSOCKET EN DIRECT DÉDIÉ) ---
+    // --- 9. WATCH LIQUIDATIONS FUTURES BINANCE (WEBSOCKET EN DIRECT DÉDIÉ AVEC RECONNEXION) ---
     window.selectedTradeDirection = 'long';
     window.selectedAssetTarget = 'BTC';
     let binanceWs = null;
@@ -1218,7 +1257,7 @@
                         if (document.querySelector('#liquidation .btn')?.innerText.includes("DÉCONNECTER")) {
                             startBinanceLiquidationWs();
                         }
-                    }, 3000);
+                    }, 4000);
                 }
                 renderLiveLiquidationUI();
             };
@@ -1247,8 +1286,8 @@
         const targetDirection = window.selectedTradeDirection;
 
         let statusHeader = wsConnected ? 
-            `<div style="color:var(--up); font-weight:900; font-size:0.7rem; margin-bottom:8px;">🟢 BINANCE FUTURES CONNECTÉ</div>` : 
-            `<div style="color:var(--down); font-weight:900; font-size:0.7rem; margin-bottom:8px;">🔴 BINANCE FUTURES DÉCONNECTÉ</div>`;
+            `<div style="color:var(--up); font-weight:900; font-size:0.7rem; margin-bottom:8px; text-shadow:0 0 8px var(--up);">🟢 BINANCE FUTURES CONNECTÉ</div>` : 
+            `<div style="color:var(--down); font-weight:900; font-size:0.7rem; margin-bottom:8px; text-shadow:0 0 8px var(--down);">🔴 BINANCE FUTURES DÉCONNECTÉ</div>`;
 
         const filtered = liveLiqOrders.filter(l => l.symbol === targetAsset);
 
@@ -1296,7 +1335,7 @@
                 </div>
             `).join('');
         } else {
-            listHTML = `<div style="font-size:0.68rem; opacity:0.5; text-align:center; padding:12px 0;">Aucune liquidation détectée récemment pour ${targetAsset}... (Attente du flux)</div>`;
+            listHTML = `<div style="font-size:0.68rem; opacity:0.5; text-align:center; padding:12px 0;">Aucune liquidation détectée récemment pour ${targetAsset}...</div>`;
         }
 
         res.innerHTML = `
@@ -1396,7 +1435,7 @@
         `;
     };
 
-    // --- 11. BACKTESTING & PORTFOLIO ENGINES ---
+    // --- 11. BACKTESTING & PORTFOLIO ENGINES (PERSISTANCE LOCALSTORAGE ET ÉVALUATION RÉELLE) ---
     let predictions = JSON.parse(localStorage.getItem('pix_predictions') || '[]');
     let portfolio = JSON.parse(localStorage.getItem('pix_portfolio') || '[]');
 
@@ -1413,10 +1452,19 @@
             return;
         }
 
+        const targetPctVal = tf === "24H" ? 0.03 : 0.07;
+        const entryPriceVal = coin.current_price;
+
         predictions.unshift({
-            id: Date.now(), symbol: symbol, entryPrice: coin.current_price,
-            direction: dir, timeframe: tf, timestamp: Date.now(),
-            status: "EN_COURS", targetPct: tf === "24H" ? 0.03 : 0.07
+            id: Date.now(),
+            symbol: symbol,
+            entryPrice: entryPriceVal,
+            direction: dir,
+            timeframe: tf,
+            timestamp: Date.now(),
+            status: "EN_COURS",
+            targetPct: targetPctVal,
+            formattedDate: new Date().toLocaleDateString('fr-FR', {hour: '2-digit', minute:'2-digit'})
         });
 
         localStorage.setItem('pix_predictions', JSON.stringify(predictions));
@@ -1431,7 +1479,10 @@
             if (p.status === "EN_COURS") {
                 const coin = findCoin(p.symbol);
                 if (coin) {
-                    const priceDiff = (coin.current_price - p.entryPrice) / p.entryPrice;
+                    const currentP = coin.current_price;
+                    const priceDiff = (currentP - p.entryPrice) / p.entryPrice;
+                    p.currentPct = (priceDiff * 100).toFixed(1);
+
                     if (p.direction === "BULLISH") {
                         if (priceDiff >= p.targetPct) { p.status = "SUCCES"; changed = true; }
                         else if (priceDiff <= -p.targetPct) { p.status = "ECHEC"; changed = true; }
@@ -1466,13 +1517,19 @@
             return;
         }
 
-        logBox.innerHTML = predictions.map(p => `
-            <div class="liq-row" style="border-left-color: ${p.status === 'SUCCES' ? 'var(--up)' : (p.status === 'ECHEC' ? 'var(--down)' : 'var(--neon-yellow)')}">
-                <span><b>${p.symbol}</b> (${p.direction})</span>
-                <span>Entrée: $${p.entryPrice.toLocaleString()}</span>
-                <span class="${p.status === 'SUCCES' ? 'up' : (p.status === 'ECHEC' ? 'down' : '')}">${p.status}</span>
-            </div>
-        `).join('');
+        logBox.innerHTML = predictions.map(p => {
+            let statusBadge = `<span style="color:var(--neon-yellow);">EN COURS ⏳</span>`;
+            if (p.status === "SUCCES") statusBadge = `<span class="up" style="font-weight:900;">SUCCÈS ✅ (+${p.targetPct * 100}%)</span>`;
+            if (p.status === "ECHEC") statusBadge = `<span class="down" style="font-weight:900;">ÉCHEC ❌</span>`;
+
+            return `
+                <div class="liq-row" style="border-left-color: ${p.status === 'SUCCES' ? 'var(--up)' : (p.status === 'ECHEC' ? 'var(--down)' : 'var(--neon-yellow)')}">
+                    <span><b>${p.symbol}</b> | ${p.direction}</span>
+                    <span>Entrée $${p.entryPrice.toLocaleString()} (${p.timeframe})</span>
+                    <span>${statusBadge}</span>
+                </div>
+            `;
+        }).join('');
     }
 
     window.addPortfolioAsset = function() {

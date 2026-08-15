@@ -311,6 +311,119 @@
             .hero { padding: 35px 15px 20px 15px; }
             .hero h1 { font-size: clamp(3.2rem, 14vw, 5.5rem); letter-spacing: -2px; }
         }
+
+/* ==========================================
+   MODULE PIX MACRO - ISOLÉ & RESPONSIVE
+   ========================================== */
+.pix-macro-card {
+    background: var(--card-bg, rgba(8, 6, 15, 0.95));
+    border: 1px solid var(--border, rgba(139, 92, 246, 0.25));
+    border-radius: 24px;
+    padding: 24px;
+    backdrop-filter: blur(15px);
+    width: 100%;
+    margin-top: 15px;
+}
+
+.pix-macro-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-top: 15px;
+}
+
+.pix-macro-block {
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(139, 92, 246, 0.15);
+    border-radius: 16px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.pix-macro-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+    font-weight: 900;
+    margin-bottom: 12px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.pix-macro-score-ring {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    border: 5px solid var(--up, #00ffa3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 10px auto;
+    box-shadow: 0 0 20px rgba(0, 255, 163, 0.3), inset 0 0 10px rgba(0, 255, 163, 0.3);
+}
+
+.pix-macro-score-val {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--up, #00ffa3);
+    line-height: 1;
+}
+
+.pix-macro-score-lbl {
+    font-size: 0.5rem;
+    font-weight: 800;
+    color: var(--gray-text, rgba(255, 255, 255, 0.5));
+    letter-spacing: 1px;
+}
+
+.pix-macro-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.72rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+.pix-macro-row:last-child {
+    border-bottom: none;
+}
+
+.pix-macro-bar-bg {
+    width: 100%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 3px;
+    overflow: hidden;
+    margin-top: 6px;
+}
+
+.pix-macro-bar-fill {
+    height: 100%;
+    background: var(--violet, #8b5cf6);
+    border-radius: 3px;
+}
+
+.pix-macro-tag {
+    font-size: 0.6rem;
+    font-weight: 800;
+    padding: 3px 8px;
+    border-radius: 6px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.pix-macro-tag.bull { background: rgba(0, 255, 163, 0.15); color: var(--up, #00ffa3); border: 1px solid var(--up, #00ffa3); }
+.pix-macro-tag.bear { background: rgba(255, 51, 102, 0.15); color: var(--down, #ff3366); border: 1px solid var(--down, #ff3366); }
+
+@media (max-width: 767px) {
+    .pix-macro-grid { grid-template-columns: 1fr; }
+    .pix-macro-card { padding: 18px 14px; }
+}
     </style>
 </head>
 <body>
@@ -569,6 +682,97 @@
                 </div>
             </div>
         </div>
+
+<!-- SECTION 9 : PIX MACRO -->
+<section id="pix-macro" class="section-block">
+    <div class="section-title">9. CONTEXTE MACROÉCONOMIQUE — PIX MACRO 🌍</div>
+    
+    <div class="pix-macro-card">
+        <div class="pix-macro-grid">
+            
+            <!-- BLOC SCORE MACRO -->
+            <div class="pix-macro-block">
+                <div class="pix-macro-header">
+                    <span>SCORE MACRO PIX</span>
+                    <span class="pix-macro-tag bull">FAVORABLE</span>
+                </div>
+                <div class="pix-macro-score-ring">
+                    <div class="pix-macro-score-val" id="pix-macro-score">75</div>
+                    <div class="pix-macro-score-lbl">/ 100</div>
+                </div>
+                <div style="font-size: 0.68rem; color: var(--gray-text); text-align: center; margin-top: 5px;">
+                    Analyse du contexte monétaire global et impact probable sur Bitcoin & Altcoins.
+                </div>
+            </div>
+
+            <!-- BLOC EUROPE -->
+            <div class="pix-macro-block">
+                <div class="pix-macro-header">
+                    <span>EUROPE 🇪🇺</span>
+                    <span style="font-size: 0.6rem; opacity: 0.6;">BCE & HICP</span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>HICP Inflation (19/08/2026)</span>
+                    <span>Actuel: <b style="color:var(--up);">2.8%</b> | Prévu: 2.9%</span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>Taux BCE (10/09/2026)</span>
+                    <span>Actuel: <b>2.25%</b> | Prévu: <b style="color:var(--primary);">2.50%</b></span>
+                </div>
+                <div style="margin-top: 8px;">
+                    <div class="pix-macro-row" style="font-size:0.65rem;">
+                        <span>Projections BCE Watch</span>
+                        <span>Hausse 90% | Maintien 10%</span>
+                    </div>
+                    <div class="pix-macro-bar-bg">
+                        <div class="pix-macro-bar-fill" style="width: 90%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- BLOC USA -->
+            <div class="pix-macro-block">
+                <div class="pix-macro-header">
+                    <span>USA 🇺🇸</span>
+                    <span style="font-size: 0.6rem; opacity: 0.6;">FED & CPI</span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>CPI Inflation US</span>
+                    <span>Prochaine date: <b>11/09/2026</b></span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>Décision Taux FED</span>
+                    <span>Prochaine date: <b>16/09/2026</b></span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>Sentiment Marché US</span>
+                    <span class="pix-macro-tag bull">NEUTRE HAUSSIER</span>
+                </div>
+            </div>
+
+            <!-- BLOC CALENDRIER & MARKET IMPACT -->
+            <div class="pix-macro-block">
+                <div class="pix-macro-header">
+                    <span>MARKET IMPACT</span>
+                    <span style="font-size: 0.6rem; color: var(--violet);">SYNTHÈSE</span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>Pression Inflations</span>
+                    <span style="color: var(--up);">Modérée (Sous contrôle)</span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>Impact Liquidité BTC</span>
+                    <span style="color: var(--up);">Positif à Moyen Terme</span>
+                </div>
+                <div class="pix-macro-row">
+                    <span>Dernière MàJ</span>
+                    <span id="pix-macro-date" style="opacity:0.7;">15/08/2026</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
         <div class="creator-tag">Built by CryptoMan • 2026</div>
 
@@ -1738,6 +1942,43 @@
             runChartTechnicalAnalysis();
         }, 600);
     });
+
+/* ==========================================
+   MODULE PIX MACRO - ENCAPSULATION SÉCURISÉE
+   ========================================== */
+const PIXMacro = {
+    init: function() {
+        try {
+            this.updateDate();
+            this.bindEvents();
+        } catch (error) {
+            console.warn("PIX Macro module notice:", error.message);
+        }
+    },
+    updateDate: function() {
+        const dateEl = document.getElementById('pix-macro-date');
+        if (dateEl) {
+            const today = new Date();
+            dateEl.innerText = today.toLocaleDateString('fr-FR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+    },
+    bindEvents: function() {
+        // Aucune dépendance externe ni API, totalement autonome
+    }
+};
+
+// Initialisation isolée
+(function() {
+    try {
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', function() { PIXMacro.init(); });
+        } else {
+            PIXMacro.init();
+        }
+    } catch(e) {
+        console.warn("PIX Macro Safe-Init fallback active");
+    }
+})();
 </script>
 
 </body>

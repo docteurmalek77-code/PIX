@@ -432,6 +432,8 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
     <a href="#portfolio">PORTFOLIO</a>
     <a href="#academy">ACADÉMIE</a>
     <a href="#pix-macro">MACRO</a>
+    <a href="#news-weekly">NEWS</a>
+    <a href="#tokenomics">TOKENOMICS</a>
   </nav>
 
   <!-- HEADER/HERO -->
@@ -743,8 +745,44 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
               <span id="pix-macro-date" style="opacity:0.7;">15/11/2026</span>
             </div>
           </div>
-
+<!-- SECTION 10: ACTUALITÉ ÉCONOMIQUE HEBDOMADAIRE -->
+    <section id="news-weekly" class="section-block">
+      <div class="section-title">10. ACTUALITÉ ÉCONOMIQUE CRYPTO (HEBDOMADAIRE) 📰</div>
+      <div class="card" style="min-height: auto; text-align: left; padding: 22px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; flex-wrap: wrap; gap: 8px;">
+          <h3 style="margin: 0;">BRIEFING HEBDO — SEMAINE DU 15 NOV 2026</h3>
+          <span class="pix-macro-tag bull">MIS À JOUR CHAQUE DIMANCHE</span>
         </div>
+        <div style="display: flex; flex-direction: column; gap: 12px;">
+          <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px;">
+            <div style="font-size: 0.72rem; color: var(--violet); font-weight: 800; margin-bottom: 4px;">1. GESTION DES TAUX &amp; FOMC DE DÉCEMBRE</div>
+            <div style="font-size: 0.78rem; color: #fff; font-weight: 600; line-height: 1.4;">Les marchés anticipent une position stricte de la FED suite aux chiffres d'inflation CPI de ~4.0%, impactant la liquidité court terme des altcoins.</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px;">
+            <div style="font-size: 0.72rem; color: var(--primary); font-weight: 800; margin-bottom: 4px;">2. DYNAMIQUES ON-CHAIN &amp; ACCUMULATION BTC</div>
+            <div style="font-size: 0.78rem; color: #fff; font-weight: 600; line-height: 1.4;">Les flux institutionnels montrent une consolidation autour des niveaux actuels, avec une baisse continue des réserves sur les exchanges centralisés.</div>
+          </div>
+          <div style="background: rgba(0,0,0,0.4); border: 1px solid var(--border); border-radius: 14px; padding: 12px 14px;">
+            <div style="font-size: 0.72rem; color: var(--up); font-weight: 800; margin-bottom: 4px;">3. ÉCOSYSTÈME DEFI &amp; TVL</div>
+            <div style="font-size: 0.78rem; color: #fff; font-weight: 600; line-height: 1.4;">La valeur totale verrouillée (TVL) sur les principaux protocoles multi-chain résiste malgré la volatilité des marchés dérivés.</div>
+          </div>
+        </div>
+        <div class="api-badge live" style="margin-top: 12px;">PIX EDITORIAL RESEARCH • HEBDOMADAIRE</div>
+      </div>
+    </section>
+
+    <!-- SECTION 11: RECHERCHE TOKENOMICS & SUPPLY -->
+    <section id="tokenomics" class="section-block">
+      <div class="section-title">11. RECHERCHE TOKENOMICS &amp; SUPPLY (TOP 100) 🪙</div>
+      <div class="card" style="min-height: auto;">
+        <h3>ANALYSE DE LA SUPPLY &amp; DÉBLOCAGES</h3>
+        <div style="display: flex; gap: 8px; margin-bottom: 12px;">
+          <input type="text" id="tokenomicsInput" maxlength="20" placeholder="ÉCRIS UN SYMBOLE (ex: BTC, ETH, SOL...)" value="BTC" style="margin-bottom:0;" onkeypress="if(event.key==='Enter') searchTokenomics()">
+          <button class="btn btn-violet" onclick="searchTokenomics()" style="width: 140px; margin-bottom:0; min-height: 48px;">CHERCHER</button>
+        </div>
+        <div id="tokenomicsRes" class="res-display" style="justify-content: flex-start; padding: 14px; min-height: 180px;">
+          <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; margin:auto; text-align:center;">CLIQUE SUR CHERCHER POUR AFFICHER LA TOKENOMICS</span>
+       </div>
       </div>
     </section>
 
@@ -2048,6 +2086,65 @@ const PIXMacro = {
     console.warn("PIX Macro Safe-Init fallback active");
   }
 })();
+// --- 15. MODULE RECHERCHE TOKENOMICS & SUPPLY ---
+window.searchTokenomics = async function() {
+  const inputEl = document.getElementById("tokenomicsInput");
+  const resBox = document.getElementById("tokenomicsRes");
+  if (!resBox || !inputEl) return;
+
+  const symbol = sanitizeSymbol(inputEl.value);
+  inputEl.value = symbol;
+  resBox.innerHTML = '<div class="loader"></div>';
+
+  if (globalData.length === 0) await window.fetchData();
+  const coin = findCoin(symbol);
+
+  if (!coin) {
+    resBox.innerHTML = `<span class="down" style="font-weight:900; margin:auto; text-align:center;">JETON "${escapeHTML(symbol)}" INTROUVABLE DANS LE TOP 100 COINGECKO</span>`;
+    return;
+  }
+
+  const name = escapeHTML(coin.name || symbol);
+  const sym = escapeHTML((coin.symbol || "").toUpperCase());
+  const rank = coin.market_cap_rank || "N/A";
+  const circulating = coin.circulating_supply != null ? formatVal(coin.circulating_supply) : "N/A";
+  const total = coin.total_supply != null ? formatVal(coin.total_supply) : "Illimitée / Non spécifiée";
+  const max = coin.max_supply != null ? formatVal(coin.max_supply) : "Illimitée / Non plafonnée";
+  const fdv = coin.fully_diluted_valuation != null ? "$" + formatVal(coin.fully_diluted_valuation) : "N/A";
+  const ath = coin.ath != null ? "$" + coin.ath.toLocaleString("en-US") : "N/A";
+
+  resBox.innerHTML = `
+    <div style="width: 100%;">
+      <div style="font-size:0.75rem; color:var(--violet); font-weight:900; letter-spacing:2px; margin-bottom:10px;">
+        ${name} (${sym}) • RANG #${rank}
+      </div>
+      <div class="market-grid" style="margin-bottom:8px;">
+        <div class="stat-box">
+          <div class="stat-head">Supply en Circulation</div>
+          <div class="stat-body" style="color:var(--up);">${circulating} ${sym}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-head">Supply Totale</div>
+          <div class="stat-body" style="color:var(--violet-bright);">${total}</div>
+        </div>
+      </div>
+      <div class="market-grid" style="margin-bottom:8px;">
+        <div class="stat-box">
+          <div class="stat-head">Supply Maximale (Max)</div>
+          <div class="stat-body" style="color:var(--primary);">${max}</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-head">Val. Diluée (FDV)</div>
+          <div class="stat-body">${fdv}</div>
+        </div>
+      </div>
+      <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 10px; margin-top: 8px; font-size: 0.68rem; line-height: 1.4;">
+        <span style="color:var(--neon-yellow); font-weight:800;">💡 NOTE TOKENOMICS &amp; VESTING :</span> 
+        ATH historique enregistré à <b>${ath}</b>. L'évaluation de la supply est calculée dynamiquement sur les données officielles du marché.
+      </div>
+      <div class="api-badge live" style="margin-top:8px;">COINGECKO SUPPLY METRICS LIVE</div>
+    </div>`;
+};
 </script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-html_code = """<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
 <meta charset="UTF-8">
@@ -31,7 +31,6 @@ body {
   overflow-x: hidden; position: relative;
   width: 100%;
 }
-
 /* CANEVAS DE FOND PARTICULES INTERACTIF */
 #bg-canvas {
   position: fixed !important;
@@ -45,7 +44,6 @@ body {
   position: relative; z-index: 2 !important;
   width: 100%; min-height: 100vh;
 }
-
 /* BANDEAU PRIX TICKER EN DIRECT FIXÉ EN HAUT */
 .tickers-header {
   position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
@@ -61,7 +59,6 @@ body {
 .t-item { font-size: 0.8rem; font-weight: 800; letter-spacing: 0.5px; display: flex; align-items: center; gap: 8px; }
 .t-item span { color: var(--violet); opacity: 0.9; }
 @keyframes slide { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
 /* BARRE DE NAVIGATION RESPONSIVE STICKY */
 nav {
   margin-top: 60px; display: flex; justify-content: center; gap: 8px;
@@ -79,7 +76,6 @@ nav a {
   border-radius: 10px; border: 1px solid transparent; flex-shrink: 0;
 }
 nav a:hover, nav a.active { color: #fff; background: rgba(139, 92, 246, 0.2); border-color: var(--border); text-shadow: 0 0 8px var(--violet); }
-
 /* EN-TÊTE PRINCIPAL (HERO) */
 .hero {
   text-align: center;
@@ -132,7 +128,6 @@ nav a:hover, nav a.active { color: #fff; background: rgba(139, 92, 246, 0.2); bo
   max-width: 620px;
   text-align: center;
 }
-
 /* SECTIONS & COMPOSANTS */
 .container { max-width: 1240px; margin: auto; padding: 0 15px 40px 15px; }
 .section-block { scroll-margin-top: 135px; }
@@ -151,7 +146,6 @@ nav a:hover, nav a.active { color: #fff; background: rgba(139, 92, 246, 0.2); bo
   width: 100%; max-width: 100%;
 }
 h3 { text-transform: uppercase; letter-spacing: 2px; font-size: 0.85rem; margin: 0 0 18px 0; font-weight: 900; color: rgba(255,255,255,0.9); }
-
 /* ÉLÉMENTS DE FORMULAIRE ET BOUTONS */
 input, select, textarea {
   width: 100%; background: #000; border: 1px solid var(--border);
@@ -190,7 +184,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--violet); box-sha
   justify-content: center; align-items: center; border: 1px solid rgba(255,255,255,0.03);
   overflow: hidden; text-align: left; width: 100%;
 }
-
 /* SCORE RISQUE PIX NEON FINTECH STYLE */
 .pix-score-ring {
   width: 120px; height: 120px; border-radius: 50%; border: 6px solid;
@@ -210,13 +203,11 @@ input:focus, select:focus, textarea:focus { border-color: var(--violet); box-sha
 .factor-row { display: flex; justify-content: space-between; font-size: 0.68rem; font-weight: 700; }
 .factor-bar-bg { width: 100%; height: 5px; background: rgba(255,255,255,0.05); border-radius: 3px; overflow: hidden; margin-top: 3px; }
 .factor-bar-fill { height: 100%; border-radius: 3px; }
-
 /* GRILLE STATISTIQUES ANALYSE */
 .market-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; }
 .stat-box { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 8px; text-align: center; }
 .stat-head { font-size: 0.55rem; color: var(--gray-text); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 3px; }
 .stat-body { font-size: 0.82rem; font-weight: 900; }
-
 /* CHAT CRYPTO */
 .chat-box {
   width: 100%; height: 300px; overflow-y: auto; display: flex;
@@ -229,7 +220,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--violet); box-sha
 }
 .chat-msg.user { align-self: flex-end; background: var(--violet); color: #fff; border-bottom-right-radius: 2px; }
 .chat-msg.pix { align-self: flex-start; background: rgba(255,255,255,0.06); border: 1px solid var(--border); color: #e2e8f0; border-bottom-left-radius: 2px; }
-
 /* TIMER HALVING BITCOIN */
 .halving-section { max-width: 1240px; margin: 0 auto; padding: 0 15px; }
 .halving-card {
@@ -253,7 +243,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--violet); box-sha
 .timer-unit { background: rgba(0,0,0,0.5); border: 1px solid rgba(247, 147, 26, 0.25); padding: 8px 4px; border-radius: 12px; flex: 1; min-width: 0; text-align: center; }
 .timer-val { font-size: clamp(1.1rem, 4.5vw, 1.5rem); font-weight: 900; color: var(--primary); text-shadow: 0 0 10px rgba(247, 147, 26, 0.5); }
 .timer-label { font-size: clamp(0.35rem, 2vw, 0.45rem); text-transform: uppercase; letter-spacing: 1px; color: var(--gray-text); margin-top: 2px; }
-
 /* RADAR TOP 10 */
 .top10-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 24px; padding: 24px 18px; backdrop-filter: blur(20px); margin-bottom: 25px; }
 .top10-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 18px; flex-wrap: wrap; gap: 12px; }
@@ -267,13 +256,11 @@ input:focus, select:focus, textarea:focus { border-color: var(--violet); box-sha
 .down { color: var(--down); text-shadow: 0 0 5px rgba(255, 51, 102, 0.4); }
 .loader { width: 26px; height: 26px; border: 3px solid rgba(255,255,255,0.05); border-top-color: var(--violet); border-radius: 50%; animation: spin 0.8s linear infinite; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
 /* CANEVAS CHART STYLING */
 #neonAnalysisChart {
   width: 100%; height: 120px; background: #020408;
   border-radius: 12px; border: 1px solid rgba(139, 92, 246, 0.15); margin-bottom: 10px;
 }
-
 /* LIQUIDATION ROWS */
 .liq-row {
   display: flex; justify-content: space-between; align-items: center; width: 100%;
@@ -282,7 +269,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--violet); box-sha
   border-left: 3px solid; animation: slideUp 0.3s ease;
 }
 @keyframes slideUp { from { transform: translateY(4px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-
 /* BADGES API EN DIRECT */
 .api-badge {
   font-size: 0.58rem; font-weight: 800; padding: 4px 8px; border-radius: 6px;
@@ -294,7 +280,6 @@ input:focus, select:focus, textarea:focus { border-color: var(--violet); box-sha
 .disclaimer-box { max-width: 900px; margin: 20px auto 0; padding: 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); }
 .disclaimer-text { font-size: 0.55rem; color: rgba(255,255,255,0.25); text-transform: uppercase; font-weight: 700; line-height: 1.5; letter-spacing: 0.5px; }
 footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); font-size: 0.5rem; letter-spacing: 3px; font-weight: 900; text-transform: uppercase; }
-
 @media (max-width: 767px) {
   .grid-2 { grid-template-columns: 1fr; }
   .perf-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; }
@@ -303,7 +288,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
   .hero { padding: 35px 15px 20px 15px; }
   .hero h1 { font-size: clamp(3.2rem, 14vw, 5.5rem); letter-spacing: -2px; }
 }
-
 /* ==========================================
    MODULE PIX MACRO - ISOLÉ & RESPONSIVE
    ========================================== */
@@ -406,13 +390,10 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
 </style>
 </head>
 <body>
-
 <!-- CANEVAS DE FOND PARTICULES -->
 <canvas id="bg-canvas"></canvas>
-
 <!-- APP WRAPPER CONTENEUR PRINCIPAL -->
 <div id="app-wrapper">
-
   <!-- TICKER DE PRIX EN DIRECT -->
   <div class="tickers-header">
     <div class="ticker-row">
@@ -421,7 +402,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
       </div>
     </div>
   </div>
-
   <!-- BARRE DE NAVIGATION PRINCIPALE -->
   <nav>
     <a href="#core" class="active">PIX</a>
@@ -437,7 +417,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
     <a href="#market-regime">REGIME</a>
     <a href="#pix-correlations">CORRÉLATIONS</a>
   </nav>
-
   <!-- HEADER/HERO -->
   <div class="hero">
     <h1>PIX</h1>
@@ -445,7 +424,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
     <div class="hero-pillars">Market Data &bull; Analytics &bull; Risk AI</div>
     <p class="hero-description">Analysez les marchés crypto. Détectez les risques. Prenez de meilleures décisions.</p>
   </div>
-
   <!-- SECTION HALVING BITCOIN -->
   <div class="halving-section">
     <div class="halving-card">
@@ -464,9 +442,7 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
       </div>
     </div>
   </div>
-
   <div class="container">
-
     <!-- 1. MODULE PIX SCORE CENTRAL -->
     <div class="section-block" id="core">
       <div class="section-title">1. MOTEUR D'ANALYSE DÉCISIONNEL - PIX</div>
@@ -488,7 +464,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         </div>
       </div>
     </div>
-
     <!-- 2. MODULE PIX CHAT CRYPTO -->
     <div class="section-block" id="chat">
       <div class="section-title">2. PIX CHAT CRYPTO - ASSISTANT IA</div>
@@ -505,7 +480,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         </div>
       </div>
     </div>
-
     <!-- 3. TOP 10 RADAR PERFORMANCE -->
     <div class="section-title">3. RADAR DE PERFORMANCE EN DIRECT (24H)</div>
     <div class="top10-card">
@@ -518,7 +492,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
       </div>
       <div class="perf-grid" id="perfGrid"><div class="loader"></div></div>
     </div>
-
     <!-- 4. ANALYSE TECHNIQUE & RISK -->
     <div class="section-block" id="chart-analysis">
       <div class="section-title">4. ANALYSE TECHNIQUE MULTI-TIMEFRAME &amp; RISK</div>
@@ -555,7 +528,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         </div>
       </div>
     </div>
-
     <!-- 5. DERIVATIVES & LIQUIDATIONS FUTURES BINANCE (WEBSOCKET EN DIRECT) -->
     <div class="section-block" id="liquidation">
       <div class="section-title">5. FLUX DÉRIVÉS, FUTURES BINANCE &amp; DATA ON-CHAIN</div>
@@ -592,7 +564,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         </div>
       </div>
     </div>
-
     <!-- 6. PIX BACKTESTING -->
     <div class="section-block" id="backtest">
       <div class="section-title">6. VÉRIFICATEUR DE PRÉDICTIONS &amp; BACKTESTING</div>
@@ -626,7 +597,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         <button class="btn btn-white" onclick="evaluatePredictions()" style="margin-top:12px;">ÉVALUER PRÉDICTIONS SUR COURS RÉELS</button>
       </div>
     </div>
-
     <!-- 7. PIX PORTFOLIO -->
     <div class="section-block" id="portfolio">
       <div class="section-title">7. PORTEFEUILLE ET SUIVI DE CAPITAL</div>
@@ -643,7 +613,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         </div>
       </div>
     </div>
-
     <!-- 8. PIX ACADEMY -->
     <div class="section-block" id="academy">
       <div class="section-title">8. ACADÉMIE PIXELISÉE</div>
@@ -661,13 +630,11 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         </div>
       </div>
     </div>
-
     <!-- SECTION 9: PIX MACRO -->
     <section id="pix-macro" class="section-block">
       <div class="section-title">9. CONTEXTE MACROÉCONOMIQUE — PIX MACRO 🌍</div>
       <div class="pix-macro-card">
         <div class="pix-macro-grid">
-
           <!-- BLOC SCORE MACRO -->
           <div class="pix-macro-block">
             <div class="pix-macro-header">
@@ -682,7 +649,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
               Analyse du contexte monétaire global et impact probable sur Bitcoin &amp; Altcoins.
             </div>
           </div>
-
           <!-- BLOC EUROPE -->
           <div class="pix-macro-block">
             <div class="pix-macro-header">
@@ -707,7 +673,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
               </div>
             </div>
           </div>
-
           <!-- BLOC USA -->
           <div class="pix-macro-block">
             <div class="pix-macro-header">
@@ -727,7 +692,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
               <span class="pix-macro-tag bear">PRUDENCE</span>
             </div>
           </div>
-
           <!-- BLOC CALENDRIER & MARKET IMPACT -->
           <div class="pix-macro-block">
             <div class="pix-macro-header">
@@ -747,7 +711,10 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
               <span id="pix-macro-date" style="opacity:0.7;">15/11/2026</span>
             </div>
           </div>
-<!-- SECTION 10: ACTUALITÉ ÉCONOMIQUE HEBDOMADAIRE -->
+        </div>
+      </div>
+    </section>
+    <!-- SECTION 10: ACTUALITÉ ÉCONOMIQUE HEBDOMADAIRE -->
     <section id="news-weekly" class="section-block">
       <div class="section-title">10. ACTUALITÉ ÉCONOMIQUE CRYPTO (HEBDOMADAIRE) 📰</div>
       <div class="card" style="min-height: auto; text-align: left; padding: 22px;">
@@ -772,7 +739,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         <div class="api-badge live" style="margin-top: 12px;">PIX EDITORIAL RESEARCH • HEBDOMADAIRE</div>
       </div>
     </section>
-
     <!-- SECTION 11: RECHERCHE TOKENOMICS & SUPPLY -->
     <section id="tokenomics" class="section-block">
       <div class="section-title">11. RECHERCHE TOKENOMICS &amp; SUPPLY (TOP 100) 🪙</div>
@@ -784,12 +750,11 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
         </div>
         <div id="tokenomicsRes" class="res-display" style="justify-content: flex-start; padding: 14px; min-height: 180px;">
           <span style="opacity:0.3; font-size:0.7rem; font-weight:800; letter-spacing:2px; margin:auto; text-align:center;">CLIQUE SUR CHERCHER POUR AFFICHER LA TOKENOMICS</span>
-       </div>
+        </div>
       </div>
     </section> 
-          <!-- SECTION 12 & 13: CONTENEUR PLEINE LARGEUR PROPRE -->
+    <!-- SECTION 12 & 13: CONTENEUR PLEINE LARGEUR PROPRE -->
     <div style="grid-column: 1 / -1; width: 100%; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-top: 20px; margin-bottom: 30px; clear: both;">
-      
       <!-- SECTION 12: TENDANCE DE MARCHÉ (MARKET REGIME) -->
       <section id="market-regime" class="section-block" style="margin: 0; width: 100%;">
         <div class="section-title">12. TENDANCE DE MARCHÉ ⚡</div>
@@ -804,7 +769,6 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
           <div class="api-badge live" style="margin-top: 10px;">PIX REGIME ENGINE • LIVE CACHE</div>
         </div>
       </section>
-
       <!-- SECTION 13: CORRÉLATIONS & DOMINANCE -->
       <section id="pix-correlations" class="section-block" style="margin: 0; width: 100%;">
         <div class="section-title">13. CORRÉLATIONS &amp; DOMINANCE 🌐</div>
@@ -822,24 +786,19 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
           <div class="api-badge live" style="margin-top: 10px;">PIX MATRIX CORE • TEMPS RÉEL</div>
         </div>
       </section>
-
     </div>        
-
-   <div class="creator-tag" style="grid-column: 1 / -1; width: 100%; text-align: center; margin: 20px 0;">Built by CryptoMan 2026</div>    <div class="disclaimer-box">
+    <div class="creator-tag" style="grid-column: 1 / -1; width: 100%; text-align: center; margin: 20px 0;">Built by CryptoMan 2026</div>    
+    <div class="disclaimer-box">
       <div class="disclaimer-text">
         PIX EST UN LOGICIEL D'ANALYSE PROBABILISTE ET D'INFORMATIONS CRYPTO. TOUTE INFORMATION AFFICHÉE NE DOIT PAS ÊTRE CONSIDÉRÉE COMME UN CONSEIL FINANCIER. LE TRADING DE CRYPTO-MONNAIES COMPORTE DES RISQUES ÉLEVÉS DE PERTE EN CAPITAL. FAITES TOUJOURS VOS PROPRES RECHERCHES (DYOR).
       </div>
     </div>
-
   </div>
-
   <footer>PROPRIÉTÉ EXCLUSIVE DU RÉSEAU PIX &copy; 2026</footer>
 </div>
-
 <!-- SCRIPT UNIFIÉ SÉCURISÉ PIX -->
 <script>
 "use strict";
-
 // --- 0. UTILITAIRES DE SÉCURITÉ & FORMATAGE ---
 function escapeHTML(str) {
   if (str === null || str === undefined) return "";
@@ -850,11 +809,9 @@ function escapeHTML(str) {
     .replace(/"/g, "&quot;")
     .replace(/'/g, "&#039;");
 }
-
 function sanitizeSymbol(str) {
   return String(str || "").replace(/[^a-zA-Z0-9-]/g, "").slice(0, 20);
 }
-
 function formatVal(num) {
   const n = Number(num);
   if (isNaN(n) || !isFinite(n)) return "0.00";
@@ -864,7 +821,6 @@ function formatVal(num) {
   if (n >= 1e3) return (n / 1e3).toFixed(2) + "K";
   return n.toFixed(2);
 }
-
 function safeStorageGet(key, fallback) {
   try {
     const raw = localStorage.getItem(key);
@@ -874,7 +830,6 @@ function safeStorageGet(key, fallback) {
     return fallback;
   }
 }
-
 function safeStorageSet(key, value) {
   try {
     localStorage.setItem(key, JSON.stringify(value));
@@ -882,17 +837,13 @@ function safeStorageSet(key, value) {
     console.warn("Écriture localStorage ignorée :", e.message);
   }
 }
-
-// Clé API chargée de manière sécurisée (ne jamais laisser une clé en dur en production publique)
 const apiKey = window.PIX_GEMINI_KEY || "";
-
 // --- 1. PROVIDER DATA COINGECKO, ALTERNATIVE.ME & DEFILLAMA ---
 class PixDataProvider {
   constructor() {
     this.cache = new Map();
     this.cacheTTL = 60000;
   }
-
   async fetchWithTimeout(url, timeoutMs = 6000) {
     const controller = new AbortController();
     const timer = setTimeout(() => controller.abort(), timeoutMs);
@@ -905,7 +856,6 @@ class PixDataProvider {
       throw err;
     }
   }
-
   async fetchMarketData() {
     const cacheKey = "markets_top100";
     const cached = this.cache.get(cacheKey);
@@ -928,7 +878,6 @@ class PixDataProvider {
       return { data: null, error: true, message: e.name === "AbortError" ? "Délai dépassé" : e.message };
     }
   }
-
   async fetchHistoricalData(coinId, days) {
     const safeCoinId = encodeURIComponent(coinId);
     const safeDays = encodeURIComponent(days);
@@ -955,7 +904,6 @@ class PixDataProvider {
       return { data: null, error: true, message: e.name === "AbortError" ? "Timeout API" : e.message };
     }
   }
-
   async fetchFearAndGreed() {
     try {
       const res = await this.fetchWithTimeout("https://api.alternative.me/fng/?limit=1", 5000);
@@ -969,7 +917,6 @@ class PixDataProvider {
       return { data: null, error: true, message: "Service Sentiment indisponible" };
     }
   }
-
   async fetchDefiTVL() {
     try {
       const res = await this.fetchWithTimeout("https://api.llama.fi/protocols", 5000);
@@ -987,10 +934,8 @@ class PixDataProvider {
     }
   }
 }
-
 const dataProvider = new PixDataProvider();
 let globalData = [];
-
 window.fetchData = async function() {
   const result = await dataProvider.fetchMarketData();
   if (result.data) {
@@ -1004,7 +949,6 @@ window.fetchData = async function() {
     }
   }
 };
-
 function updateTickers() {
   if (!globalData || globalData.length === 0) return;
   let tContent = "";
@@ -1024,10 +968,8 @@ function updateTickers() {
   const tickBox = document.getElementById("tick1");
   if (tickBox) tickBox.innerHTML = tContent + tContent;
 }
-
 // --- 2. COMPTE À REBOURS BITCOIN HALVING (2028) ---
 const HALVING_TARGET_TIMESTAMP = new Date("2028-04-17T00:00:00Z").getTime();
-
 function updateHalving() {
   const now = Date.now();
   const diff = HALVING_TARGET_TIMESTAMP - now;
@@ -1035,7 +977,6 @@ function updateHalving() {
   const hoursEl = document.getElementById("h-hours");
   const minsEl = document.getElementById("h-mins");
   const secsEl = document.getElementById("h-secs");
-
   if (diff <= 0) {
     if (daysEl) daysEl.innerText = "0";
     if (hoursEl) hoursEl.innerText = "00";
@@ -1043,21 +984,17 @@ function updateHalving() {
     if (secsEl) secsEl.innerText = "00";
     return;
   }
-
   const d = Math.floor(diff / (1000 * 60 * 60 * 24));
   const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
   const s = Math.floor((diff % (1000 * 60)) / 1000);
-
   if (daysEl) daysEl.innerText = String(d);
   if (hoursEl) hoursEl.innerText = h.toString().padStart(2, "0");
   if (minsEl) minsEl.innerText = m.toString().padStart(2, "0");
   if (secsEl) secsEl.innerText = s.toString().padStart(2, "0");
 }
-
 // --- 3. RADAR PERFORMANCE TOP 10 ---
 let perfMode = "gainers";
-
 window.setPerfMode = function(mode) {
   perfMode = mode === "losers" ? "losers" : "gainers";
   const btnG = document.getElementById("btnGainers");
@@ -1070,7 +1007,6 @@ window.setPerfMode = function(mode) {
   }
   updateTop10();
 };
-
 function updateTop10() {
   const grid = document.getElementById("perfGrid");
   if (!grid) return;
@@ -1103,7 +1039,6 @@ function updateTop10() {
   });
   grid.innerHTML = html;
 }
-
 function findCoin(query) {
   if (!globalData || globalData.length === 0) return null;
   const q = sanitizeSymbol(query).toLowerCase();
@@ -1114,43 +1049,36 @@ function findCoin(query) {
     (c.name && c.name.toLowerCase() === q)
   );
 }
-
 // --- 4. MOTEUR PIX SCORE ---
 window.calculatePIXCoreScore = async function() {
   const inputEl = document.getElementById("pixCoreInput");
   const resBox = document.getElementById("pixCoreRes");
   if (!resBox || !inputEl) return;
-
   const inputSymbol = sanitizeSymbol(inputEl.value);
   inputEl.value = inputSymbol;
   resBox.innerHTML = '<div class="loader"></div>';
-
   if (globalData.length === 0) await window.fetchData();
   const coin = findCoin(inputSymbol);
   if (!coin) {
     resBox.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">JETON INTROUVABLE SUR COINGECKO</span>';
     return;
   }
-
   const price = Number(coin.current_price) || 0;
   const change24 = Number(coin.price_change_percentage_24h) || 0;
   const vol = Number(coin.total_volume) || 1e6;
   const mcap = Number(coin.market_cap) || 1e7;
   const rank = Number(coin.market_cap_rank) || 50;
-
   const rsi = Math.max(10, Math.min(90, Math.round(50 + (change24 * 2.2))));
   const momentumScore = (rsi >= 45 && rsi <= 68) ? 85 : (rsi > 70 ? 40 : 60);
   const volMcapRatio = mcap > 0 ? (vol / mcap) : 0;
   const liquidityScore = volMcapRatio > 0.1 ? 90 : (volMcapRatio > 0.03 ? 70 : 40);
   const rankScore = rank <= 10 ? 95 : (rank <= 30 ? 75 : 50);
   const paScore = change24 >= 5 ? 90 : (change24 >= 0 ? 70 : (change24 >= -5 ? 40 : 20));
-
   const finalScore = Math.round((momentumScore * 0.3) + (liquidityScore * 0.25) + (rankScore * 0.20) + (paScore * 0.25));
   const scoreColor = finalScore >= 75 ? "var(--up)" : (finalScore >= 50 ? "var(--neon-yellow)" : "var(--down)");
   const signalText = finalScore >= 75
     ? "SIGNAL PIX : ACHAT FORT"
     : (finalScore >= 50 ? "SIGNAL PIX : NEUTRE / ACCUMULATION" : "SIGNAL PIX : PRUDENCE / VENTE");
-
   resBox.innerHTML = `
     <div class="pix-score-ring" style="border-color: ${scoreColor}; color: ${scoreColor};">
       <div class="pix-score-val">${finalScore}</div>
@@ -1175,43 +1103,35 @@ window.calculatePIXCoreScore = async function() {
       Prix réel : $${escapeHTML(price.toLocaleString("en-US"))} (${change24 >= 0 ? "+" : ""}${change24.toFixed(2)}% / 24h).
     </div>`;
 };
-
 // --- 5. SCORE DE RISQUE PIX ---
 window.getRiskAnalyse = async function() {
   const inputEl = document.getElementById("riskAssetInput");
   const res = document.getElementById("aiRes");
   if (!res || !inputEl) return;
-
   const val = sanitizeSymbol(inputEl.value);
   inputEl.value = val;
   res.innerHTML = '<div class="loader"></div>';
-
   if (globalData.length === 0) await window.fetchData();
   const coin = findCoin(val);
   if (!coin) {
     res.innerHTML = '<span class="down" style="font-weight:900; margin:auto; text-align:center;">CIBLE INCONNUE EN DIRECT</span>';
     return;
   }
-
   const rank = Number(coin.market_cap_rank) || 50;
   const vol = Number(coin.total_volume) || 1e6;
   const mcap = Number(coin.market_cap) || 1e7;
   const change = Number(coin.price_change_percentage_24h) || 0;
-
   let riskScore = 5.0;
   if (rank <= 5) riskScore = 2.0;
   else if (rank <= 20) riskScore = 4.0;
   else if (rank <= 50) riskScore = 6.5;
   else riskScore = 8.5;
-
   if (mcap > 0 && (vol / mcap) < 0.02) riskScore += 1.0;
   if (Math.abs(change) > 12) riskScore += 1.0;
   riskScore = Math.max(1.0, Math.min(9.9, riskScore));
-
   const neonColor = riskScore <= 3.5 ? "var(--neon-green)" : (riskScore <= 6.5 ? "var(--neon-yellow)" : "var(--neon-red)");
   const status = riskScore <= 3.5 ? "FAIBLE RISQUE" : (riskScore <= 6.5 ? "RISQUE MODÉRÉ" : "HAUT RISQUE");
   const liqRatio = mcap > 0 ? ((vol / mcap) * 100).toFixed(1) : "0.0";
-
   res.innerHTML = `
     <div class="pix-score-ring" style="border-color: ${neonColor}; color: ${neonColor};">
       <div class="pix-score-val">${riskScore.toFixed(1)}</div>
@@ -1222,29 +1142,22 @@ window.getRiskAnalyse = async function() {
       <b style="color:${neonColor}">NOTE PIX :</b> Rang #${rank}. Volatilité 24h : ${change.toFixed(2)}%. Ratio de liquidité : ${liqRatio}%.
     </div>`;
 };
-
-// --- 6. PIX CHAT CRYPTO (PROTECTION XSS & ANTI-SPAM) ---
+// --- 6. PIX CHAT CRYPTO ---
 let isChatSending = false;
-
 window.sendChatMessage = async function() {
   if (isChatSending) return;
   const input = document.getElementById("chatInput");
   const history = document.getElementById("chatHistory");
   if (!input || !history) return;
-
   const userQuery = input.value.trim().slice(0, 500);
   if (!userQuery) return;
-
   isChatSending = true;
-
   const userMsgEl = document.createElement("div");
   userMsgEl.className = "chat-msg user";
   userMsgEl.innerHTML = `<b>Toi :</b> ${escapeHTML(userQuery)}`;
   history.appendChild(userMsgEl);
-
   input.value = "";
   history.scrollTop = history.scrollHeight;
-
   const loadingId = "loading_" + Date.now();
   const botMsgEl = document.createElement("div");
   botMsgEl.className = "chat-msg pix";
@@ -1252,14 +1165,11 @@ window.sendChatMessage = async function() {
   botMsgEl.innerHTML = `<b>PIX :</b> <span class="loader" style="display:inline-block; width:12px; height:12px;"></span> Réflexion...`;
   history.appendChild(botMsgEl);
   history.scrollTop = history.scrollHeight;
-
   const activeSymbol = sanitizeSymbol(document.getElementById("pixCoreInput")?.value || "BTC") || "BTC";
   const systemPrompt = `Tu es PIX, l'assistant d'intelligence artificielle crypto officiel créé par CryptoMan. Tu réponds de façon synthétique, dynamique et experte en Français. Contexte d'analyse : Token consulté = ${activeSymbol.toUpperCase()}.`;
-
   let responseText = "";
   let delay = 1000;
   let success = false;
-
   if (!apiKey) {
     responseText = "Clé API Gemini non configurée dans l'environnement client. Configure ton proxy sécurisé ou ta variable window.PIX_GEMINI_KEY pour activer l'assistant IA.";
     success = true;
@@ -1294,11 +1204,9 @@ window.sendChatMessage = async function() {
       delay *= 2;
     }
   }
-
   if (!success) {
     responseText = "Le service d'intelligence PIX est momentanément surchargé. Réessaie dans quelques secondes !";
   }
-
   const loaderNode = document.getElementById(loadingId);
   if (loaderNode) {
     loaderNode.innerHTML = `<b>PIX :</b> ${escapeHTML(responseText).replace(/\n/g, "<br>")}`;
@@ -1306,11 +1214,9 @@ window.sendChatMessage = async function() {
   history.scrollTop = history.scrollHeight;
   isChatSending = false;
 };
-
 // --- 7. ANALYSE TECHNIQUE DYNAMIQUE ---
 window.selectedChartAsset = "BTC";
 window.selectedChartTimeframe = "4h";
-
 window.setChartAsset = function(asset) {
   window.selectedChartAsset = asset === "ETH" ? "ETH" : "BTC";
   const btnB = document.getElementById("btnChartBTC");
@@ -1323,7 +1229,6 @@ window.setChartAsset = function(asset) {
   }
   runChartTechnicalAnalysis();
 };
-
 window.setChartTimeframe = function(tf) {
   const allowed = ["4h", "12h", "24h", "7j"];
   window.selectedChartTimeframe = allowed.includes(tf) ? tf : "4h";
@@ -1336,7 +1241,6 @@ window.setChartTimeframe = function(tf) {
   });
   runChartTechnicalAnalysis();
 };
-
 function calculateRealRSI(pricesArray, period = 14) {
   if (!pricesArray || pricesArray.length <= period) return null;
   let gains = 0, losses = 0;
@@ -1361,19 +1265,16 @@ function calculateRealRSI(pricesArray, period = 14) {
   const rs = avgGain / avgLoss;
   return Math.round(100 - (100 / (1 + rs)));
 }
-
 function calculateRealMA(pricesArray, period) {
   if (!pricesArray || pricesArray.length < period) return null;
   const slice = pricesArray.slice(-period);
   const sum = slice.reduce((acc, curr) => acc + curr[1], 0);
   return sum / period;
 }
-
 window.runChartTechnicalAnalysis = async function() {
   const res = document.getElementById("chartRes");
   if (!res) return;
   res.innerHTML = '<div class="loader"></div>';
-
   const target = window.selectedChartAsset;
   const tf = window.selectedChartTimeframe;
   const coinId = target === "BTC" ? "bitcoin" : "ethereum";
@@ -1381,31 +1282,25 @@ window.runChartTechnicalAnalysis = async function() {
   if (tf === "12h") daysParam = 3;
   else if (tf === "24h") daysParam = 7;
   else if (tf === "7j") daysParam = 30;
-
   const histResult = await dataProvider.fetchHistoricalData(coinId, daysParam);
   if (histResult.error || !histResult.data || !histResult.data.prices) {
     res.innerHTML = `<span class="down" style="font-size:0.75rem; text-align:center;">DONNÉES HISTORIQUES ABSENTES (${escapeHTML(histResult.message || "Limite API")})</span>`;
     return;
   }
-
   const pricesArr = histResult.data.prices;
   const latestPrice = pricesArr[pricesArr.length - 1][1];
   const firstPrice = pricesArr[0][1];
   const tfChangePct = firstPrice > 0 ? ((latestPrice - firstPrice) / firstPrice) * 100 : 0;
-
   const realRSI = calculateRealRSI(pricesArr, 14) ?? 50;
   const realMA20 = calculateRealMA(pricesArr, 20) ?? latestPrice;
   const realMA50 = calculateRealMA(pricesArr, 50) ?? latestPrice;
-
   const isBullish = latestPrice >= realMA20 && realRSI >= 48;
   const trendColor = isBullish ? "var(--up)" : "var(--down)";
-
   let rsiColor = "var(--neon-yellow)";
   let rsiState = "(Neutre)";
   if (realRSI >= 70) { rsiColor = "var(--down)"; rsiState = "(Suracheté - Alerte)"; }
   else if (realRSI <= 30) { rsiColor = "var(--up)"; rsiState = "(Survendu - Opportunité)"; }
   else if (realRSI >= 55) { rsiColor = "var(--up)"; rsiState = "(Achat)"; }
-
   res.innerHTML = `
     <div style="width: 100%;">
       <canvas id="neonAnalysisChart" width="330" height="120"></canvas>
@@ -1434,17 +1329,14 @@ window.runChartTechnicalAnalysis = async function() {
       </div>
       <div class="api-badge live" style="margin-top:6px;">DONNÉES HISTORIQUES COINGECKO LIVE</div>
     </div>`;
-
   drawNeonChartFromData(pricesArr, isBullish);
 };
-
 function drawNeonChartFromData(pricesArray, isBullish) {
   const canvasNode = document.getElementById("neonAnalysisChart");
   if (!canvasNode) return;
   const ctxNode = canvasNode.getContext("2d");
   const wNode = canvasNode.width = canvasNode.parentElement.clientWidth || 300;
   const hNode = canvasNode.height = 120;
-
   ctxNode.clearRect(0, 0, wNode, hNode);
   ctxNode.strokeStyle = "rgba(255,255,255,0.04)";
   ctxNode.lineWidth = 1;
@@ -1454,20 +1346,17 @@ function drawNeonChartFromData(pricesArray, isBullish) {
   for (let j = 0; j < hNode; j += 20) {
     ctxNode.beginPath(); ctxNode.moveTo(0, j); ctxNode.lineTo(wNode, j); ctxNode.stroke();
   }
-
   if (!pricesArray || pricesArray.length < 2) return;
   const values = pricesArray.map(p => p[1]);
   const minVal = Math.min(...values);
   const maxVal = Math.max(...values);
   const range = (maxVal - minVal) || 1;
-
   ctxNode.beginPath();
   ctxNode.lineWidth = 2.5;
   const color = isBullish ? "#00ffa3" : "#ff3366";
   ctxNode.strokeStyle = color;
   ctxNode.shadowBlur = 8;
   ctxNode.shadowColor = color;
-
   const step = wNode / (pricesArray.length - 1);
   pricesArray.forEach((p, idx) => {
     const x = idx * step;
@@ -1479,8 +1368,7 @@ function drawNeonChartFromData(pricesArray, isBullish) {
   ctxNode.stroke();
   ctxNode.shadowBlur = 0;
 }
-
-// --- 8. WATCH LIQUIDATIONS FUTURES BINANCE (WEBSOCKET AVEC THROTTLE UI) ---
+// --- 8. WATCH LIQUIDATIONS FUTURES BINANCE ---
 window.selectedTradeDirection = "long";
 window.selectedAssetTarget = "BTC";
 let binanceWs = null;
@@ -1491,7 +1379,6 @@ let uiRenderScheduled = false;
 let liveLiqOrders = [];
 let totalLongLiqUsd = 0;
 let totalShortLiqUsd = 0;
-
 window.setTradeDirection = function(dir) {
   window.selectedTradeDirection = dir === "short" ? "short" : "long";
   const btnL = document.getElementById("btnDirLong");
@@ -1504,7 +1391,6 @@ window.setTradeDirection = function(dir) {
   }
   renderLiveLiquidationUI();
 };
-
 window.setAssetTarget = function(asset) {
   window.selectedAssetTarget = asset === "ETH" ? "ETH" : "BTC";
   const btnB = document.getElementById("btnAssetBTC");
@@ -1517,7 +1403,6 @@ window.setAssetTarget = function(asset) {
   }
   renderLiveLiquidationUI();
 };
-
 window.toggleLiquidationLive = function() {
   const btn = document.querySelector("#liquidation .btn");
   if (wsConnected) {
@@ -1531,7 +1416,6 @@ window.toggleLiquidationLive = function() {
     startBinanceLiquidationWs();
   }
 };
-
 function scheduleLiquidationRender() {
   if (uiRenderScheduled) return;
   uiRenderScheduled = true;
@@ -1540,17 +1424,13 @@ function scheduleLiquidationRender() {
     renderLiveLiquidationUI();
   }, 400);
 }
-
 function startBinanceLiquidationWs() {
   const res = document.getElementById("liqRes");
   const btn = document.querySelector("#liquidation .btn");
-
   stopBinanceLiquidationWs();
-
   if (res) {
     res.innerHTML = '<div class="loader"></div><span style="font-size: 0.65rem; margin-top:10px; text-transform:uppercase; letter-spacing:1px; color:var(--violet);">Connexion au Stream Binance Futures...</span>';
   }
-
   wsHandshakeTimer = setTimeout(() => {
     if (!wsConnected) {
       stopBinanceLiquidationWs();
@@ -1568,10 +1448,8 @@ function startBinanceLiquidationWs() {
       }
     }
   }, 4500);
-
   try {
     binanceWs = new WebSocket("wss://fstream.binance.com/market/ws/!forceOrder@arr");
-
     binanceWs.onopen = () => {
       if (wsHandshakeTimer) clearTimeout(wsHandshakeTimer);
       wsConnected = true;
@@ -1581,7 +1459,6 @@ function startBinanceLiquidationWs() {
       }
       renderLiveLiquidationUI();
     };
-
     binanceWs.onmessage = (event) => {
       try {
         const rawData = JSON.parse(event.data);
@@ -1591,17 +1468,14 @@ function startBinanceLiquidationWs() {
           const price = parseFloat(o.ap || o.p || 0);
           const qty = parseFloat(o.z || o.q || 0);
           if (!isFinite(price) || !isFinite(qty) || price <= 0 || qty <= 0) return;
-
           const usdAmount = price * qty;
           const assetName = o.s === "BTCUSDT" ? "BTC" : "ETH";
           const dateObj = new Date(o.T || Date.now());
           const timeStr = dateObj.getHours().toString().padStart(2, "0") + ":" +
             dateObj.getMinutes().toString().padStart(2, "0") + ":" +
             dateObj.getSeconds().toString().padStart(2, "0");
-
           if (side === "LONG") totalLongLiqUsd += usdAmount;
           else totalShortLiqUsd += usdAmount;
-
           liveLiqOrders.unshift({
             symbol: assetName,
             side: side,
@@ -1614,13 +1488,11 @@ function startBinanceLiquidationWs() {
         }
       } catch (e) {}
     };
-
     binanceWs.onerror = () => {
       if (wsHandshakeTimer) clearTimeout(wsHandshakeTimer);
       wsConnected = false;
       renderLiveLiquidationUI();
     };
-
     binanceWs.onclose = () => {
       if (wsHandshakeTimer) clearTimeout(wsHandshakeTimer);
       const wasConn = wsConnected;
@@ -1640,7 +1512,6 @@ function startBinanceLiquidationWs() {
     renderLiveLiquidationUI();
   }
 }
-
 function stopBinanceLiquidationWs() {
   wsConnected = false;
   if (reconnectTimer) clearTimeout(reconnectTimer);
@@ -1653,26 +1524,21 @@ function stopBinanceLiquidationWs() {
     binanceWs = null;
   }
 }
-
 function renderLiveLiquidationUI() {
   const res = document.getElementById("liqRes");
   if (!res) return;
   const targetAsset = window.selectedAssetTarget;
   const targetDirection = window.selectedTradeDirection;
-
   const statusHeader = wsConnected
     ? `<div style="color:var(--up); font-weight:900; font-size:0.7rem; margin-bottom:8px; text-shadow:0 0 8px var(--up);">● BINANCE FUTURES CONNECTÉ — ÉCOUTE EN DIRECT</div>`
     : `<div style="color:var(--down); font-weight:900; font-size:0.7rem; margin-bottom:8px; text-shadow:0 0 8px var(--down);">● BINANCE FUTURES DÉCONNECTÉ</div>`;
-
   const filtered = liveLiqOrders.filter(l => l.symbol === targetAsset);
   const totalVol = totalLongLiqUsd + totalShortLiqUsd;
   const longRatio = totalVol > 0 ? Math.round((totalLongLiqUsd / totalVol) * 100) : 50;
   const shortRatio = totalVol > 0 ? (100 - longRatio) : 50;
-
   let tradeRiskScore = "5.0";
   let riskColor = "var(--neon-yellow)";
   let riskText = "ÉQUILIBRE NEUTRE";
-
   if (totalVol > 0) {
     if (targetDirection === "long") {
       tradeRiskScore = (2.0 + (longRatio / 10)).toFixed(1);
@@ -1694,7 +1560,6 @@ function renderLiveLiquidationUI() {
       }
     }
   }
-
   let listHTML = "";
   if (filtered.length > 0) {
     listHTML = filtered.slice(0, 4).map(l => `
@@ -1706,7 +1571,6 @@ function renderLiveLiquidationUI() {
   } else {
     listHTML = `<div style="font-size:0.68rem; opacity:0.5; text-align:center; padding:12px 0;">Aucune liquidation détectée récemment pour ${escapeHTML(targetAsset)}...</div>`;
   }
-
   res.innerHTML = `
     <div style="width: 100%;">
       ${statusHeader}
@@ -1741,23 +1605,19 @@ function renderLiveLiquidationUI() {
       <div class="api-badge live" style="margin-top:8px;">BINANCE FUTURES WSS REAL-TIME</div>
     </div>`;
 }
-
 // --- 9. SENTIMENT & ON-CHAIN ---
 window.loadMacroSentimentData = async function() {
   const box = document.getElementById("macroSentimentRes");
   if (!box) return;
   box.innerHTML = '<div class="loader"></div>';
-
   const fngRes = await dataProvider.fetchFearAndGreed();
   if (fngRes.error || !fngRes.data) {
     box.innerHTML = '<span class="down" style="font-weight:900; margin:auto;">SERVICE FEAR &amp; GREED INDISPONIBLE</span>';
     return;
   }
-
   const fng = fngRes.data;
   const fngVal = parseInt(fng.value, 10) || 50;
   const color = fngVal >= 60 ? "var(--up)" : (fngVal <= 40 ? "var(--down)" : "var(--neon-yellow)");
-
   box.innerHTML = `
     <div class="pix-score-ring" style="border-color: ${color}; color: ${color}; width:95px; height:95px;">
       <div class="pix-score-val" style="font-size:2rem;">${fngVal}</div>
@@ -1765,12 +1625,10 @@ window.loadMacroSentimentData = async function() {
     <div style="font-weight:900; font-size:0.85rem; color:${color}; text-transform:uppercase; text-align:center;">${escapeHTML(fng.value_classification)}</div>
     <div class="api-badge live" style="margin-top:10px;">ALTERNATIVE.ME API LIVE</div>`;
 };
-
 window.loadOnChainData = async function() {
   const box = document.getElementById("onchainRes");
   if (!box) return;
   box.innerHTML = '<div class="loader"></div>';
-
   const tvlRes = await dataProvider.fetchDefiTVL();
   if (tvlRes.error || !tvlRes.data) {
     box.innerHTML = `
@@ -1781,7 +1639,6 @@ window.loadOnChainData = async function() {
       </div>`;
     return;
   }
-
   const rows = tvlRes.data.map(p => {
     const chg = Number(p.change_1d) || 0;
     return `
@@ -1791,28 +1648,23 @@ window.loadOnChainData = async function() {
         <span class="${chg >= 0 ? "up" : "down"}">${chg >= 0 ? "+" : ""}${chg.toFixed(1)}%</span>
       </div>`;
   }).join("");
-
   box.innerHTML = `
     <div style="width:100%;">
       ${rows}
       <div class="api-badge live" style="margin-top:8px;">DEFILLAMA API LIVE</div>
     </div>`;
 };
-
 // --- 10. BACKTESTING & PORTFOLIO ENGINES ---
 let predictions = safeStorageGet("pix_predictions", []);
 let portfolio = safeStorageGet("pix_portfolio", []);
-
 window.recordPrediction = async function() {
   const assetEl = document.getElementById("backtestAsset");
   const dirEl = document.getElementById("backtestDir");
   const tfEl = document.getElementById("backtestTimeframe");
   if (!assetEl || !dirEl || !tfEl) return;
-
   const symbol = sanitizeSymbol(assetEl.value).toUpperCase();
   const dir = dirEl.value === "BEARISH" ? "BEARISH" : "BULLISH";
   const tf = tfEl.value === "7D" ? "7D" : "24H";
-
   if (!symbol) return;
   if (globalData.length === 0) await window.fetchData();
   const coin = findCoin(symbol);
@@ -1823,10 +1675,8 @@ window.recordPrediction = async function() {
     }
     return;
   }
-
   const targetPctVal = tf === "24H" ? 0.03 : 0.07;
   const entryPriceVal = coin.current_price;
-
   predictions.unshift({
     id: Date.now(),
     symbol: symbol,
@@ -1838,15 +1688,12 @@ window.recordPrediction = async function() {
     targetPct: targetPctVal,
     formattedDate: new Date().toLocaleDateString("fr-FR", { hour: "2-digit", minute: "2-digit" })
   });
-
   safeStorageSet("pix_predictions", predictions);
   renderPredictions();
 };
-
 window.evaluatePredictions = async function() {
   if (globalData.length === 0) await window.fetchData();
   let changed = false;
-
   predictions.forEach(p => {
     if (p.status === "EN_COURS") {
       const coin = findCoin(p.symbol);
@@ -1864,36 +1711,29 @@ window.evaluatePredictions = async function() {
       }
     }
   });
-
   if (changed) safeStorageSet("pix_predictions", predictions);
   renderPredictions();
 };
-
 function renderPredictions() {
   const logBox = document.getElementById("predictionLogs");
   if (!logBox) return;
-
   const total = predictions.length;
   const success = predictions.filter(p => p.status === "SUCCES").length;
   const fail = predictions.filter(p => p.status === "ECHEC").length;
   const evaluated = success + fail;
   const hitRateText = evaluated > 0 ? Math.round((success / evaluated) * 100) + "%" : "En attente d'évaluation";
-
   const elTotal = document.getElementById("statTotalPred");
   const elSucc = document.getElementById("statSuccessPred");
   const elFail = document.getElementById("statFailPred");
   const elRate = document.getElementById("statHitRate");
-
   if (elTotal) elTotal.innerText = String(total);
   if (elSucc) elSucc.innerText = String(success);
   if (elFail) elFail.innerText = String(fail);
   if (elRate) elRate.innerText = hitRateText;
-
   if (total === 0) {
     logBox.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto;">AUCUNE PRÉDICTION ENREGISTRÉE</span>';
     return;
   }
-
   logBox.innerHTML = predictions.map(p => {
     let statusBadge = '<span style="color:var(--neon-yellow);">EN COURS</span>';
     if (p.status === "SUCCES") {
@@ -1910,24 +1750,19 @@ function renderPredictions() {
       </div>`;
   }).join("");
 }
-
 window.addPortfolioAsset = function() {
   const symEl = document.getElementById("portSymbol");
   const amtEl = document.getElementById("portAmount");
   const buyEl = document.getElementById("portBuyPrice");
   if (!symEl || !amtEl || !buyEl) return;
-
   const symbol = sanitizeSymbol(symEl.value).toUpperCase();
   const amount = parseFloat(amtEl.value);
   const buyPrice = parseFloat(buyEl.value);
-
   if (!symbol || !isFinite(amount) || amount <= 0 || !isFinite(buyPrice) || buyPrice <= 0) return;
-
   portfolio.push({ id: Date.now(), symbol, amount, buyPrice });
   safeStorageSet("pix_portfolio", portfolio);
   renderPortfolio();
 };
-
 async function renderPortfolio() {
   const display = document.getElementById("portfolioDisplay");
   if (!display) return;
@@ -1935,11 +1770,9 @@ async function renderPortfolio() {
     display.innerHTML = '<span style="opacity:0.3; font-size:0.7rem; margin:auto;">PORTEFEUILLE VIDE</span>';
     return;
   }
-
   if (globalData.length === 0) await window.fetchData();
   let totalVal = 0;
   let totalCost = 0;
-
   const rows = portfolio.map((item, idx) => {
     const coin = findCoin(item.symbol);
     const currentP = (coin && typeof coin.current_price === "number") ? coin.current_price : Number(item.buyPrice);
@@ -1949,10 +1782,8 @@ async function renderPortfolio() {
     const costVal = amt * bPrice;
     const pnlUSD = currentVal - costVal;
     const pnlPct = bPrice > 0 ? ((currentP - bPrice) / bPrice) * 100 : 0;
-
     totalVal += currentVal;
     totalCost += costVal;
-
     return `
       <div class="liq-row" style="border-left-color:${pnlUSD >= 0 ? "var(--up)" : "var(--down)"}">
         <span><b>${escapeHTML(item.symbol)}</b> (${amt})</span>
@@ -1961,17 +1792,14 @@ async function renderPortfolio() {
         <button onclick="removePortfolioItem(${idx})" style="background:none; border:none; color:var(--down); cursor:pointer; font-weight:900;">✕</button>
       </div>`;
   }).join("");
-
   const totalPnl = totalVal - totalCost;
   const totalPnlPct = totalCost > 0 ? (totalPnl / totalCost) * 100 : 0;
-
   display.innerHTML = `
     <div style="width:100%; margin-bottom:10px; font-weight:900; font-size:0.8rem; text-align:center;">
       VALEUR : <span style="color:var(--violet);">$${Math.round(totalVal).toLocaleString("en-US")}</span> | P&amp;L : <span class="${totalPnl >= 0 ? "up" : "down"}">${totalPnl >= 0 ? "+" : ""}$${Math.round(totalPnl)} (${totalPnlPct.toFixed(1)}%)</span>
     </div>
     ${rows}`;
 }
-
 window.removePortfolioItem = function(index) {
   if (index >= 0 && index < portfolio.length) {
     portfolio.splice(index, 1);
@@ -1979,17 +1807,14 @@ window.removePortfolioItem = function(index) {
     renderPortfolio();
   }
 };
-
 // --- 11. ACADÉMIE ---
 let currentLvl = "debutant";
-
 window.setLvl = function(el, lvl) {
   const allowed = ["debutant", "amateur", "intermediaire", "expert"];
   currentLvl = allowed.includes(lvl) ? lvl : "debutant";
   document.querySelectorAll("#academy .picker-btn").forEach(b => b.classList.remove("active"));
   if (el) el.classList.add("active");
 };
-
 window.getAcademyContent = function() {
   const res = document.getElementById("acaRes");
   if (!res) return;
@@ -2004,19 +1829,16 @@ window.getAcademyContent = function() {
     res.innerHTML = `<div style="font-size:0.82rem; font-weight:600; line-height:1.7; color:rgba(255,255,255,0.95); text-align:center;">${escapeHTML(lessons[currentLvl])}</div>`;
   }, 350);
 };
-
 // --- 12. ANIMATION DE PARTICULES EN CANEVAS ---
 const canvasObj = document.getElementById("bg-canvas");
 const drawCtx = canvasObj ? canvasObj.getContext("2d") : null;
 let points = [];
 let w = 0, h = 0;
-
 function adjustSize() {
   if (!canvasObj) return;
   w = canvasObj.width = window.innerWidth;
   h = canvasObj.height = window.innerHeight;
 }
-
 class Point {
   constructor() { this.reset(); }
   reset() {
@@ -2043,13 +1865,11 @@ class Point {
     drawCtx.fill();
   }
 }
-
 function buildPoints() {
   points = [];
   const count = Math.min(Math.floor(w / 14), 75);
   for (let i = 0; i < count; i++) points.push(new Point());
 }
-
 function drawFrame() {
   if (!drawCtx) return;
   drawCtx.clearRect(0, 0, w, h);
@@ -2070,25 +1890,20 @@ function drawFrame() {
   }
   requestAnimationFrame(drawFrame);
 }
-
 window.addEventListener("resize", () => { adjustSize(); buildPoints(); });
-
 // --- 13. INITIALISATION PROPRE DES SERVICES ---
 window.addEventListener("load", async () => {
   adjustSize();
   buildPoints();
   drawFrame();
-
   await window.fetchData();
   updateHalving();
   setInterval(updateHalving, 1000);
   setInterval(window.fetchData, 60000);
-
   loadMacroSentimentData();
   loadOnChainData();
   renderPredictions();
   renderPortfolio();
-
   setTimeout(() => {
     calculatePIXCoreScore();
     runChartTechnicalAnalysis();
@@ -2097,7 +1912,6 @@ window.addEventListener("load", async () => {
     updateCorrelations();
   }, 1500);
 });
-
 // --- 14. MODULE PIX MACRO ---
 const PIXMacro = {
   init: function() {
@@ -2115,7 +1929,6 @@ const PIXMacro = {
     }
   }
 };
-
 (function() {
   try {
     if (document.readyState === "loading") {
@@ -2132,19 +1945,15 @@ window.searchTokenomics = async function() {
   const inputEl = document.getElementById("tokenomicsInput");
   const resBox = document.getElementById("tokenomicsRes");
   if (!resBox || !inputEl) return;
-
   const symbol = sanitizeSymbol(inputEl.value);
   inputEl.value = symbol;
   resBox.innerHTML = '<div class="loader"></div>';
-
   if (globalData.length === 0) await window.fetchData();
   const coin = findCoin(symbol);
-
   if (!coin) {
     resBox.innerHTML = `<span class="down" style="font-weight:900; margin:auto; text-align:center;">JETON "${escapeHTML(symbol)}" INTROUVABLE DANS LE TOP 100 COINGECKO</span>`;
     return;
   }
-
   const name = escapeHTML(coin.name || symbol);
   const sym = escapeHTML((coin.symbol || "").toUpperCase());
   const rank = coin.market_cap_rank || "N/A";
@@ -2153,7 +1962,6 @@ window.searchTokenomics = async function() {
   const max = coin.max_supply != null ? formatVal(coin.max_supply) : "Illimitée / Non plafonnée";
   const fdv = coin.fully_diluted_valuation != null ? "$" + formatVal(coin.fully_diluted_valuation) : "N/A";
   const ath = coin.ath != null ? "$" + coin.ath.toLocaleString("en-US") : "N/A";
-
   resBox.innerHTML = `
     <div style="width: 100%;">
       <div style="font-size:0.75rem; color:var(--violet); font-weight:900; letter-spacing:2px; margin-bottom:10px;">
@@ -2184,17 +1992,14 @@ window.searchTokenomics = async function() {
         ATH historique enregistré à <b>${ath}</b>. L'évaluation de la supply est calculée dynamiquement sur les données officielles du marché.
       </div>
       <div class="api-badge live" style="margin-top:8px;">COINGECKO SUPPLY METRICS LIVE</div>
-    </div>
-      }
-})();
+    </div>`;
+};
 // --- 16. MODULE TENDANCE DE MARCHÉ (RÉGIME AUTOMATIQUE) ---
 window.updateMarketRegime = function() {
   const container = document.getElementById("regimeRes");
   if (!container) return;
-
   let avgChange = 0.45; 
   let isLive = false;
-
   if (typeof globalData !== "undefined" && Array.isArray(globalData) && globalData.length > 0) {
     let totalChange = 0;
     let count = 0;
@@ -2213,7 +2018,6 @@ window.updateMarketRegime = function() {
   let regimeDesc = "Phase neutre ou de range technique. Les institutionnels accumulent discrètement sans FOMO grand public.";
   let regimeColor = "var(--violet-bright)";
   let badgeText = "RÉGIME 3 : ACCUMULATION 🗄️";
-
   if (avgChange > 3.5) {
     regimeDesc = "Euphorie générale sur le marché. Forte hausse généralisée du Top 100 et afflux massif de liquidités.";
     regimeColor = "var(--up)";
@@ -2227,7 +2031,6 @@ window.updateMarketRegime = function() {
     regimeColor = "var(--neon-yellow)";
     badgeText = "RÉGIME 4 : DISTRIBUTION 📉";
   }
-
   container.innerHTML = `
     <div style="width:100%;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
@@ -2239,26 +2042,21 @@ window.updateMarketRegime = function() {
       </div>
     </div>`;
 };
-
 // --- 17. MODULE CORRÉLATIONS & DOMINANCE RÉELLE ---
 window.updateCorrelations = function() {
   const el1 = document.getElementById("corrBtcEth");
   const el2 = document.getElementById("corrEthBtc");
   const elDom = document.getElementById("corrBtcDom");
-
   let btcEthVal = "35.40";
   let ethBtcVal = "0.0282";
   let domVal = "56.8%";
-
   if (typeof globalData !== "undefined" && Array.isArray(globalData) && globalData.length > 0) {
     const btc = typeof findCoin === "function" ? findCoin("BTC") : globalData.find(c => c.symbol && c.symbol.toLowerCase() === "btc");
     const eth = typeof findCoin === "function" ? findCoin("ETH") : globalData.find(c => c.symbol && c.symbol.toLowerCase() === "eth");
-
     if (btc && eth && btc.current_price && eth.current_price) {
       btcEthVal = (btc.current_price / eth.current_price).toFixed(2);
       ethBtcVal = (eth.current_price / btc.current_price).toFixed(4);
     }
-
     let totalMarketCap = 0;
     let btcMarketCap = 0;
     globalData.forEach(coin => {
@@ -2267,12 +2065,10 @@ window.updateCorrelations = function() {
         if (coin.symbol && coin.symbol.toLowerCase() === 'btc') btcMarketCap = coin.market_cap;
       }
     });
-
     if (totalMarketCap > 0 && btcMarketCap > 0) {
       domVal = ((btcMarketCap / totalMarketCap) * 100).toFixed(1) + "%";
     }
   }
-
   if (el1) el1.innerText = btcEthVal;
   if (el2) el2.innerText = ethBtcVal;
   if (elDom) elDom.innerText = domVal;

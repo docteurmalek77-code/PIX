@@ -825,8 +825,7 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
 
     </div>        
 
-    <div class="creator-tag">Built by CryptoMan 2026</div>
-    <div class="disclaimer-box">
+   <div class="creator-tag" style="grid-column: 1 / -1; width: 100%; text-align: center; margin: 20px 0;">Built by CryptoMan 2026</div>    <div class="disclaimer-box">
       <div class="disclaimer-text">
         PIX EST UN LOGICIEL D'ANALYSE PROBABILISTE ET D'INFORMATIONS CRYPTO. TOUTE INFORMATION AFFICHÉE NE DOIT PAS ÊTRE CONSIDÉRÉE COMME UN CONSEIL FINANCIER. LE TRADING DE CRYPTO-MONNAIES COMPORTE DES RISQUES ÉLEVÉS DE PERTE EN CAPITAL. FAITES TOUJOURS VOS PROPRES RECHERCHES (DYOR).
       </div>
@@ -2196,11 +2195,11 @@ window.updateMarketRegime = function() {
   let avgChange = 0.45; 
   let isLive = false;
 
-  if (typeof globalData !== "undefined" && globalData.length > 0) {
+  if (typeof globalData !== "undefined" && Array.isArray(globalData) && globalData.length > 0) {
     let totalChange = 0;
     let count = 0;
     globalData.forEach(coin => {
-      if (coin.price_change_percentage_24h != null) {
+      if (coin && coin.price_change_percentage_24h != null) {
         totalChange += coin.price_change_percentage_24h;
         count++;
       }
@@ -2247,33 +2246,36 @@ window.updateCorrelations = function() {
   const el2 = document.getElementById("corrEthBtc");
   const elDom = document.getElementById("corrBtcDom");
 
-  if (typeof globalData !== "undefined" && globalData.length > 0) {
-    const btc = typeof findCoin === "function" ? findCoin("BTC") : globalData.find(c => c.symbol === "btc");
-    const eth = typeof findCoin === "function" ? findCoin("ETH") : globalData.find(c => c.symbol === "eth");
+  let btcEthVal = "35.40";
+  let ethBtcVal = "0.0282";
+  let domVal = "56.8%";
+
+  if (typeof globalData !== "undefined" && Array.isArray(globalData) && globalData.length > 0) {
+    const btc = typeof findCoin === "function" ? findCoin("BTC") : globalData.find(c => c.symbol && c.symbol.toLowerCase() === "btc");
+    const eth = typeof findCoin === "function" ? findCoin("ETH") : globalData.find(c => c.symbol && c.symbol.toLowerCase() === "eth");
 
     if (btc && eth && btc.current_price && eth.current_price) {
-      if (el1) el1.innerText = (btc.current_price / eth.current_price).toFixed(2);
-      if (el2) el2.innerText = (eth.current_price / btc.current_price).toFixed(4);
+      btcEthVal = (btc.current_price / eth.current_price).toFixed(2);
+      ethBtcVal = (eth.current_price / btc.current_price).toFixed(4);
     }
 
     let totalMarketCap = 0;
     let btcMarketCap = 0;
     globalData.forEach(coin => {
-      if (coin.market_cap) {
+      if (coin && coin.market_cap) {
         totalMarketCap += coin.market_cap;
         if (coin.symbol && coin.symbol.toLowerCase() === 'btc') btcMarketCap = coin.market_cap;
       }
     });
 
-    if (elDom && totalMarketCap > 0 && btcMarketCap > 0) {
-      elDom.innerText = ((btcMarketCap / totalMarketCap) * 100).toFixed(1) + "%";
-      return;
+    if (totalMarketCap > 0 && btcMarketCap > 0) {
+      domVal = ((btcMarketCap / totalMarketCap) * 100).toFixed(1) + "%";
     }
   }
 
-  if (el1 && el1.innerText === "--") el1.innerText = "35.40";
-  if (el2 && el2.innerText === "--") el2.innerText = "0.0282";
-  if (elDom && elDom.innerText === "--") elDom.innerText = "56.8%";
+  if (el1) el1.innerText = btcEthVal;
+  if (el2) el2.innerText = ethBtcVal;
+  if (elDom) elDom.innerText = domVal;
 };
 </script>
 </body>

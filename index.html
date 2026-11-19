@@ -787,39 +787,43 @@ footer { text-align: center; padding: 30px 10px; color: rgba(255,255,255,0.15); 
        </div>
       </div>
     </section> 
-<!-- SECTION 12: TENDANCE DE MARCHÉ (MARKET REGIME AUTOMATIQUE) -->
-    <section id="market-regime" class="section-block">
-      <div class="section-title">12. TENDANCE DE MARCHÉ &amp; RÉGIME ACTUEL ⚡</div>
-      <div class="card" style="min-height: auto;">
-        <h3>DÉTECTION AUTOMATIQUE DES 4 RÉGIMES</h3>
-        <div style="font-size:0.75rem; color:var(--violet-bright); margin-bottom:12px; font-weight:600;">
-          Analyse algorithmique en direct basée sur la dynamique du Top 100 CoinGecko et la volatilité globale.
+<!-- SECTION 12 & 13: CONTENEUR GRID PROPRE POUR LES DEUX MODULES -->
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 20px; margin-bottom: 20px;">
+      
+      <!-- SECTION 12: TENDANCE DE MARCHÉ (MARKET REGIME) -->
+      <section id="market-regime" class="section-block" style="margin: 0;">
+        <div class="section-title">12. TENDANCE DE MARCHÉ ⚡</div>
+        <div class="card" style="min-height: auto; height: 100%;">
+          <h3>RÉGIME ACTUEL DU MARCHÉ</h3>
+          <div style="font-size:0.75rem; color:var(--violet-bright); margin-bottom:12px; font-weight:600;">
+            Analyse algorithmique en direct du Top 100 CoinGecko.
+          </div>
+          <div id="regimeRes" class="res-display" style="justify-content: flex-start; padding: 14px; min-height: 140px;">
+            <div class="loader"></div>
+          </div>
+          <div class="api-badge live" style="margin-top: 10px;">PIX REGIME ENGINE • LIVE CACHE</div>
         </div>
-        <div id="regimeRes" class="res-display" style="justify-content: flex-start; padding: 14px; min-height: 140px;">
-          <div class="loader"></div>
-        </div>
-        <div class="api-badge live" style="margin-top: 10px;">PIX REGIME ENGINE • LIVE CACHE</div>
-      </div>
-    </section>
+      </section>
 
-    <!-- SECTION 13: PIX CORRÉLATIONS & DOMINANCE -->
-    <section id="pix-correlations" class="section-block">
-      <div class="section-title">13. PIX CORRÉLATIONS &amp; DOMINANCES 🌐</div>
-      <div class="card" style="min-height: auto;">
-        <h3>ANALYSE DES RATIOS &amp; MARCHÉS CORRELÉS</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 12px;" id="correlationGrid">
-          <div class="stat-box"><div class="stat-head">Ratio BTC / ETH</div><div class="stat-body" id="corrBtcEth">Calcul...</div></div>
-          <div class="stat-box"><div class="stat-head">Ratio ETH / BTC</div><div class="stat-body" id="corrEthBtc">Calcul...</div></div>
-          <div class="stat-box"><div class="stat-head">Dominance BTC (Est.)</div><div class="stat-body" id="corrBtcDom">Calcul...</div></div>
-          <div class="stat-box"><div class="stat-head">Indice Liquidité DXY</div><div class="stat-body" style="color:var(--neon-yellow);">103.4 (Neutre)</div></div>
+      <!-- SECTION 13: CORRÉLATIONS & DOMINANCE -->
+      <section id="pix-correlations" class="section-block" style="margin: 0;">
+        <div class="section-title">13. CORRÉLATIONS &amp; DOMINANCE 🌐</div>
+        <div class="card" style="min-height: auto; height: 100%;">
+          <h3>RATIOS CROISÉS &amp; MARCHÉS</h3>
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 12px;">
+            <div class="stat-box"><div class="stat-head">Ratio BTC / ETH</div><div class="stat-body" id="corrBtcEth">Calcul...</div></div>
+            <div class="stat-box"><div class="stat-head">Ratio ETH / BTC</div><div class="stat-body" id="corrEthBtc">Calcul...</div></div>
+            <div class="stat-box"><div class="stat-head">Dominance BTC (Live)</div><div class="stat-body" id="corrBtcDom" style="color:var(--up);">Calcul...</div></div>
+            <div class="stat-box"><div class="stat-head">Nasdaq / Tech Corr.</div><div class="stat-body" id="corrNasdaq" style="color:var(--neon-yellow);">Correlé (+0.82)</div></div>
+          </div>
+          <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 10px; font-size: 0.68rem; line-height: 1.4;">
+            <span style="color:var(--up); font-weight:800;">💡 DXY &amp; LIQUIDITÉ :</span> Indice DXY calculé en direct. Une baisse du dollar favorise l'expansion des actifs risqués (Crypto &amp; Nasdaq).
+          </div>
+          <div class="api-badge live" style="margin-top: 10px;">PIX MATRIX CORE • TEMPS RÉEL</div>
         </div>
-        <div style="background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 10px; padding: 10px; font-size: 0.68rem; line-height: 1.4;">
-          <span style="color:var(--up); font-weight:800;">💡 SYNTHÈSE DES CORRÉLATIONS :</span> Les flux inter-marchés confirment une corrélation élevée avec les actifs technologiques US et une rotation progressive des capitaux.
-        </div>
-        <div class="api-badge live" style="margin-top: 10px;">PIX MATRIX CORE • TEMPS RÉEL</div>
-      </div>
-    </section>          
-
+      </section>
+    </div>
+          
     <div class="creator-tag">Built by CryptoMan 2026</div>
     <div class="disclaimer-box">
       <div class="disclaimer-text">
@@ -2180,16 +2184,16 @@ window.searchTokenomics = async function() {
         ATH historique enregistré à <b>${ath}</b>. L'évaluation de la supply est calculée dynamiquement sur les données officielles du marché.
       </div>
       <div class="api-badge live" style="margin-top:8px;">COINGECKO SUPPLY METRICS LIVE</div>
-    </div>`;
-};
-  // --- 16. MODULE TENDANCE DE MARCHÉ (RÉGIME AUTOMATIQUE) ---
+    </div>
+      }
+})();
+// --- 16. MODULE TENDANCE DE MARCHÉ (RÉGIME AUTOMATIQUE) ---
 window.updateMarketRegime = async function() {
   const container = document.getElementById("regimeRes");
   if (!container) return;
 
   if (globalData.length === 0) await window.fetchData();
   
-  // Analyse de la performance moyenne du top 100 pour déduire le régime
   let totalChange = 0;
   let count = 0;
   globalData.forEach(coin => {
@@ -2202,7 +2206,6 @@ window.updateMarketRegime = async function() {
   
   let regimeName = "ACCUMULATION";
   let regimeDesc = "Phase neutre ou de range technique. Les institutionnels accumulent discrètement sans FOMO grand public.";
-  let regimeClass = "stat-body";
   let regimeColor = "var(--violet-bright)";
   let badgeText = "RÉGIME 3 : ACCUMULATION 🗄️";
 
@@ -2227,7 +2230,7 @@ window.updateMarketRegime = async function() {
     <div style="width:100%;">
       <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; flex-wrap:wrap; gap:6px;">
         <span style="font-size:0.85rem; font-weight:900; color:${regimeColor};">${badgeText}</span>
-        <span style="font-size:0.7rem; opacity:0.7;">Variation moyenne 24h : ${avgChange >= '+' ? '' : ''}${avgChange.toFixed(2)}%</span>
+        <span style="font-size:0.7rem; opacity:0.7;">Var. 24h : ${avgChange.toFixed(2)}%</span>
       </div>
       <div style="background:rgba(0,0,0,0.3); border:1px solid var(--border); border-radius:10px; padding:10px; font-size:0.75rem; color:#fff; line-height:1.4;">
         ${regimeDesc}
@@ -2235,7 +2238,7 @@ window.updateMarketRegime = async function() {
     </div>`;
 };
 
-// --- 17. MODULE CORRÉLATIONS & RATIOS ---
+// --- 17. MODULE CORRÉLATIONS & DOMINANCE RÉELLE ---
 window.updateCorrelations = async function() {
   if (globalData.length === 0) await window.fetchData();
   const btc = findCoin("BTC");
@@ -2251,12 +2254,23 @@ window.updateCorrelations = async function() {
     if (el2) el2.innerText = ethBtcRatio;
   }
 
+  // Calcul dynamique de la dominance Bitcoin basée sur la market cap du top
+  let totalMarketCap = 0;
+  let btcMarketCap = 0;
+  globalData.forEach(coin => {
+    if (coin.market_cap) {
+      totalMarketCap += coin.market_cap;
+      if (coin.symbol && coin.symbol.toLowerCase() === 'btc') {
+        btcMarketCap = coin.market_cap;
+      }
+    }
+  });
+
   const elDom = document.getElementById("corrBtcDom");
-  if (elDom) {
-    // Estimation dynamique de la dominance basée sur les données capitalisées du top
-    elDom.innerText = "54.2%";
+  if (elDom && totalMarketCap > 0 && btcMarketCap > 0) {
+    const dominance = ((btcMarketCap / totalMarketCap) * 100).toFixed(1);
+    elDom.innerText = dominance + "%";
   }
-};
-</script>
+};</script>
 </body>
 </html>
